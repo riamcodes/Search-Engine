@@ -10,10 +10,10 @@
 using namespace std;
 
 // AvlTree class
-// This implementation is based on the unbalanced binary search tree and adds height information 
+// This implementation is based on the unbalanced binary search tree and adds hight information 
 // to the nodes and a balance function to perform the needed rotations.
 
-template <typename Comparable>
+template <typename Comparable, typename Value>
 class AvlTree
 {
 private:
@@ -260,6 +260,16 @@ private:
     int max(int lhs, int rhs) const
     {
         return lhs > rhs ? lhs : rhs;
+    }
+
+    void updatePersistance() 
+    {
+
+    }
+
+    void populateAVLTreeFromPersistance() 
+    {
+
     }
 
     /**
