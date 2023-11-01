@@ -10,7 +10,7 @@ int main()
          << "\tLoad the existing index and perform the following query:\n"
          << "\tsupersearch query \"social network PERSON:cramer\"\n\n"
          << "\tStart a simple text-based user interface that lets the user create an index,\n\tsave/load the index and perform multiple queries:\n"
-         << "\tsupersearch ui\n\n";
+         << "\tsupersearch  ui\n\n";
 
     cout << "supersearch not implemented yet." << endl; 
     return 0;
