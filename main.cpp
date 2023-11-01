@@ -13,5 +13,6 @@ int main()
          << "\tsupersearch  ui\n\n";
 
     cout << "supersearch not implemented yet." << endl; 
+     cout << "Changes to AVl Tree" << endl; 
     return 0;
 }
