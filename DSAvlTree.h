@@ -1,5 +1,5 @@
-#ifndef AVL_TREE_H
-#define AVL_TREE_H
+#ifndef DSAVL_TREE_H
+#define DSAVL_TREE_H
 #define DEBUG
 #include <stdexcept>
 #include <algorithm>
@@ -11,38 +11,38 @@
 // THIS IS CURRENTLY IMPLEMENTED AS A SET BUT NEEDS TO BE AS A MAP
 
 template <typename Comparable>
-class AvlTree
+class DSAvlTree
 {
 private:
-    struct AvlNode
+    struct DSAvlNode
     {
         Comparable key;
-        AvlNode *left;
-        AvlNode *right;
+        DSAvlNode *left;
+        DSAvlNode *right;
         int height;
 
-        AvlNode(const Comparable &theKey, AvlNode *lt, AvlNode *rt, int h)
+        DSAvlNode(const Comparable &theKey, DSAvlNode *lt, DSAvlNode *rt, int h)
             : key{theKey}, left{lt}, right{rt}, height{h} {}
     };
 
-    AvlNode *root;
+    DSAvlNode *root;
 
 public:
-    AvlTree() : root{nullptr} // default constructor
+    DSAvlTree() : root{nullptr} // default constructor
     {
     }
 
-    AvlTree(const AvlTree &rhs) : root{nullptr} // copy constructor
+    DSAvlTree(const DSAvlTree &rhs) : root{nullptr} // copy constructor
     {
         root = clone(rhs.root);
     }
 
-    ~AvlTree() // destructor
+    ~DSAvlTree() // destructor
     {
         makeEmpty();
     }
 
-    AvlTree &operator=(const AvlTree &rhs) // copy constructor
+    DSAvlTree &operator=(const DSAvlTree &rhs) // copy constructor
     {
         makeEmpty();
         root = clone(rhs.root);
@@ -83,16 +83,16 @@ public:
     {
     }
 
-    void populateAVLTreeFromPersistance() // public function because it should not be called until the program exits
+    void populateDSAVLTreeFromPersistance() // public function because it should not be called until the program exits
     {
     }
 
 private:
-    void insert(const Comparable &x, AvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
+    void insert(const Comparable &x, DSAvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
         {
-            t = new AvlNode{x, nullptr, nullptr, 0};
+            t = new DSAvlNode{x, nullptr, nullptr, 0};
             return;
         }
         if (x < t->key)
@@ -109,7 +109,7 @@ private:
         balance(t);
     }
 
-    void remove(const Comparable &x, AvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
+    void remove(const Comparable &x, DSAvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
         {
@@ -129,7 +129,7 @@ private:
         balance(t);
     }
 
-    void makeEmpty(AvlNode *&t) // emptys the subtree
+    void makeEmpty(DSAvlNode *&t) // emptys the subtree
     {
         if (t == nullptr)
         {
@@ -141,18 +141,18 @@ private:
         t = nullptr;
     }
 
-    AvlNode *clone(AvlNode *t) const // clones the subtree
+    DSAvlNode *clone(DSAvlNode *t) const // clones the subtree
     {
         if (t == nullptr)
         {
             return nullptr;
         }
-        return new AvlNode{t->key, clone(t->left), clone(t->right), t->height};
+        return new DSAvlNode{t->key, clone(t->left), clone(t->right), t->height};
     }
 
-    // Balancing: AVL Rotations
+    // Balancing: DSAVL Rotations
 
-    int height(AvlNode *t) const // returns the height of node t or -1 if nullptr
+    int height(DSAvlNode *t) const // returns the height of node t or -1 if nullptr
     {
         return t == nullptr ? -1 : t->height;
     }
@@ -169,7 +169,7 @@ private:
      * only be performed for node alpha (parent of the parent of the inserted node). For all other nodes,
      * only the height will be updated.
      */
-    void balance(AvlNode *&t)
+    void balance(DSAvlNode *&t)
     {
         if (t == nullptr)
         {
@@ -212,7 +212,7 @@ private:
      * Modified from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
      */
 
-    void prettyPrintTree(const std::string &prefix, const AvlNode *node, bool isRight) const
+    void prettyPrintTree(const std::string &prefix, const DSAvlNode *node, bool isRight) const
     {
         if (node == nullptr)
         {
@@ -230,51 +230,51 @@ private:
 
     /**
      * Rotate binary tree node with left child.
-     * For AVL trees, this is a single rotation for case 1.
+     * For DSAVL trees, this is a single rotation for case 1.
      * Update heights, then set new root.
      */
-    void rotateWithLeftChild(AvlNode *&k2)
+    void rotateWithLeftChild(DSAvlNode *&k2)
     {
 #ifdef DEBUG
-        cout << "need to rotateWithLeftChild for node " << k2->key << endl;
-        cout << "Before:" << endl;
+        std::cout << "need to rotateWithLeftChild for node " << k2->key << std::endl;
+        std::cout << "Before:" << std::endl;
         prettyPrintTree();
 #endif
 
-        AvlNode *k1 = k2->left;
+        DSAvlNode *k1 = k2->left;
         k2->left = k1->right;
         k1->right = k2;
         k2->height = max(height(k2->left), height(k2->right)) + 1;
         k1->height = max(height(k1->left), k2->height) + 1;
         k2 = k1;
 #ifdef DEBUG
-        cout << "After:" << endl;
+        std::cout << "After:" << std::endl;
         prettyPrintTree();
 #endif
     }
 
     /**
      * Rotate binary tree node with right child.
-     * For AVL trees, this is a single rotation for case 4.
+     * For DSAVL trees, this is a single rotation for case 4.
      * Update heights, then set new root.
      */
-    void rotateWithRightChild(AvlNode *&k1)
+    void rotateWithRightChild(DSAvlNode *&k1)
     {
 #ifdef DEBUG
-        cout << "need to rotateWithRightChild for node " << k1->key << endl;
-        cout << "Before:" << endl;
+        std::cout << "need to rotateWithRightChild for node " << k1->key << std::endl;
+        std::cout << "Before:" << std::endl;
         prettyPrintTree();
 
 #endif
 
-        AvlNode *k2 = k1->right;
+        DSAvlNode *k2 = k1->right;
         k1->right = k2->left;
         k2->left = k1;
         k1->height = max(height(k1->left), height(k1->right)) + 1;
         k2->height = max(height(k2->right), k1->height) + 1;
         k1 = k2;
 #ifdef DEBUG
-        cout << "After:" << endl;
+        std::cout << "After:" << std::endl;
         prettyPrintTree();
 #endif
     }
@@ -285,10 +285,10 @@ private:
      * For AVL trees, this is a double rotation for case 2.
      * Update heights, then set new root.
      */
-    void doubleWithLeftChild(AvlNode *&k3)
+    void doubleWithLeftChild(DSAvlNode *&k3)
     {
 #ifdef DEBUG
-        cout << "doubleWithLeftChild" << endl;
+        std::cout << "doubleWithLeftChild" << std::endl;
 #endif
         rotateWithRightChild(k3->left);
         rotateWithLeftChild(k3);
@@ -300,10 +300,10 @@ private:
      * For AVL trees, this is a double rotation for case 3.
      * Update heights, then set new root.
      */
-    void doubleWithRightChild(AvlNode *&k1)
+    void doubleWithRightChild(DSAvlNode *&k1)
     {
 #ifdef DEBUG
-        cout << "doubleWithRightChild" << endl;
+        std::cout << "doubleWithRightChild" << std::endl;
 #endif
         rotateWithLeftChild(k1->right);
         rotateWithRightChild(k1);
