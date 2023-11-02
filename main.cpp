@@ -12,7 +12,7 @@ int main()
          << "\tStart a simple text-based user interface that lets the user create an index,\n\tsave/load the index and perform multiple queries:\n"
          << "\tsupersearch  ui\n\n";
 
-    cout << "supersearch not implemented yet." << endl; 
+    cout << "supersearch not implemented yet." << endl; //edits
    
     return 0;
 }
