@@ -10,7 +10,7 @@
 
 // THIS IS CURRENTLY IMPLEMENTED AS A SET BUT NEEDS TO BE AS A MAP
 
-template <typename Comparable, typename Value>
+template <typename Comparable>
 class AvlTree
 {
 private:
@@ -37,7 +37,7 @@ public:
         root = clone(rhs.root);
     }
 
-    ~AvlTree() // descructor
+    ~AvlTree() // destructor
     {
         makeEmpty();
     }
@@ -74,6 +74,19 @@ public:
         remove(x, root);
     }
 
+    void prettyPrintTree() const
+    {
+        prettyPrintTree("", root, false);
+    }
+
+    void updatePersistance() // public function because it should not be called until the program exits
+    {
+    }
+
+    void populateAVLTreeFromPersistance() // public function because it should not be called until the program exits
+    {
+    }
+
 private:
     void insert(const Comparable &x, AvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
     {
@@ -98,10 +111,21 @@ private:
 
     void remove(const Comparable &x, AvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
     {
-        throw std::runtime_error("Not implemented yet!");
-
-        // same as in a binary search tree
-
+        if (t == nullptr)
+        {
+            throw std::runtime_error("Error, could not find 'x' in private remove function");
+        }
+        if (x < t->key)
+        {
+            remove(x, t->left);
+        }
+        else if (t->key < x)
+        {
+            insert(x, t->right);
+        }
+        else
+        {
+        }
         balance(t);
     }
 
@@ -182,12 +206,26 @@ private:
         return lhs > rhs ? lhs : rhs;
     }
 
-    void updatePersistance()
-    {
-    }
+    /**
+     * Uses preorder traversal with R and L swapped (NRL)
+     *
+     * Modified from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
+     */
 
-    void populateAVLTreeFromPersistance()
+    void prettyPrintTree(const std::string &prefix, const AvlNode *node, bool isRight) const
     {
+        if (node == nullptr)
+        {
+            return;
+        }
+
+        std::cout << prefix;
+        std::cout << (isRight ? "├──" : "└──");
+        // print the value of the node
+        std::cout << node->key << std::endl;
+        // enter the next tree level - left and right branch
+        prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->right, true);
+        prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->left, false);
     }
 
     /**
@@ -273,35 +311,3 @@ private:
 };
 
 #endif
-
-// PRETTY PRINT TREE IMPLEMENTATIONS
-
-/**
- * Print the tree structure.
- */
-// void prettyPrintTree() const
-// {
-//     prettyPrintTree("", root, false);
-// }
-/**
- * Pretty print the tree structure
- * Uses preorder traversal with R and L swapped (NRL)
- *
- * Modified from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
- */
-// void prettyPrintTree(const std::string &prefix, const AvlNode *node, bool isRight) const
-// {
-//     if (node == nullptr)
-//         return;
-
-//     std::cout << prefix;
-//     // Note: this uses unicode characters for the tree structure. They might not print correctly on
-//     // all systems (Windows!?!) and all types of output devices.
-//     std::cout << (isRight ? "├──" : "└──");
-//     // print the value of the node
-//     std::cout << node->key << std::endl;
-
-//     // enter the next tree level - left and right branch
-//     prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->right, true);
-//     prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->left, false);
-// }
