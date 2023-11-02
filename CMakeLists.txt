@@ -17,3 +17,8 @@ add_executable(supersearch main.cpp)
 target_include_directories(rapidJSONExample PRIVATE rapidjson/)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
+
+# testing with the single_include versions of Catch2 V2 (in directory catch2)
+include(CTest)
+add_executable(test_DSAvlTree test_DSAvlTree.cpp)
+add_test(NAME TestAvlTree COMMAND test_DSAvlTree)
