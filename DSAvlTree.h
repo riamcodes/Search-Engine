@@ -121,12 +121,34 @@ private:
         }
         else if (t->key < x)
         {
-            insert(x, t->right);
+            remove(x, t->right);
         }
         else
         {
+            delete t;
+            t = nullptr;
         }
         balance(t);
+    }
+
+    bool contains(const Comparable &x, DSAvlNode *t) const
+    {
+        if (t == nullptr)
+        {
+            return false;
+        }
+        if (x < t->key)
+        {
+            return contains(x, t->left);
+        }
+        else if (t->key < x)
+        {
+            return contains(x, t->right);
+        }
+        else
+        {
+            return true;
+        }
     }
 
     void makeEmpty(DSAvlNode *&t) // emptys the subtree

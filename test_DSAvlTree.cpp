@@ -4,27 +4,27 @@
 
 TEST_CASE("contains", "[DSAvlTree]")
 {
-    // DSAvlTree<std::string> test1;
-    // test1.insert("HELLOO!");
-    // test1.insert("hi");
-    // REQUIRE(test1.contains("hi") == true);
-    // test1.remove("hi");
-    // REQUIRE(test1.contains("hi") == false);
-    // REQUIRE(test1.contains("HELLOO!") == true);
+    DSAvlTree<std::string> test1;
+    test1.insert("HELLOO!");
+    test1.insert("hi");
+    REQUIRE(test1.contains("hi") == true);
+    test1.remove("hi");
+    REQUIRE(test1.contains("hi") == false);
+    REQUIRE(test1.contains("HELLOO!") == true);
 
-    //     DSAvlTree<int> test2;
-    //     REQUIRE(test2.contains(0000000) == false);
-    //     test2.insert(-100000);
-    //     test2.insert(0);
-    //     REQUIRE(test2.contains(-100000) == true);
-    //     test2.remove(-100000);
-    //     REQUIRE(test2.contains(-100000) == false);
+    DSAvlTree<int> test2;
+    REQUIRE(test2.contains(0000000) == false);
+    test2.insert(-100000);
+    test2.insert(0);
+    REQUIRE(test2.contains(-100000) == true);
+    test2.remove(-100000);
+    REQUIRE(test2.contains(-100000) == false);
 
-    //     DSAvlTree<char> test3;
-    //     test3.insert('a');
-    //     test3.insert('=');
-    //     REQUIRE(test3.contains('a') == true);
-    //     REQUIRE(test3.contains('=') == true);
+    DSAvlTree<char> test3;
+    test3.insert('a');
+    test3.insert('=');
+    REQUIRE(test3.contains('a') == true);
+    REQUIRE(test3.contains('=') == true);
 }
 
 TEST_CASE("isEmpty", "[DSAvlTree]")
@@ -46,7 +46,7 @@ TEST_CASE("isEmpty", "[DSAvlTree]")
     test3.insert('a');
     test3.insert('=');
     REQUIRE(test3.isEmpty() == false);
-}
+ }
 
 TEST_CASE("makeEmpty", "[DSAvlTree]")
 {
@@ -94,21 +94,21 @@ TEST_CASE("public insert", "[DSAvlTree]")
 {
     DSAvlTree<std::string> test1;
     test1.insert("HELLOOOO");
-    // REQUIRE(test1.contains("HELLOOOO") == true);
+    REQUIRE(test1.contains("HELLOOOO") == true);
     test1.insert("hiiiiiiiiiiiiii");
-    // REQUIRE(test1.contains("hiiiiiiiiiiiiii") == true);
+    REQUIRE(test1.contains("hiiiiiiiiiiiiii") == true);
 
     DSAvlTree<int> test2;
     test2.insert(-1000000000);
-    // REQUIRE(test2.contains(-1000000000) == true);
+    REQUIRE(test2.contains(-1000000000) == true);
     test2.insert(0);
-    // REQUIRE(test2.contains(0) == true);
+    REQUIRE(test2.contains(0) == true);
 
     DSAvlTree<char> test3;
     test3.insert('a');
-    // REQUIRE(test3.contains('a') == true);
+    REQUIRE(test3.contains('a') == true);
     test3.insert('!');
-    // REQUIRE(test3.contains('!') == true);
+    REQUIRE(test3.contains('!') == true);
 }
 
 TEST_CASE("public remove", "[DSAvlTree]")
