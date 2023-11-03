@@ -121,12 +121,101 @@ private:
         }
         else if (t->key < x)
         {
-            insert(x, t->right);
+            remove(x, t->right);
         }
         else
         {
+            if (t->right != nullptr)
+            {
+                DSAvlNode *tCopy = t;
+                t->key = deleteLeftMostIn(tCopy->right);
+                t->height = std::max(height(t->left), height(t->right)) + 1;
+
+                // DSAvlNode *tCopy = t;
+                // DSAvlNode *previous = tCopy;
+                // DSAvlNode *temp = tCopy;
+                // tCopy = tCopy->right;
+                // while (tCopy->left != nullptr)
+                // {
+                //     previous = tCopy;
+                //     tCopy = tCopy->left;
+                // }
+                // temp->key = tCopy->key;
+                // if (temp == previous)
+                // {
+                //     delete tCopy;
+                //     previous->right = nullptr;
+                // }
+                // else
+                // {
+                //     delete tCopy;
+                //     previous->left = nullptr;
+                // }
+            }
+            else if (t->left != nullptr)
+            {
+                DSAvlNode *tCopy = t;
+                t = t->left;
+                delete tCopy;
+                if (t != nullptr) {
+                t->height = std::max(height(t->left), height(t->right)) + 1;
+                }
+                else {
+                    return;
+                }
+            }
+            else {
+                // need to update height of parent of t
+                t = nullptr;
+                delete t;
+                return;
+            }
         }
+        t->height = std::max(height(t->left), height(t->right)) + 1;
         balance(t);
+    }
+
+    Comparable deleteLeftMostIn(DSAvlNode *&t) { // delete left most node in the passed subtree, and returns the key in that node
+        if (t == nullptr)
+        {
+            // this should not happen
+            throw std::runtime_error("Error in Comparable deleteLeftMostIn(DSAvlNode *t)");
+        }
+        if (t->left == nullptr)
+        {
+            // found left most node in subtree
+            Comparable valueToReturn = t->key;
+            delete t;
+            t = nullptr;
+
+            return valueToReturn;
+        }
+        else {
+            Comparable valueToReturn = deleteLeftMostIn(t->left);
+            t->height = std::max(height(t->left), height(t->right)) + 1;
+            balance(t);
+            return valueToReturn;
+        }
+    }
+
+    bool contains(const Comparable &x, DSAvlNode *t) const
+    {
+        if (t == nullptr)
+        {
+            return false;
+        }
+        if (x < t->key)
+        {
+            return contains(x, t->left);
+        }
+        else if (t->key < x)
+        {
+            return contains(x, t->right);
+        }
+        else
+        {
+            return true;
+        }
     }
 
     void makeEmpty(DSAvlNode *&t) // emptys the subtree
