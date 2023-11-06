@@ -8,8 +8,6 @@
 // This implementation is based on the unbalanced binary search tree and adds hight information
 // to the nodes and a balance function to perform the needed rotations.
 
-// THIS IS CURRENTLY IMPLEMENTED AS A SET BUT NEEDS TO BE AS A MAP
-
 template <typename Comparable>
 class DSAvlTree
 {
@@ -74,7 +72,7 @@ public:
         remove(x, root);
     }
 
-    void prettyPrintTree() const
+    void prettyPrintTree() const // prints the tree
     {
         prettyPrintTree("", root, false);
     }
@@ -130,42 +128,23 @@ private:
                 DSAvlNode *tCopy = t;
                 t->key = deleteLeftMostIn(tCopy->right);
                 t->height = std::max(height(t->left), height(t->right)) + 1;
-
-                // DSAvlNode *tCopy = t;
-                // DSAvlNode *previous = tCopy;
-                // DSAvlNode *temp = tCopy;
-                // tCopy = tCopy->right;
-                // while (tCopy->left != nullptr)
-                // {
-                //     previous = tCopy;
-                //     tCopy = tCopy->left;
-                // }
-                // temp->key = tCopy->key;
-                // if (temp == previous)
-                // {
-                //     delete tCopy;
-                //     previous->right = nullptr;
-                // }
-                // else
-                // {
-                //     delete tCopy;
-                //     previous->left = nullptr;
-                // }
             }
             else if (t->left != nullptr)
             {
                 DSAvlNode *tCopy = t;
                 t = t->left;
                 delete tCopy;
-                if (t != nullptr) {
-                t->height = std::max(height(t->left), height(t->right)) + 1;
+                if (t != nullptr)
+                {
+                    t->height = std::max(height(t->left), height(t->right)) + 1;
                 }
-                else {
+                else
+                {
                     return;
                 }
             }
-            else {
-                // need to update height of parent of t
+            else
+            {
                 t = nullptr;
                 delete t;
                 return;
@@ -175,7 +154,8 @@ private:
         balance(t);
     }
 
-    Comparable deleteLeftMostIn(DSAvlNode *&t) { // delete left most node in the passed subtree, and returns the key in that node
+    Comparable deleteLeftMostIn(DSAvlNode *&t)
+    { // delete left most node in the passed subtree, and returns the key in that node
         if (t == nullptr)
         {
             // this should not happen
@@ -190,7 +170,8 @@ private:
 
             return valueToReturn;
         }
-        else {
+        else
+        {
             Comparable valueToReturn = deleteLeftMostIn(t->left);
             t->height = std::max(height(t->left), height(t->right)) + 1;
             balance(t);
@@ -198,7 +179,7 @@ private:
         }
     }
 
-    bool contains(const Comparable &x, DSAvlNode *t) const
+    bool contains(const Comparable &x, DSAvlNode *t) const // true/false if x is found in the tree
     {
         if (t == nullptr)
         {
@@ -258,7 +239,7 @@ private:
      * only be performed for node alpha (parent of the parent of the inserted node). For all other nodes,
      * only the height will be updated.
      */
-    void balance(DSAvlNode *&t)
+    void balance(DSAvlNode *&t) // balances the tree
     {
         if (t == nullptr)
         {
