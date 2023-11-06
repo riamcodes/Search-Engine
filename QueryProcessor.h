@@ -9,11 +9,13 @@
 class QueryProcessor
 {
 private:
-
+std::vector<std::string> storage;
 public:
 // This function will process the answer from user interface and 
 // determine how to handle it
-std::vector<std::string> parsingAnswer(std::string);
+void parsingAnswer(std::string);
+// This function will direct the answer
+void directAnswer();
 // This function will determine the relevancy of the term(s) that it entered
 // hint: use tf/idf statistic
 void relevancy();
