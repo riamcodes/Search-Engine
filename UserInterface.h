@@ -3,6 +3,8 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
+#include "QueryProcessor.h"
+
 
 class UserInterface
 {
@@ -16,9 +18,14 @@ private:
 
 public:
     // This string is the user's answer
+    std::string answer;
     std::string answer1;
-    // This function will ask the user a question and ask for their answer
-    void printInitialQuestion();
+    std::string answer2;
+    std::string answer3;
+    // This function will ask the user a question 
+    void initialQuestion();
+    // This function will ask the user another question
+    void secondQuestion();
     // This function will direct the answer to the correct function
     // void directAnswer();
     // This function will be responsible for timing indexing and queries
