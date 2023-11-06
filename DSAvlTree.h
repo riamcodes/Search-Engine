@@ -4,11 +4,9 @@
 #include <stdexcept>
 #include <algorithm>
 #include <iostream>
+#include <map>
 
-// This implementation is based on the unbalanced binary search tree and adds hight information
-// to the nodes and a balance function to perform the needed rotations.
-
-template <typename Comparable>
+template <typename Comparable, typename Value>
 class DSAvlTree
 {
 private:
@@ -18,6 +16,7 @@ private:
         DSAvlNode *left;
         DSAvlNode *right;
         int height;
+        std::vector<Value> valueVector;
 
         DSAvlNode(const Comparable &theKey, DSAvlNode *lt, DSAvlNode *rt, int h)
             : key{theKey}, left{lt}, right{rt}, height{h} {}
@@ -47,7 +46,7 @@ public:
         return *this;
     }
 
-    bool contains(const Comparable &x) const // returns true if x is found in the tree
+    std::vector<Value> contains(const Comparable &x) const // returns true if x is found in the tree
     {
         return contains(x, root);
     }
@@ -62,9 +61,9 @@ public:
         makeEmpty(root);
     }
 
-    void insert(const Comparable &x) // inserts x into the tree
+    void insert(const Comparable &x, const Value &v) // inserts x into the tree
     {
-        insert(x, root);
+        insert(x, v, root);
     }
 
     void remove(const Comparable &x) // removes x from the tree
@@ -86,28 +85,42 @@ public:
     }
 
 private:
-    void insert(const Comparable &x, DSAvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
+    void insert(const Comparable &x, const Value &v, DSAvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
         {
             t = new DSAvlNode{x, nullptr, nullptr, 0};
+            t->valueVector.push_back(v);
             return;
         }
         if (x < t->key)
         {
-            insert(x, t->left);
+            insert(x, v, t->left);
         }
         else if (t->key < x)
         {
-            insert(x, t->right);
+            insert(x, v, t->right);
         }
         else
         {
+            t->valueVector.push_back(v);
+            // THIS PROCESS SHOULD GO IN INDEX HANDLER
+            // tempMap = t->value;
+            // if (tempMap.find(v == tempMap.end()))
+            // {
+            //     // increment frequency
+            // }
+            // else
+            // {
+            //     // create and set frequency to 1
+            // }
+            // t->value = tempMap;
+            // delete tempMap;
         }
         balance(t);
     }
 
-    void remove(const Comparable &x, DSAvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
+    void remove(const Comparable &x, const Value &v, DSAvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
         {
@@ -154,15 +167,13 @@ private:
         balance(t);
     }
 
-    Comparable deleteLeftMostIn(DSAvlNode *&t)
-    { // delete left most node in the passed subtree, and returns the key in that node
-        if (t == nullptr)
+    Comparable deleteLeftMostIn(DSAvlNode *&t) // delete left most node in the passed subtree, and returns the key in that node
+    { 
+        if (t == nullptr) // this should not happen
         {
-            // this should not happen
             throw std::runtime_error("Error in Comparable deleteLeftMostIn(DSAvlNode *t)");
         }
-        if (t->left == nullptr)
-        {
+        if (t->left == nullptr) {
             // found left most node in subtree
             Comparable valueToReturn = t->key;
             delete t;
@@ -179,13 +190,13 @@ private:
         }
     }
 
-    bool contains(const Comparable &x, DSAvlNode *t) const // true/false if x is found in the tree
+    std::vector<Value> contains(const Comparable &x, DSAvlNode *t) const // true/false if x is found in the tree
     {
         if (t == nullptr)
         {
-            return false;
+            return std::vector<Value>(); // returns an empty vector
         }
-        if (x < t->key)
+        else if (x < t->key)
         {
             return contains(x, t->left);
         }
@@ -195,7 +206,7 @@ private:
         }
         else
         {
-            return true;
+            return t->valueVector;
         }
     }
 

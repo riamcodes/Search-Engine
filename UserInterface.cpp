@@ -10,7 +10,7 @@ void UserInterface::initialQuestion()
         std::cout << "1) Create an index from a directory with documents" << std::endl;
         std::cout << "2) Write and read the index to a file (make it persistant)" << std::endl;
         std::cout << "3) Enter a query" << std::endl;
-        getline(answer);
+        std::getline(answer);
         if (!(answer == "1" || answer == "2" || answer == "3"))
         {
             std::cout << "Error! This is an invalid answer. Please select numbers 1 through 3." << std::endl;
