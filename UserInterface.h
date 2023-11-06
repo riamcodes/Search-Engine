@@ -20,8 +20,8 @@ public:
     // This function will ask the user a question and ask for their answer
     void printInitialQuestion();
     // This function will direct the answer to the correct function
-    void directAnswer();
+    // void directAnswer();
     // This function will be responsible for timing indexing and queries
-    void time();
+    // void time();
 };
 #endif

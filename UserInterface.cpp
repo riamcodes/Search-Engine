@@ -16,39 +16,40 @@ void UserInterface::printInitialQuestion()
             std::cout << "Error! This is an invalid answer. Please select numbers 1 through 3." << std::endl;
         }
     }
+    //processingQuery(answer1);
 }
 
-void UserInterface::directAnswer()
-{
-    if (answer1 == "1")
-    {
-        std::chrono::time_point<std::chrono::system_clock> start, end;
-        start = std::chrono::system_clock::now();
-        // send to create an index
-        end = std::chrono::system_clock::now();
-        std::chrono::duration<double> elapsed_seconds = end - start;
-        std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
-    }
-    else if (answer1 == "2")
-    {
-        std::chrono::time_point<std::chrono::system_clock> start, end;
-        start = std::chrono::system_clock::now();
-        // send to persistant
-        end = std::chrono::system_clock::now();
-        std::chrono::duration<double> elapsed_seconds = end - start;
-        std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
-    }
-    else if (answer1 == "3")
-    {
-        std::chrono::time_point<std::chrono::system_clock> start, end;
-        start = std::chrono::system_clock::now();
-        // send to enter a query
-        end = std::chrono::system_clock::now();
-        std::chrono::duration<double> elapsed_seconds = end - start;
-        std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
-    }
-    else
-    {
-        throw std::runtime_error("Invalid Answer received!");
-    }
-}
+// void UserInterface::directAnswer()
+// {
+//     if (answer1 == "1")
+//     {
+//         std::chrono::time_point<std::chrono::system_clock> start, end;
+//         start = std::chrono::system_clock::now();
+//         // send to create an index
+//         end = std::chrono::system_clock::now();
+//         std::chrono::duration<double> elapsed_seconds = end - start;
+//         std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
+//     }
+//     else if (answer1 == "2")
+//     {
+//         std::chrono::time_point<std::chrono::system_clock> start, end;
+//         start = std::chrono::system_clock::now();
+//         // send to persistantance
+//         end = std::chrono::system_clock::now();
+//         std::chrono::duration<double> elapsed_seconds = end - start;
+//         std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
+//     }
+//     else if (answer1 == "3")
+//     {
+//         std::chrono::time_point<std::chrono::system_clock> start, end;
+//         start = std::chrono::system_clock::now();
+//         // send to enter a query
+//         end = std::chrono::system_clock::now();
+//         std::chrono::duration<double> elapsed_seconds = end - start;
+//         std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
+//     }
+//     else
+//     {
+//         throw std::runtime_error("Invalid Answer received!");
+//     }
+// }
