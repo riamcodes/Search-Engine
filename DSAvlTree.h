@@ -39,14 +39,14 @@ public:
         makeEmpty();
     }
 
-    DSAvlTree &operator=(const DSAvlTree &rhs) // copy constructor
+    DSAvlTree &operator=(const DSAvlTree &rhs) // assignment
     {
         makeEmpty();
         root = clone(rhs.root);
         return *this;
     }
 
-    std::vector<Value> contains(const Comparable &x) const // returns true if x is found in the tree
+    std::vector<Value> contains(const Comparable &x) const // if x is found in the tree
     {
         return contains(x, root);
     }

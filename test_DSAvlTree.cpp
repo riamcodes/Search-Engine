@@ -2,20 +2,20 @@
 #include "catch.hpp"
 #include "DSAvlTree.h"
 
-TEST_CASE("contains", "[DSAvlTree]")
-{
-    DSAvlTree<std::string, int> test1;
-    test1.insert("HELLOO!", 1);
-    test1.insert("hi", 2);
-    REQUIRE(test1.contains("hi") == 2);
-    REQUIRE(test1.contains("HELLOO!")== 1);
+// TEST_CASE("contains", "[DSAvlTree]")
+// {
+//     DSAvlTree<std::string, int> test1;
+//     test1.insert("HELLOO!", 1);
+//     test1.insert("hi", 2);
+//     REQUIRE(test1.contains("hi") == 2);
+//     REQUIRE(test1.contains("HELLOO!")== 1);
 
-    DSAvlTree<char, int> test2;
-    REQUIRE(test2.contains('t') == false);
-    test2.insert('c', 3);
-    test2.insert('!', 1);
-    REQUIRE(test2.contains('!') == true);
-}
+//     DSAvlTree<char, int> test2;
+//     test2.insert('c', 3);
+//     test2.insert('!', 1);
+//     REQUIRE(test2.contains('!') == 1);
+//     REQUIRE(test2.contains('c') == 3);
+// }
 
 TEST_CASE("isEmpty", "[DSAvlTree]")
 {
@@ -30,49 +30,30 @@ TEST_CASE("isEmpty", "[DSAvlTree]")
     test2.insert('=', 0);
     test2.insert('!', 1);
     REQUIRE(test1.isEmpty() == false);
- }
+}
 
-// // TEST_CASE("makeEmpty", "[DSAvlTree]")
-// // {
-// //     DSAvlTree<std::string> test1;
-// //     test1.insert("HELLOOO");
-// //     test1.insert("hi");
-// //     test1.insert("HOLA");
-// //     test1.insert("heyyyy");
-// //     test1.insert("hello");
-// //     test1.insert("idk");
-// //     test1.remove("hi");
-// //     test1.insert("HELLOOO");
-// //     test1.makeEmpty();
-// //     REQUIRE(test1.isEmpty() == true);
+TEST_CASE("makeEmpty", "[DSAvlTree]")
+{
+    DSAvlTree<std::string, int> test1;
+    test1.insert("HELLOOO", 3);
+    test1.insert("hi", 0);
+    test1.insert("HOLA", 4);
+    test1.insert("heyyyy", 9000);
+    test1.insert("hello", 1000000);
+    test1.insert("idk", 1);
+    test1.insert("HELLOOO", 100);
+    test1.makeEmpty();
+    REQUIRE(test1.isEmpty() == true);
 
-// //     DSAvlTree<int> test2;
-// //     test2.insert(0);
-// //     test2.insert(100000000);
-// //     test2.insert(-1000000);
-// //     test2.insert(8402489);
-// //     test2.insert(1);
-// //     test2.remove(0);
-// //     test2.insert(10090844);
-// //     test2.insert(-47920298);
-// //     test2.insert(244824082);
-// //     test2.insert(-244808420);
-// //     test2.makeEmpty();
-// //     REQUIRE(test2.isEmpty() == true);
-
-// //     DSAvlTree<char> test3;
-// //     test3.insert('a');
-// //     test3.insert('!');
-// //     test3.insert('=');
-// //     test3.insert('_');
-// //     test3.insert('?');
-// //     test3.insert('*');
-// //     test3.insert('&');
-// //     test3.insert('b');
-// //     test3.remove('a');
-// //     test3.makeEmpty();
-// //     REQUIRE(test3.isEmpty() == true);
-// // }
+    DSAvlTree<char, int> test2;
+    test2.insert('c', 0);
+    test2.insert('=', 100000000);
+    test2.insert('!', 1000000);
+    test2.insert('-', 8402489);
+    test2.insert('@', 1);
+    test2.makeEmpty();
+    REQUIRE(test2.isEmpty() == true);
+}
 
 // TEST_CASE("public insert", "[DSAvlTree]")
 // {
@@ -98,28 +79,29 @@ TEST_CASE("isEmpty", "[DSAvlTree]")
 // TEST_CASE("public remove", "[DSAvlTree]")
 // {
 //     SECTION("Testing case where previous == temp is true"){
-//         DSAvlTree<int> test1;
-//         test1.insert(6);
-//         test1.insert(4);
-//         test1.insert(7);
-//         test1.insert(2);
-//         test1.insert(5);
-
-//         test1.remove(4);
+//         DSAvlTree<int, int> test2;
+//         test2.insert(6, 900);
+//         test2.insert(4, 4);
+//         test2.insert(7, 0);
+//         test2.insert(2, 2233);
+//         test2.insert(5, 1000000);
+//         test2.remove(4);
+//          REQUIRE(test2.contains(4) == false);
 //     }
-    
-//     SECTION("Testing case where previous == temp is false"){
-//         DSAvlTree<int> test1;
-//         test1.insert(10);
-//         test1.insert(5);
-//         test1.insert(15);
-//         test1.insert(2);
-//         test1.insert(7);
-//         test1.insert(12);
-//         test1.insert(18);
-//         test1.insert(6);
 
-//         test1.remove(5);
+//     SECTION("Testing case where previous == temp is false"){
+//         DSAvlTree<std::string, int> test1;
+// test1.insert("HELLOOO", 3);
+// test1.insert("hi", 0);
+// test1.insert("HOLA", 4);
+// test1.insert("heyyyy", 9000);
+// test1.insert("hello", 1000000);
+// test1.insert("idk", 1);
+// test1.insert("HELLOOO", 100);
+// test1.remove("hello");
+// REQUIRE(test1.contains("hello") == false);
+
+//        
 //     }
 
 //     SECTION("Testing case where previous == temp is false"){

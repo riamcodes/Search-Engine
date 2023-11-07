@@ -45,10 +45,7 @@ void QueryProcessor::directAnswer()
         }
     }
 }
-void QueryProcessor::relevancy() // possibly just call another function implementing tfidf
-{
-}
 
-void QueryProcessor::print() // prints out the relevant documents
-{
-}
+// void QueryProcessor::print() // prints out the relevant documents
+// {
+// }
