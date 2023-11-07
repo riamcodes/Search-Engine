@@ -1,5 +1,14 @@
 #include "UserInterface.h"
 
+void UserInterface::UserInterface() 
+{
+
+}
+~UserInterface()
+{
+    
+}
+
 void UserInterface::initialQuestion()
 {
     while (!(answer == "1" || answer == "2" || answer == "3"))
@@ -23,11 +32,13 @@ void UserInterface::secondQuestion() {
     {
         std::cout << "Please enter an index to create." << std::endl;
         std::getline(std::cin, answer1);
+        // send to index handler
     }
     else if (answer == "2")
     {
-        std::cout << "Something that makes sense for this." << std::endl;
+        std::cout << "Write and read from the index." << std::endl;
         std::getline(std::cin, answer2);
+        // send to index handler
     }
     else if (answer == "3")
     {

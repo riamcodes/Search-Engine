@@ -1,6 +1,8 @@
 #ifndef HASH_H
 #define HASH_H
 
+// USE HASH FOR PERSON AND ORGANIZATION BUT NOT FOR WORD
+
 template <typename Comparable, typename Value>
 class Hash
 {
@@ -10,26 +12,52 @@ private:
         Comparable comp;
         Value val;
         HashNode *next;
-        HashNode(Comparable c)
+        HashNode(Comparable c, Value v)
         {
             comp = c;
+            val.push_back(v);
             next = nullptr;
         }
-        HashNode(const HashNode n)
+        HashNode(Comparable c, std::vector<Value> v)
+        {
+            comp = c;
+            val = v;
+            next = nullptr;
+        }
+        HashNode(const HashNode& n)
         {
             comp = n.comp;
             val = n.val;
             next = nullptr;
         }
-    } int capacity;
+    }; 
+    int capacity;
     int size;
     HashNode **table;
     void rehash()
     {
+        int storeCapacity = capacity;
+        capacity = capacity * 2;
+        HashNode** storeTable = table;
+        createHash(capacity);
+        for (int i = 0; i < storeCapacity; i++) 
+        {
+            HashNode* itr = storeTable[i];
+            while (itr != nullptr)
+            {
+                secondInsert(itr->Comparable, itr->Value);
+                HashNode* temp = itr;
+                itr = itr->next;
+                delete temp;
+            }
+            storeTable[i] = nullptr;
+        }
+        delete storeTable;
     }
-    int hash(Comparable)
+
+    int hash(Comparable comp)
     {
-        int index = std::hash<key>{}(k);
+        int index = std::hash<Comparable>{}(comp);
         return abs(index % capacity);
     }
 
@@ -48,7 +76,7 @@ public:
         table = clone(rhs.table);
     }
 
-    HashTable &operator=(const HashTable &rhs) // assignment operator
+    HashNode &operator=(const HashNode &rhs) // assignment operator
     {
         clear();
         table = clone(rhs.table);
@@ -82,9 +110,9 @@ public:
         }
     }
 
-    void clone(const &table copy) // clones a hash
+    void clone(const Hash& copy) // clones a hash
     {
-        createHash(capy.capacity);
+        createHash(copy.capacity);
         size = copy.size;
         for (int i = 0; i < capacity; i++)
         {
@@ -135,14 +163,57 @@ public:
         }
     }
 
-    size_t getSize() // returns the size of the hash
+    void secondInsert(Comparable comp, std::vector<Value> val) // inserts a comp into a hash at val
     {
-        size_t getSize = 0;
-        while ()
+        int index = hash(comp);
+        if (table[index] == nullptr)
+        {
+            table[index] = new HashNode(comp, val);
+            size++;
+        }
+        else
+        {
+            HashNode *itr = table[index];
+            while (itr != nullptr)
+            {
+                if (itr->key == comp)
+                {
+                    itr->Value = val;
+                    break;
+                }
+                // may need to do this by reference
+                itr = &itr->next;
+            }
+            if (itr == nullptr)
+            {
+                itr = new HashNode(comp, val);
+                size++;
+            }
+        }
+        if (size == capacity)
+        {
+            rehash();
+        }
     }
 
-    Comparable find() // finds a comp in the hash
+    int getSize() // returns the size of the hash
     {
+        return size;
+    }
+
+    std::vector<Value> find(const Comparable comp) // finds a comp in the hash
+    {
+        int index = hash(comp);
+        HashNode* itr = table[index];
+        while (itr != nullptr) 
+        {
+            if (itr->Comparable = comp) 
+            {
+                return itr->Value;
+            }
+            itr = itr->next;
+        }
+    return std::vector<Value>();
     }
 };
 #endif
