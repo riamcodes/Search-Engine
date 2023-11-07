@@ -10,7 +10,7 @@ void UserInterface::initialQuestion()
         std::cout << "1) Create an index from a directory with documents" << std::endl;
         std::cout << "2) Write and read the index to a file (make it persistant)" << std::endl;
         std::cout << "3) Enter a query" << std::endl;
-        std::getline(answer);
+        std::getline(std::cin, answer);
         if (!(answer == "1" || answer == "2" || answer == "3"))
         {
             std::cout << "Error! This is an invalid answer. Please select numbers 1 through 3." << std::endl;
@@ -18,21 +18,22 @@ void UserInterface::initialQuestion()
     }
 }
 void UserInterface::secondQuestion() {
+    QueryProcessor queryObject;
     if (answer == "1")
     {
         std::cout << "Please enter an index to create." << std::endl;
-        getline(answer1);
+        std::getline(std::cin, answer1);
     }
     else if (answer == "2")
     {
         std::cout << "Something that makes sense for this." << std::endl;
-        getline(answer2);
+        std::getline(std::cin, answer2);
     }
     else if (answer == "3")
     {
         std::cout << "Please enter a query" << std::endl;
-        getline(answer3);
-        parsingAnswer(answer3);
+        std::getline(std::cin, answer3);
+        queryObject.parsingAnswer(answer3);
     }
 }
 

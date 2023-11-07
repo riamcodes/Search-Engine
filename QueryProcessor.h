@@ -3,7 +3,6 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-//#include <cstring>
 #include <string>
 
 class QueryProcessor
