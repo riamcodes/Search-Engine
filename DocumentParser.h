@@ -20,8 +20,21 @@ private:
 // The vector of ints should represent the location of where the matching words are in the specific document. If the word apple is mentioned in the first 5th and 7th word it would store a vector of {1,5,7}
 ///brief param return 
 //std::map<std::string, std::map<int, std::vector<int>>> index;
+
+// recommended variable to keep track of, will be calculated in query processor
+// count of word in doc // possibly store
+//int nWordDoc;
+// total word count index
+//int nDoc;
+// number of docs that include the word // length of Node
+//int nWord;
+// total number od docs
+//int n;
+// keeps track of all of the documents that we've viewed
+//std::vector<std::string> documentsViewed;
 public:
 //void buildIndex(const std::string& document);
+// told to include a setter function as well
 
 void parseDocument(const std::string& jsonContent);
 };

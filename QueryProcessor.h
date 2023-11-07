@@ -8,6 +8,9 @@
 class QueryProcessor
 {
 private:
+// tf = nWordDoc/nDoc
+// idf = log2(n/nWord)
+// tf - idf = (tf)(idf)
 std::vector<std::string> storage;
 public:
 // This function will process the answer from user interface and 
@@ -20,5 +23,6 @@ void directAnswer();
 void relevancy();
 // This function will print out the relevant articles
 void print();
+// setter function
 };
 #endif

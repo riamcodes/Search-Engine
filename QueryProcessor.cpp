@@ -34,6 +34,7 @@ void QueryProcessor::directAnswer()
 {
     for (int i = 0; i < storage.size(); i++)
     {
+        while (storage[i] != "-")
         if (storage[i] == "ORG")
         {
         }

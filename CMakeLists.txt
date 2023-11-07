@@ -22,6 +22,9 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 include(CTest)
 add_executable(test_DSAvlTree test_DSAvlTree.cpp)
 add_test(NAME TestAvlTree COMMAND test_DSAvlTree)
+include(CTest)
+add_executable(test_DSHash test_DSHash.cpp)
+add_test(NAME TestHash COMMAND test_DSHash)
 
 #add a testDocumentParser
 add_executable(testDocumentParser testDocumentParser.cpp DocumentParser.cpp)
