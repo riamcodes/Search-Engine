@@ -1,6 +1,6 @@
 #include "QueryProcessor.h"
 
-void QueryProcessor::parsingAnswer(std::string answer) // processes the answer
+void QueryProcessor::parsingAnswer(std::string answer) // parses the answer
 {
     size_t start = 0;
     for (size_t i = 0; i < answer.size(); i++)
