@@ -10,7 +10,7 @@ private:
     struct HashNode
     {
         Comparable comp;
-        Value val;
+        std::vector<Value> val;
         HashNode *next;
         HashNode(Comparable c, Value v)
         {
@@ -45,7 +45,7 @@ private:
             HashNode* itr = storeTable[i];
             while (itr != nullptr)
             {
-                secondInsert(itr->Comparable, itr->Value);
+                secondInsert(itr->comp, itr->val);
                 HashNode* temp = itr;
                 itr = itr->next;
                 delete temp;
@@ -69,6 +69,7 @@ public:
     ~Hash() // destructor
     {
         clear();
+        delete[] table;
     }
 
     Hash(const HashNode &rhs) : table{nullptr} // copy constructor
@@ -92,10 +93,12 @@ public:
             {
                 HashNode *prev = itr;
                 itr = itr->next;
-                delete itr;
+                delete prev;
             }
+            table[i] = nullptr;
         }
         delete[] table;
+        createHash(capacity);
         size = 0;
     }
 
@@ -138,22 +141,24 @@ public:
         else
         {
             HashNode *itr = table[index];
+            HashNode* prev = nullptr;
             while (itr != nullptr)
             {
-                if (itr->key == comp)
+                if (itr->comp == comp)
                 {
-                    if (find(itr->Value.begin(), itr->Value.end(), val) == itr->Value.end())
+                    if (std::find(itr->val.begin(), itr->val.end(), val) == itr->val.end())
                     {
-                        itr->Value.push_back(val);
+                        itr->val.push_back(val);
                     }
                     break;
                 }
                 // may need to do this by reference
-                itr = &itr->next;
+                prev = itr;
+                itr = itr->next;
             }
             if (itr == nullptr)
             {
-                itr = new HashNode(comp, val);
+                prev->next = new HashNode(comp, val);
                 size++;
             }
         }
@@ -174,19 +179,21 @@ public:
         else
         {
             HashNode *itr = table[index];
+            HashNode *prev = nullptr;
             while (itr != nullptr)
             {
-                if (itr->key == comp)
+                if (itr->comp == comp)
                 {
-                    itr->Value = val;
+                    itr->val = val;
                     break;
                 }
                 // may need to do this by reference
-                itr = &itr->next;
+                prev = itr;
+                itr = itr->next;
             }
             if (itr == nullptr)
             {
-                itr = new HashNode(comp, val);
+                prev->next = new HashNode(comp, val);
                 size++;
             }
         }
@@ -207,9 +214,9 @@ public:
         HashNode* itr = table[index];
         while (itr != nullptr) 
         {
-            if (itr->Comparable = comp) 
+            if (itr->comp == comp) 
             {
-                return itr->Value;
+                return itr->val;
             }
             itr = itr->next;
         }

@@ -22,29 +22,81 @@ void QueryProcessor::parsingAnswer(std::string answer) // parses the answer
         std::string newStorage = answer.substr(start, answer.size() - start);
         storage.push_back(newStorage);
     }
-    // if (std::find(answer.begin(), answer.end(), "ORG") != answer.end() || std::find(answer.begin(), answer.end(), "PERSON") != answer.end())
-    // {
-    // }
-    // else
-    // {
-    // }
 }
 
 void QueryProcessor::directAnswer()
 {
-    for (int i = 0; i < storage.size(); i++)
+    for (int i = 0; i < storage.size(); i++) 
     {
         while (storage[i] != "-")
-        if (storage[i] == "ORG")
         {
-        }
-        else if (storage[i] == "PERSON")
-        {
-        }
-        else
-        {
+            if (storage[i] == "PERSON")
+            {
+
+            }
+            else if (storage[i] == "ORG")
+            {
+
+            }
+            else 
+            {
+                
+            }
         }
     }
+    // if (std::find(storage.begin(), storage.end(), "ORG") != storage.end() && std::find(storage.begin(), storage.end(), "PERSON") != storage.end())
+    // {
+    //     for (int i = 0; i < storage.size(); i++)
+    //     {
+    //         while (storage[i] != "-")
+    //         {
+    //             if (storage[i] == "ORG")
+    //             {
+    //             }
+    //             else if (storage[i] == "PERSON")
+    //             {
+    //             }
+    //             else
+    //             {
+    //                 // find the word in the map and print out the relevant documents
+    //             }
+    //         }
+    //     }
+    // }
+    // else if (std::find(storage.begin(), storage.end(), "ORG") != storage.end()) 
+    // {
+    //     for (int j = 0; j < storage.size(); j++)
+    //     {
+    //         while (storage[j] != "-")
+    //         {
+    //             if (storage[j] == "ORG")
+    //             {
+
+    //             }
+    //             else
+    //             {
+    //                 // find the word in the map and print out the relevant documents
+    //             }
+    //         }
+    //     }
+    // }
+    // else if (std::find(storage.begin(), storage.end(), "PERSON") != storage.end())
+    // {
+    //     for (int k = 0; k < storage.size(); k++)
+    //     {
+    //         while (storage[k] != "-")
+    //         {
+    //             if (storage[k] == "PERSON")
+    //             {
+
+    //             }
+    //             else
+    //             {
+    //                 // find the word in the map and print out the relevant documents
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 // void QueryProcessor::print() // prints out the relevant documents
