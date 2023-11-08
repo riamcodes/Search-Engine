@@ -91,9 +91,8 @@ private:
         {
             t = new DSAvlNode{x, nullptr, nullptr, 0};
             t->valueVector.push_back(v);
-            return;
         }
-        if (x < t->key)
+        else if (x < t->key)
         {
             insert(x, v, t->left);
         }
@@ -104,6 +103,7 @@ private:
         else
         {
             t->valueVector.push_back(v);
+            return;
             // THIS PROCESS SHOULD GO IN INDEX HANDLER
             // tempMap = t->value;
             // if (tempMap.find(v == tempMap.end()))
@@ -120,7 +120,7 @@ private:
         balance(t);
     }
 
-    void remove(const Comparable &x, const Value &v, DSAvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
+    void remove(const Comparable &x, DSAvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
         {
