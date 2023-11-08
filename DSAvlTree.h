@@ -39,7 +39,7 @@ public:
         makeEmpty();
     }
 
-    DSAvlTree &operator=(const DSAvlTree &rhs) // assignment
+    DSAvlTree &operator=(const DSAvlTree &rhs) // assignment operator
     {
         makeEmpty();
         root = clone(rhs.root);
