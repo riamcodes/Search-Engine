@@ -1,39 +1,28 @@
 #ifndef USER_INTERFACE_H
 #define USER_INTERFACE_H
 #include <iostream>
-#include <chrono>
-#include <ctime>
 #include "QueryProcessor.h"
 #include "IndexHandler.h"
-
 
 class UserInterface
 {
 private:
-    // This integer keeps track of the total number of articles in the 
-    // current index
+    // This integer keeps track of the total number of articles in the current index
     int numberOfArticles;
-    // This integer keeps track of the total number of nodes in the
-    // AVL tree (total number of unique words indexed)
+    // This integer keeps track of the total number of nodes (unique words) in the AVL tree
     int totalNodes;
-    IndexHandler* indexObject;
+    IndexHandler *indexObject;
 
 public:
-    // This string is the user's answer
-    std::string answer;
-    std::string answer1;
-    std::string answer2;
-    std::string answer3;
-    // This function will ask the user a question 
+    std::string answer;  // answer to first question
+    std::string answer1; // possible answer to second question
+    std::string answer2; // possible answer to second question
+    std::string answer3; // possible answer to second question
+    UserInterface();
+    ~UserInterface();
+    UserInterface(const UserInterface &rhs);
+    UserInterface &operator=(const UserInterface &rhs);
     void initialQuestion();
-    // This function will ask the user another question
     void secondQuestion();
-    // This function will direct the answer to the correct function
-    // void directAnswer();
-    // This function will be responsible for timing indexing and queries
-    // void time();
-    // rule of 3
-    // default constructor
-    
 };
 #endif

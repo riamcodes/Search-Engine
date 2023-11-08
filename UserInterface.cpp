@@ -1,12 +1,35 @@
 #include "UserInterface.h"
 
-void UserInterface::UserInterface() 
+UserInterface::UserInterface() // default constructor
 {
-
+    numberOfArticles = 0;
+    totalNodes = 0;
+    indexObject = nullptr;
 }
-~UserInterface()
+
+UserInterface::~UserInterface() // destructor
 {
-    
+    delete[] indexObject;
+}
+
+UserInterface::UserInterface(const UserInterface &rhs) // copy constructor
+{
+    numberOfArticles = 0;
+    totalNodes = 0;
+    indexObject = nullptr;
+    numberOfArticles = rhs.numberOfArticles;
+    totalNodes = rhs.totalNodes;
+    indexObject = rhs.indexObject;
+}
+
+UserInterface &UserInterface::operator=(const UserInterface &rhs) // assignment operator
+{
+    if (this != &rhs)
+    {
+        delete indexObject;
+        indexObject = rhs.indexObject;
+    }
+    return *this;
 }
 
 void UserInterface::initialQuestion()
@@ -26,7 +49,8 @@ void UserInterface::initialQuestion()
         }
     }
 }
-void UserInterface::secondQuestion() {
+void UserInterface::secondQuestion()
+{
     QueryProcessor queryObject;
     if (answer == "1")
     {
@@ -44,41 +68,7 @@ void UserInterface::secondQuestion() {
     {
         std::cout << "Please enter a query" << std::endl;
         std::getline(std::cin, answer3);
+        // send to query processor
         queryObject.parsingAnswer(answer3);
     }
 }
-
-// void UserInterface::directAnswer()
-// {
-//     if (answer1 == "1")
-//     {
-//         std::chrono::time_point<std::chrono::system_clock> start, end;
-//         start = std::chrono::system_clock::now();
-//         // send to create an index
-//         end = std::chrono::system_clock::now();
-//         std::chrono::duration<double> elapsed_seconds = end - start;
-//         std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
-//     }
-//     else if (answer1 == "2")
-//     {
-//         std::chrono::time_point<std::chrono::system_clock> start, end;
-//         start = std::chrono::system_clock::now();
-//         // send to persistantance
-//         end = std::chrono::system_clock::now();
-//         std::chrono::duration<double> elapsed_seconds = end - start;
-//         std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
-//     }
-//     else if (answer1 == "3")
-//     {
-//         std::chrono::time_point<std::chrono::system_clock> start, end;
-//         start = std::chrono::system_clock::now();
-//         // send to enter a query
-//         end = std::chrono::system_clock::now();
-//         std::chrono::duration<double> elapsed_seconds = end - start;
-//         std::cout << "Elapsed Time: " << elapsed_seconds.count() << std::endl;
-//     }
-//     else
-//     {
-//         throw std::runtime_error("Invalid Answer received!");
-//     }
-// }
