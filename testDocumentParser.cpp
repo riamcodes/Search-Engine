@@ -6,6 +6,8 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include <filesystem>
+#include <dirent.h>
 
 // RapidJSON headers we need for our parsing.
 #include "rapidjson/istreamwrapper.h"
@@ -25,6 +27,9 @@ int main()
 
  DocumentParser parser;
     parser.parseDocument("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000/2018_03_112b52537b67659ad3609a234388c50a/news_0022791.json");
-    return 0;
+   
+
+string bigFilePath = "/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000"; // Replace with the path to your directory
+   parser.traverseSubdirectory(bigFilePath);
 
 }

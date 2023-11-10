@@ -23,6 +23,10 @@ private:
 public:
 //void buildIndex(const std::string& document);
 
+//
 void parseDocument(const std::string& jsonContent);
+
+//
+void traverseSubdirectory(const std::string& directoryPath);
 };
 #endif
