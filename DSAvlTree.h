@@ -158,8 +158,9 @@ private:
             }
             else
             {
-                t = nullptr;
                 delete t;
+                t = nullptr;
+                //delete t;
                 return;
             }
         }
