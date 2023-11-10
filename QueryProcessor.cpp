@@ -26,77 +26,53 @@ void QueryProcessor::parsingAnswer(std::string answer) // parses the answer
 
 void QueryProcessor::directAnswer()
 {
-    for (int i = 0; i < storage.size(); i++) 
+    std::vector<std::string> orgStorage;
+    std::vector<std::string> personStorage;
+    std::vector<std::string> wordStorage;
+    std::vector<std::string> notStorage;
+    for (int i = 0; i < storage.size(); i++)
     {
-        while (storage[i] != "-")
+        if (std::find(storage[i].begin(), storage[i].end(), "ORG") != storage[i].end())
         {
-            if (storage[i] == "PERSON")
+            for (int j = 0; j < storage[i].length(); j++)
             {
-
-            }
-            else if (storage[i] == "ORG")
-            {
-
-            }
-            else 
-            {
-                
+                if (storage[j] == ":")
+                {
+                    for (int k = j + 1; k < storage[i].length(); k++)
+                    {
+                        orgStorage.push_back(storage[k]);
+                    }
+                    orgStorage.push_back(",");
+                }
             }
         }
+        else if (std::find(storage[i].begin(), storage[i].end(), "PERSON") != storage[i].end())
+        {
+            for (int j = 0; j < storage[i].length(); j++) 
+            {
+                if (storage[j] == ":")
+                {
+                    for (int k = j + 1; k < storage[i].length(); k++)
+                    {
+                        personStorage.push_back(storage[k]);
+                    }
+                    personStorage.push_back(",");
+                }
+            }
+        }
+        else if (std::find(storage[i].begin(), storage[i].end(), "-") != storage[i].end())
+        {
+            // can not a person or organization be a case or does this just effect words
+        }
+        else
+        {
+            for (int j = 0; j < storage[i].length(); j++) 
+            {
+                wordStorage.push_back(storage[j]);
+            }
+            wordStorage.push_back(",");
+        }
     }
-    // if (std::find(storage.begin(), storage.end(), "ORG") != storage.end() && std::find(storage.begin(), storage.end(), "PERSON") != storage.end())
-    // {
-    //     for (int i = 0; i < storage.size(); i++)
-    //     {
-    //         while (storage[i] != "-")
-    //         {
-    //             if (storage[i] == "ORG")
-    //             {
-    //             }
-    //             else if (storage[i] == "PERSON")
-    //             {
-    //             }
-    //             else
-    //             {
-    //                 // find the word in the map and print out the relevant documents
-    //             }
-    //         }
-    //     }
-    // }
-    // else if (std::find(storage.begin(), storage.end(), "ORG") != storage.end()) 
-    // {
-    //     for (int j = 0; j < storage.size(); j++)
-    //     {
-    //         while (storage[j] != "-")
-    //         {
-    //             if (storage[j] == "ORG")
-    //             {
-
-    //             }
-    //             else
-    //             {
-    //                 // find the word in the map and print out the relevant documents
-    //             }
-    //         }
-    //     }
-    // }
-    // else if (std::find(storage.begin(), storage.end(), "PERSON") != storage.end())
-    // {
-    //     for (int k = 0; k < storage.size(); k++)
-    //     {
-    //         while (storage[k] != "-")
-    //         {
-    //             if (storage[k] == "PERSON")
-    //             {
-
-    //             }
-    //             else
-    //             {
-    //                 // find the word in the map and print out the relevant documents
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 // void QueryProcessor::print() // prints out the relevant documents
