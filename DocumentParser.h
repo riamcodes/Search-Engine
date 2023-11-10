@@ -36,6 +36,10 @@ public:
 //void buildIndex(const std::string& document);
 // told to include a setter function as well
 
+//
 void parseDocument(const std::string& jsonContent);
+
+//
+void traverseSubdirectory(const std::string& directoryPath);
 };
 #endif
