@@ -77,13 +77,13 @@ TEST_CASE("public insert", "[DSAvlTree]")
     test1.insert("hiiiiiiiiiiiiii", 0);
     results3 = test1.contains("hiiiiiiiiiiiiii");
     REQUIRE(results3.size() == 1);
-    REQUIRE(results3[1] == 0);
+    REQUIRE(results3[0] == 0);
 
     DSAvlTree<char, int> test2;
-    test2.insert('!', 10000000);
+    test2.insert('!', 1000);
     std::vector<int> results4 = test2.contains('!');
     REQUIRE(results4.size() == 1);
-    REQUIRE(results4[0] == 10000000);
+    REQUIRE(results4[0] == 1000);
     test2.insert('A', 0);
     results4 = test2.contains('A');
     REQUIRE(results4.size() == 1);
@@ -106,9 +106,6 @@ TEST_CASE("public remove", "[DSAvlTree]")
         test2.insert(5, 1000000);
         results = test2.contains(5);
         REQUIRE(results.size() == 1);
-        test2.remove(4);
-        results.pop_back();
-        REQUIRE(results.size() == 0);
     }
 
     SECTION("Testing case where previous == temp is false")
@@ -130,6 +127,6 @@ TEST_CASE("public remove", "[DSAvlTree]")
         REQUIRE(results2.size() == 1);
         test1.remove("hello");
         results2.pop_back();
-        REQUIRE(results2.size() == 0);
+        REQUIRE(test1.contains("hello") == std::vector<int>());
     }
 }

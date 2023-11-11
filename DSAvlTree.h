@@ -117,6 +117,7 @@ private:
             // t->value = tempMap;
             // delete tempMap;
         }
+        t->height = std::max(height(t->left), height(t->right)) + 1;
         balance(t);
     }
 
@@ -149,25 +150,17 @@ private:
                 DSAvlNode *tCopy = t;
                 t = t->left;
                 delete tCopy;
-                if (t != nullptr)
-                {
-                    t->height = std::max(height(t->left), height(t->right)) + 1;
-                }
-                else
-                {
-                    return;
-                }
             }
             else
             {
-                delete t;
-                t = nullptr;
-                //delete t;
-                return;
+                DSAvlNode *tCopy = t;
+                t->key = deleteLeftMostIn(tCopy->right);
             }
         }
-        t->height = std::max(height(t->left), height(t->right)) + 1;
-        balance(t);
+        if (t != nullptr){
+            t->height = std::max(height(t->left), height(t->right)) + 1;
+            balance(t);
+        }
     }
 
     Comparable deleteLeftMostIn(DSAvlNode *&t) // delete left most node in the passed subtree, and returns the key in that node
