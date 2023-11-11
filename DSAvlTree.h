@@ -123,7 +123,7 @@ private:
     void remove(const Comparable &x, DSAvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
-        {
+                {
             throw std::runtime_error("Error, could not find 'x' in private remove function");
         }
         if (x < t->key)
@@ -140,6 +140,8 @@ private:
             {
                 DSAvlNode *tCopy = t;
                 t->key = deleteLeftMostIn(tCopy->right);
+            // Update the key of the current node with the new key
+           
                 t->height = std::max(height(t->left), height(t->right)) + 1;
             }
             else if (t->left != nullptr)
