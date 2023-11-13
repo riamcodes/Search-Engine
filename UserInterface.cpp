@@ -68,7 +68,24 @@ void UserInterface::secondQuestion()
     {
         std::cout << "Please enter a query" << std::endl;
         std::getline(std::cin, answer3);
-        // send to query processor
         queryObject.parsingAnswer(answer3);
+    }
+}
+
+// Prints 15 most relevant articles
+
+void UserInterface::completePrint()
+{
+    std::string yesOrNo;
+    std::cout << "Would you like to see the contents of a file?" << std::endl;
+    std::cin >> yesOrNo;
+    yesOrNo.toLower();
+    if (yesOrNo == "yes")
+    {
+        // print out the contents of the file
+    }
+    else
+    {
+        std::cout << "Thank you for using our search engine." << std::endl;
     }
 }
