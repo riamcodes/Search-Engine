@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 #include <map>
 
 template <typename Comparable, typename Value>
@@ -16,7 +17,9 @@ private:
         DSAvlNode *left;
         DSAvlNode *right;
         int height;
-        std::vector<Value> valueVector;
+        std::map<Value, int> mapVals;
+        // int size
+        // NEED TO IMPLEMENT
 
         DSAvlNode(const Comparable &theKey, DSAvlNode *lt, DSAvlNode *rt, int h)
             : key{theKey}, left{lt}, right{rt}, height{h} {}
@@ -46,7 +49,7 @@ public:
         return *this;
     }
 
-    std::vector<Value> contains(const Comparable &x) const // if x is found in the tree
+    std::map<Value, int> contains(const Comparable &x) const // if x is found in the tree
     {
         return contains(x, root);
     }
@@ -71,9 +74,14 @@ public:
         remove(x, root);
     }
 
-    void prettyPrintTree() const // prints the tree
+    // void prettyPrintTree() const // prints the tree
+    // {
+    //     prettyPrintTree("", root, false);
+    // }
+
+    void printTree(std::ostream out) // prints the tree for persistance
     {
-        prettyPrintTree("", root, false);
+        printTree(out,root);
     }
 
     void updatePersistance() // public function because it should not be called until the program exits
@@ -90,7 +98,7 @@ private:
         if (t == nullptr)
         {
             t = new DSAvlNode{x, nullptr, nullptr, 0};
-            t->valueVector.push_back(v);
+            t->mapVals[v] = 1;
         }
         else if (x < t->key)
         {
@@ -102,7 +110,11 @@ private:
         }
         else
         {
-            t->valueVector.push_back(v);
+            if (t->mapVals.find(v) == t->mapVals.end()) {
+                t->mapVals[v] = 1;
+            } else {
+                t->mapVals[v]++;
+            }
             return;
             // THIS PROCESS SHOULD GO IN INDEX HANDLER
             // tempMap = t->value;
@@ -193,11 +205,11 @@ private:
         }
     }
 
-    std::vector<Value> contains(const Comparable &x, DSAvlNode *t) const // true/false if x is found in the tree
+    std::map<Value, int> contains(const Comparable &x, DSAvlNode *t) const // true/false if x is found in the tree
     {
         if (t == nullptr)
         {
-            return std::vector<Value>(); // returns an empty vector
+            return std::map<Value, int> (); // returns an empty vector
         }
         else if (x < t->key)
         {
@@ -209,7 +221,7 @@ private:
         }
         else
         {
-            return t->valueVector;
+            return t->mapVals;
         }
     }
 
@@ -296,6 +308,21 @@ private:
      * Modified from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
      */
 
+    void printTree(std::ostream out, DSAvlNode *t)
+    {
+        if (t == nullptr)
+        {
+            return;
+        }
+        printTree(t->left);
+        printTree(t->right);
+        out << t->key;
+        for (const auto &itr : mapVals)
+        {
+            out << ";" << itr.first << "," << itr.second;
+        }
+        out << std::endl;
+    }
     void prettyPrintTree(const std::string &prefix, const DSAvlNode *node, bool isRight) const
     {
         if (node == nullptr)
@@ -322,7 +349,7 @@ private:
 #ifdef DEBUG
         std::cout << "need to rotateWithLeftChild for node " << k2->key << std::endl;
         std::cout << "Before:" << std::endl;
-        prettyPrintTree();
+        //prettyPrintTree();
 #endif
 
         DSAvlNode *k1 = k2->left;
@@ -333,7 +360,7 @@ private:
         k2 = k1;
 #ifdef DEBUG
         std::cout << "After:" << std::endl;
-        prettyPrintTree();
+        //prettyPrintTree();
 #endif
     }
 
@@ -347,7 +374,7 @@ private:
 #ifdef DEBUG
         std::cout << "need to rotateWithRightChild for node " << k1->key << std::endl;
         std::cout << "Before:" << std::endl;
-        prettyPrintTree();
+        //prettyPrintTree();
 
 #endif
 
@@ -359,7 +386,7 @@ private:
         k1 = k2;
 #ifdef DEBUG
         std::cout << "After:" << std::endl;
-        prettyPrintTree();
+        //prettyPrintTree();
 #endif
     }
 

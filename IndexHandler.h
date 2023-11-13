@@ -10,6 +10,7 @@
 // 2.) Store file path to save storage (external storage)
 // This class needs to implement persistence (very difficult but recommended to save until end)
 // Should also store the statistics (timing, word count, etc) -> (see instructions)
+// Print function is implemented in the AVLTree (printTree())
 class IndexHandler
 {
 private:
