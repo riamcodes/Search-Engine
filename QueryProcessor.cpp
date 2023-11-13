@@ -30,106 +30,34 @@ void QueryProcessor::parsingAnswer(std::string answer) // Parses the answer
     }
 }
 
-void QueryProcessor::disectAnswer() // This function disects the parsed answer and divides it based on what it contains
+void QueryProcessor::disectAnswer() // This function disects the parsed answer
 {
-    
+    std::vector<std::string> relevantDocuments;
     for (int i = 0; i < storage.size(); i++)
     {
-        if (std::find(storage[i].begin(), storage[i].end(), "ORG") != storage[i].end()) // ORG Instance
+        if (storage[i].substr(0,4) == "ORG:") 
         {
-            for (int j = 0; j < storage[i].length(); j++)
-            {
-                if (storage[j] == ":")
-                {
-                    for (int k = j + 1; k < storage[i].length(); k++)
-                    {
-                        orgStorage.push_back(storage[k]);
-                    }
-                    orgStorage.push_back(",");
-                }
-            }
+            std::string term = storage[i].substr(4, storage[i].length() - 4);
+            // relevantDocuments.push_back(get this term from the index handler);
         }
-        else if (std::find(storage[i].begin(), storage[i].end(), "PERSON") != storage[i].end()) // PERSON Instance
+        else if (storage[i].subtr(0, 7) == "PERSON:")
         {
-            for (int j = 0; j < storage[i].length(); j++) 
-            {
-                if (storage[j] == ":")
-                {
-                    for (int k = j + 1; k < storage[i].length(); k++)
-                    {
-                        personStorage.push_back(storage[k]);
-                    }
-                    personStorage.push_back(",");
-                }
-            }
+            std::string term = storage[i].substr(7, storage[i].length() - 7);
+            // relevantDocuments.push_back(get this term from the index handler);
         }
-        else if (std::find(storage[i].begin(), storage[i].end(), "-") != storage[i].end()) // Not Instance
+        else if (storage[i].substr(0, 1) == "-")
         {
-            for (int j = 0; j < storage[i].length(); j++)
-            {
-                notStorage.push_back(storage[j]);
-            }
-            notStorage.push_back(",");
-        }
-        else // Word Instance
-        {
-            for (int j = 0; j < storage[i].length(); j++) 
-            {
-                wordStorage.push_back(storage[j]);
-            }
-            wordStorage.push_back(",");
-        }
-    }
-}
-
-void QueryProcessor::directAnswer() // This function will take the disected vectors and direct them to where they need to go
-{
-    for (int i = 0; i < wordStorage.size(); i++)
-    {
-        if (storage[i] == ",")
-        {
-            // new word
+            std::string term = storage[i].substr(1, storage[i].length() - 1);
+            // relevantDocuments.push_back(get this term from the index handler);
         }
         else
         {
-            // process a word
+            std::string term = storage[i];
+            // relevantDocuments.push_back(get this term from the index handler);
+            if (i == 0)
+            {
+                
+            }
         }
     }
-    for (int i = 0; i < personStorage.size(); i++)
-    {
-        if (storage[i] == ",")
-        {
-            // new person
-        }
-        else
-        {
-            // process a person
-        }
-    }
-    for (int i = 0; i < orgStorage.size(); i++)
-    {
-        if (storage[i] == ",")
-        {
-            // new org
-        }
-        else
-        {
-            // process a org
-        }
-    }
-    for (int i = 0; i < notStorage.size(); i++)
-    {
-        if (storage[i] == ",")
-        {
-            // new not instance
-        }
-        else
-        {
-            // process a not instance
-        }
-    }
-}
-
-void QueryProcessor::print() // prints out the relevant documents
-{
 }

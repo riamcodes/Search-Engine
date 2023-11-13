@@ -72,16 +72,19 @@ void UserInterface::secondQuestion()
     }
 }
 
-// Prints 15 most relevant articles
+// Prints the titles of the 15 most relevant articles
 
-void UserInterface::completePrint()
+void UserInterface::completePrint() // Prints out the contents of a file
 {
     std::string yesOrNo;
+    std::string fileName;
     std::cout << "Would you like to see the contents of a file?" << std::endl;
     std::cin >> yesOrNo;
     yesOrNo.toLower();
     if (yesOrNo == "yes")
     {
+        std::cout << "Please enter in the title of the file that you would like to see." << std::endl;
+        std::getline(cin, fileName);
         // print out the contents of the file
     }
     else
