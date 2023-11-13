@@ -24,5 +24,6 @@ public:
     UserInterface &operator=(const UserInterface &rhs);
     void initialQuestion();
     void secondQuestion();
+    void completePrint();
 };
 #endif
