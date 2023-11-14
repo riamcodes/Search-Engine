@@ -79,9 +79,9 @@ public:
     //     prettyPrintTree("", root, false);
     // }
 
-    void printTree(std::ostream out) // prints the tree for persistance
+    void printTree(std::ostream out, const Comparable &x, const Value &v, DSAvlNode *t) // prints the tree for persistance
     {
-        printTree(out,root);
+        printTree(out, x, v, root);
     }
 
     void updatePersistance() // public function because it should not be called until the program exits
@@ -308,7 +308,7 @@ private:
      * Modified from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
      */
 
-    void printTree(std::ostream out, DSAvlNode *t)
+    void printTree(std::ostream out, const Comparable &x, DSAvlNode *t)
     {
         if (t == nullptr)
         {
