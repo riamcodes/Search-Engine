@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <filesystem>
 #include <dirent.h>
+#include <algorithm>
+#include "porter2_stemmer.h" // Include the Porter Stemmer header
 //str tok in the remove  or use the existing sentiment analyzer
 using namespace rapidjson;
 using namespace std;
@@ -71,6 +73,11 @@ void DocumentParser::parseDocument(const string& jsonContent) {
         istringstream iss(text);
         string word;
         while (iss >> word) {
+            // the transform function comes from tha algorithm include
+            //processes word from beginning to end and then goes back to the beginning and makes everyting lowercase 
+            transform(word.begin(), word.end(), word.begin(), ::tolower); 
+            Porter2Stemmer::stem(word);
+
             cout << word << endl;  // Print each word on a new line
         }
     } else {
