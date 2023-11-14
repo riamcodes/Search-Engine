@@ -17,5 +17,7 @@ QueryProcessor(); // Default Constructor
 void parsingAnswer(std::string); // This function will process the answer from the user interface
 void disectAnswer(); // This function will disect the answer and find it's relevant documents
 void relevancy(); // This function will determine the relevancy of the term(s) that it entered (hint: use tf/idf statistics)
+void ifNot(); // Helper function
+void elseThis(); // Helper function
 };
 #endif
