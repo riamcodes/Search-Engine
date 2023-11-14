@@ -80,11 +80,13 @@ void UserInterface::completePrint() // Prints out the contents of a file
     std::string fileName;
     std::cout << "Would you like to see the contents of a file?" << std::endl;
     std::cin >> yesOrNo;
-    yesOrNo.toLower();
+    for(int i = 0; i< yesOrNo.length(); i++){
+        tolower(yesOrNo.at(i));
+    }
     if (yesOrNo == "yes")
     {
         std::cout << "Please enter in the title of the file that you would like to see." << std::endl;
-        std::getline(cin, fileName);
+        std::cin >> fileName;
         // print out the contents of the file
     }
     else

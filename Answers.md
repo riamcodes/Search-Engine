@@ -9,7 +9,7 @@ Names of all team members:
 
 Used free extension: [ ] 24 hrs or [ ] 48 hrs
 
-[ ] Early submission (48 hrs)
+[X] Early submission (48 hrs)
 
 [ ] Bonus work. Describe: ...
 
