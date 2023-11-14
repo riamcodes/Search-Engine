@@ -1,5 +1,6 @@
 #ifndef HASH_H
 #define HASH_H
+#include <map>
 
 // USE HASH FOR PERSON AND ORGANIZATION BUT NOT FOR WORD
 
@@ -10,24 +11,25 @@ private:
     struct HashNode
     {
         Comparable comp;
-        std::vector<Value> val;
+        std::map<Value, int> maps;
+        // std::vector<Value> val;
         HashNode *next;
-        HashNode(Comparable c, Value v)
+        HashNode(Comparable c, Value v, int f)
         {
             comp = c;
-            val.push_back(v);
+            maps[v] = f;
             next = nullptr;
         }
-        HashNode(Comparable c, std::vector<Value> v)
+        HashNode(Comparable c, std::map<Value, int> v)
         {
             comp = c;
-            val = v;
+            maps = v;
             next = nullptr;
         }
         HashNode(const HashNode& n)
         {
             comp = n.comp;
-            val = n.val;
+            maps = n.maps;
             next = nullptr;
         }
     }; 
@@ -45,7 +47,7 @@ private:
             HashNode* itr = storeTable[i];
             while (itr != nullptr)
             {
-                secondInsert(itr->comp, itr->val);
+                secondInsert(itr->comp, itr->maps);
                 HashNode* temp = itr;
                 itr = itr->next;
                 delete temp;
@@ -130,12 +132,12 @@ public:
         }
     }
 
-    void insert(Comparable comp, Value val) // inserts a comp into a hash at val
+    void insert(Comparable comp, Value val, int freq) // inserts a comp into a hash at val
     {
         int index = hash(comp);
         if (table[index] == nullptr)
         {
-            table[index] = new HashNode(comp, val);
+            table[index] = new HashNode(comp, val, freq);
             size++;
         }
         else
@@ -146,9 +148,11 @@ public:
             {
                 if (itr->comp == comp)
                 {
-                    if (std::find(itr->val.begin(), itr->val.end(), val) == itr->val.end())
+                    if (itr->maps.find(val) == itr->maps.end())
                     {
-                        itr->val.push_back(val);
+                        itr->maps[val] = freq;
+                    } else {
+                        itr->maps[val] += freq;
                     }
                     break;
                 }
@@ -158,7 +162,7 @@ public:
             }
             if (itr == nullptr)
             {
-                prev->next = new HashNode(comp, val);
+                prev->next = new HashNode(comp, val, freq);
                 size++;
             }
         }
@@ -168,7 +172,25 @@ public:
         }
     }
 
-    void secondInsert(Comparable comp, std::vector<Value> val) // inserts a comp into a hash at val
+    void printHash(std::ostream &out) 
+    {
+         for (int i = 0; i < capacity; i++)
+        {
+            HashNode *itr = table[i];
+            while (itr != nullptr)
+            {
+                out << itr->comp;
+                for (const auto &itr : itr->maps)
+                {
+                    out << ";" << itr.first << "," << itr.second;
+                }
+                out << std::endl;
+                itr = itr->next;
+            }
+        }
+    }
+
+    void secondInsert(Comparable comp, std::map<Value, int> val) // inserts a comp into a hash at val
     {
         int index = hash(comp);
         if (table[index] == nullptr)
@@ -184,7 +206,7 @@ public:
             {
                 if (itr->comp == comp)
                 {
-                    itr->val = val;
+                    itr->maps = val;
                     break;
                 }
                 // may need to do this by reference
@@ -208,7 +230,7 @@ public:
         return size;
     }
 
-    std::vector<Value> find(const Comparable comp) // finds a comp in the hash
+    std::map<Value, int> find(const Comparable comp) // finds a comp in the hash
     {
         int index = hash(comp);
         HashNode* itr = table[index];
@@ -216,11 +238,11 @@ public:
         {
             if (itr->comp == comp) 
             {
-                return itr->val;
+                return itr->maps;
             }
             itr = itr->next;
         }
-    return std::vector<Value>();
+    return std::map<Value, int>();
     }
 };
 #endif

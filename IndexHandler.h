@@ -14,6 +14,19 @@
 class IndexHandler
 {
 private:
+DSAvlTree<std::string, int> words;
+Hash<std::string, int> people;
+Hash<std::string, int> orgs;
+std::vector<document> docs;
 public:
+vector<pair<document, int>> getWords(std::string);
+vector<pair<document, int>> getPeople(std::string);
+vector<pair<document, int>> getOrgs(std::string);
+void addWords(std::string, int, int);
+void addPeople(std::string, int, int);
+void addOrgs(std::string, int, int);
+void addDocument(document);
+void createPersistence(std::string);
+void readPersistence(std::string);
 };
 #endif

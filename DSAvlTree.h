@@ -18,14 +18,13 @@ private:
         DSAvlNode *right;
         int height;
         std::map<Value, int> mapVals;
-        // int size
-        // NEED TO IMPLEMENT
 
         DSAvlNode(const Comparable &theKey, DSAvlNode *lt, DSAvlNode *rt, int h)
             : key{theKey}, left{lt}, right{rt}, height{h} {}
     };
 
     DSAvlNode *root;
+    int size;
 
 public:
     DSAvlTree() : root{nullptr} // default constructor
@@ -64,9 +63,9 @@ public:
         makeEmpty(root);
     }
 
-    void insert(const Comparable &x, const Value &v) // inserts x into the tree
+    void insert(const Comparable &x, const Value &v, const int &f) // inserts x into the tree
     {
-        insert(x, v, root);
+        insert(x, v, f, root);
     }
 
     void remove(const Comparable &x) // removes x from the tree
@@ -79,41 +78,33 @@ public:
     //     prettyPrintTree("", root, false);
     // }
 
-    void printTree(std::ostream out, const Comparable &x, const Value &v, DSAvlNode *t) // prints the tree for persistance
+    void printTree(std::ostream &out) // prints the tree for persistance
     {
-        printTree(out, x, v, root);
-    }
-
-    void updatePersistance() // public function because it should not be called until the program exits
-    {
-    }
-
-    void populateDSAVLTreeFromPersistance() // public function because it should not be called until the program exits
-    {
+        printTree(out, root);
     }
 
 private:
-    void insert(const Comparable &x, const Value &v, DSAvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
+    void insert(const Comparable &x, const Value &v, const int &f, DSAvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
         {
             t = new DSAvlNode{x, nullptr, nullptr, 0};
-            t->mapVals[v] = 1;
+            t->mapVals[v] = f;
         }
         else if (x < t->key)
         {
-            insert(x, v, t->left);
+            insert(x, v, f, t->left);
         }
         else if (t->key < x)
         {
-            insert(x, v, t->right);
+            insert(x, v, f, t->right);
         }
         else
         {
             if (t->mapVals.find(v) == t->mapVals.end()) {
-                t->mapVals[v] = 1;
+                t->mapVals[v] = f;
             } else {
-                t->mapVals[v]++;
+                t->mapVals[v] += f;
             }
             return;
             // THIS PROCESS SHOULD GO IN INDEX HANDLER
@@ -129,6 +120,7 @@ private:
             // t->value = tempMap;
             // delete tempMap;
         }
+        size += 1;
         balance(t);
     }
 
@@ -179,6 +171,7 @@ private:
             }
         }
         t->height = std::max(height(t->left), height(t->right)) + 1;
+        size -= 1;
         balance(t);
     }
 
@@ -235,6 +228,7 @@ private:
         makeEmpty(t->right);
         delete t;
         t = nullptr;
+        size = 0;
     }
 
     DSAvlNode *clone(DSAvlNode *t) const // clones the subtree
@@ -308,36 +302,32 @@ private:
      * Modified from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
      */
 
-    void printTree(std::ostream out, const Comparable &x, DSAvlNode *t)
+    void printTree(std::ostream out, DSAvlNode *&t)
     {
-        if (t == nullptr)
-        {
-            return;
-        }
-        printTree(t->left);
-        printTree(t->right);
         out << t->key;
-        for (const auto &itr : mapVals)
+        for (const auto &itr : t->mapVals)
         {
             out << ";" << itr.first << "," << itr.second;
         }
         out << std::endl;
+        printTree(out, t->left);
+        printTree(out, t->right);
     }
-    void prettyPrintTree(const std::string &prefix, const DSAvlNode *node, bool isRight) const
-    {
-        if (node == nullptr)
-        {
-            return;
-        }
+    // void prettyPrintTree(const std::string &prefix, const DSAvlNode *node, bool isRight) const
+    // {
+    //     if (node == nullptr)
+    //     {
+    //         return;
+    //     }
 
-        std::cout << prefix;
-        std::cout << (isRight ? "├──" : "└──");
-        // print the value of the node
-        std::cout << node->key << std::endl;
-        // enter the next tree level - left and right branch
-        prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->right, true);
-        prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->left, false);
-    }
+    //     std::cout << prefix;
+    //     std::cout << (isRight ? "├──" : "└──");
+    //     // print the value of the node
+    //     std::cout << node->key << std::endl;
+    //     // enter the next tree level - left and right branch
+    //     prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->right, true);
+    //     prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->left, false);
+    // }
 
     /**
      * Rotate binary tree node with left child.
