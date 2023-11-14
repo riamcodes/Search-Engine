@@ -1,5 +1,9 @@
 #ifndef INDEX_HANDLER_H
 #define INDEX_HANDLER_H
+#include "Hash.h"
+#include "DSAvlTree.h"
+#include <string>
+
 
 // This class should contain a lot of setter/getter functions for the avl and hash index
 // When we want to add or get a query then we will call these functions
