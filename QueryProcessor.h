@@ -8,16 +8,21 @@
 class QueryProcessor
 {
 private:
-int tf; // tf = nWordDoc/nDoc
-int idf; // idf = log2(n/nWord)
+// int totalDocs
+// int tf; // tf = nWordDoc/nDoc
+// int idf; // idf = log2(n/nWord)
 // tf - idf = (tf)(idf)
 std::vector<std::string> storage;
+std::vector<pair<char,int>> relevantDocuments; //documents
+IndexHandler *indexObject;
 public:
 QueryProcessor(); // Default Constructor
-void parsingAnswer(std::string); // This function will process the answer from the user interface
+std::vector<document> parsingAnswer(std::string); // This function will process the answer from the user interface
 void disectAnswer(); // This function will disect the answer and find it's relevant documents
 void relevancy(); // This function will determine the relevancy of the term(s) that it entered (hint: use tf/idf statistics)
-void ifNot(); // Helper function
-void elseThis(); // Helper function
+void intersection(); // Helper function
+void complement(); // Helper function
+void revelvency();
+void setIndexHandler(*indexObject);
 };
 #endif

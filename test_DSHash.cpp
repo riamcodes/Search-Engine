@@ -28,7 +28,6 @@ TEST_CASE("clone", "[DSHash]")
     test1.insert("hola", 1);
     Hash<std::string, int> test2;
     test2.clone(test1);
-    //REQUIRE(test1[0] == test2[0]);
     REQUIRE(test1.getSize() == test2.getSize());
 
     Hash<char, int> test3;
@@ -53,7 +52,7 @@ TEST_CASE("insert", "[DSHash]")
     test1.insert("structures", 1);
     test1.insert("class", 789);
     test1.insert("lol", 10000);
-    std::vector<int> result2 = test1.find("haha");
+    //std::vector<int> result2 = test1.find("haha");
     REQUIRE(result2.size() == 1);
 
     Hash<char, int> test2;
@@ -63,7 +62,7 @@ TEST_CASE("insert", "[DSHash]")
     test2.insert('%', 6793);
     test2.insert('J', 234);
     test2.insert('*', 37840);
-    std::vector<int> result = test2.find('A');
+    //std::vector<int> result = test2.find('A');
     REQUIRE(result.size() == 1);
 }
 
