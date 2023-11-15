@@ -39,6 +39,7 @@ public:
 
 //
 void parseDocument(const std::string& jsonContent);
+//void parse
 
 //
 void traverseSubdirectory(const std::string& directoryPath);
