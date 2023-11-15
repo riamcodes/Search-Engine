@@ -1,29 +1,26 @@
 #include "IndexHandler.h"
 
-vector<pair<document, int>> IndexHandler::getWords(std::string word){
+std::vector<std::pair<document, int>> IndexHandler::getWords(std::string word){
+    words.contains(word);
+}
+std::vector<std::pair<document, int>> IndexHandler::getPeople(std::string person){
 
 }
-vector<pair<document, int>> IndexHandler::getPeople(std::string person){
+std::vector<std::pair<document, int>> IndexHandler::getOrgs(std::string org){
 
 }
-vector<pair<document, int>> IndexHandler::getOrgs(std::string org){
-
+void IndexHandler::addWords(std::string word, std::string id){
+    words.insert(word, id);
 }
-void IndexHandler::addWords(std::string word, int id, int freq){
-    words.insert(word, id, freq);
+void IndexHandler::addPeople(std::string person, std::string id){
+    people.insert(person, id);
 }
-void IndexHandler::addPeople(std::string person, int id, int freq){
-    people.insert(person, id, freq);
-}
-void IndexHandler::addOrgs(std::string org, int id, int freq){
-    orgs.insert(org, id, freq);
-}
-void IndexHandler::addDocument(document){
-
+void IndexHandler::addOrgs(std::string org, std::string id){
+    orgs.insert(org, id);
 }
 void IndexHandler::createPersistence(std::string){
 
 }
 void IndexHandler::readPersistence(std::string){
-
+    
 }

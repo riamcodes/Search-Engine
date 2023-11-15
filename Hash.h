@@ -1,6 +1,8 @@
 #ifndef HASH_H
 #define HASH_H
 #include <map>
+#include <functional>
+#include <ostream>
 
 // USE HASH FOR PERSON AND ORGANIZATION BUT NOT FOR WORD
 
@@ -14,10 +16,10 @@ private:
         std::map<Value, int> maps;
         // std::vector<Value> val;
         HashNode *next;
-        HashNode(Comparable c, Value v, int f)
+        HashNode(Comparable c, Value v)
         {
             comp = c;
-            maps[v] = f;
+            maps[v] = 1;
             next = nullptr;
         }
         HashNode(Comparable c, std::map<Value, int> v)
@@ -132,12 +134,12 @@ public:
         }
     }
 
-    void insert(Comparable comp, Value val, int freq) // inserts a comp into a hash at val
+    void insert(Comparable comp, Value val) // inserts a comp into a hash at val
     {
         int index = hash(comp);
         if (table[index] == nullptr)
         {
-            table[index] = new HashNode(comp, val, freq);
+            table[index] = new HashNode(comp, val);
             size++;
         }
         else
@@ -150,9 +152,9 @@ public:
                 {
                     if (itr->maps.find(val) == itr->maps.end())
                     {
-                        itr->maps[val] = freq;
+                        itr->maps[val] = 1;
                     } else {
-                        itr->maps[val] += freq;
+                        itr->maps[val] += 1;
                     }
                     break;
                 }
@@ -162,7 +164,7 @@ public:
             }
             if (itr == nullptr)
             {
-                prev->next = new HashNode(comp, val, freq);
+                prev->next = new HashNode(comp, val);
                 size++;
             }
         }
@@ -234,7 +236,7 @@ public:
     {
         int index = hash(comp);
         HashNode* itr = table[index];
-        while (itr != nullptr) 
+        while (itr != nullptr)
         {
             if (itr->comp == comp) 
             {
