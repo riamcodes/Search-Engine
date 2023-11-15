@@ -9,11 +9,14 @@ QueryProcessor::QueryProcessor() // Default Constructor
 
 void QueryProcessor::setIndexHandler(IndexHandler* i) // Sets the Index Handler Object
 {
-
+    indexObject = 1;
 }
 
 std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
 {
+    // CHANGE TO STRING STREAM
+    // BREAK UP QUERY INTO STRING STREAM
+    // PUT INTO A VECTOR INTO FINAL
     size_t start = 0;
     storage.clear();
     for (size_t i = 0; i < answer.size(); i++)
