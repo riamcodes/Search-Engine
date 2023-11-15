@@ -162,3 +162,6 @@ void DocumentParser::traverseSubdirectory(const string& directoryPath){
             //handler.addWords(word, id);
             //handler.addPerson(person, id);
             //handler.addOrgs(org, id);
+
+
+
