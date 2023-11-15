@@ -15,6 +15,7 @@ using namespace rapidjson;
 using namespace std;
 
 void DocumentParser::parseDocument(const string& jsonContent) {
+    string docID;
     ifstream ifs(jsonContent);
     if (!ifs.is_open()) {
         cerr << "Could not open file for reading: " << jsonContent << endl;
@@ -62,6 +63,9 @@ void DocumentParser::parseDocument(const string& jsonContent) {
     //     cout << "    > " << setw(30) << left << p["name"].GetString()
     //          << setw(10) << left << p["sentiment"].GetString() << "\n";
     // }
+if (d.HasMember("uuid") && d["uuid"].IsString()) {
+     docID = d["uuid"].GetString();
+}
 
 
      if (d.HasMember("text") && d["text"].IsString()) {
@@ -77,7 +81,7 @@ void DocumentParser::parseDocument(const string& jsonContent) {
             //processes word from beginning to end and then goes back to the beginning and makes everyting lowercase 
             transform(word.begin(), word.end(), word.begin(), ::tolower); 
             Porter2Stemmer::stem(word);
-
+            cout << docID<< endl; 
             cout << word << endl;  // Print each word on a new line
         }
     } else {

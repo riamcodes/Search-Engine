@@ -1,7 +1,7 @@
 #ifndef DOCUMENT_PARSER_H
 #define DOCUMENT_PARSER_H
 
-#include "IndexHandler.h"
+// #include "IndexHandler.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -12,7 +12,7 @@
 class DocumentParser
 {
 private:
-IndexHandler handler;
+// IndexHandler handler;
 
 
 //Might need to change this but currently declared as a nested map
