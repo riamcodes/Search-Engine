@@ -63,6 +63,8 @@ void DocumentParser::parseDocument(const string& jsonContent) {
     //          << setw(10) << left << p["sentiment"].GetString() << "\n";
     // }
 
+    
+
 
      if (d.HasMember("text") && d["text"].IsString()) {
         //cout << "Text: " << d["text"].GetString() << "\n";
@@ -73,12 +75,18 @@ void DocumentParser::parseDocument(const string& jsonContent) {
         istringstream iss(text);
         string word;
         while (iss >> word) {
+
             // the transform function comes from tha algorithm include
             //processes word from beginning to end and then goes back to the beginning and makes everyting lowercase 
             transform(word.begin(), word.end(), word.begin(), ::tolower); 
             Porter2Stemmer::stem(word);
 
-            cout << word << endl;  // Print each word on a new line
+            //handler.addWords(word, id);
+            //handler.addPerson(person, id);
+            //handler.addOrgs(org, id);
+
+
+            //cout << word << endl;  // Print each word on a new line-
         }
     } else {
         cerr << "The JSON does not contain a 'text' attribute or it is not a string." << endl;
