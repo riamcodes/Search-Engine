@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <math.h>
 #include "IndexHandler.h"
+#include "document.h"
 
 class QueryProcessor
 {
@@ -19,12 +21,12 @@ private:
 
 public:
     QueryProcessor(); 
-    std::vector<document> parsingAnswer(std::string); 
+    std::vector<std::string> parsingAnswer(std::string); 
     void disectAnswer();
     void relevancy(); 
     std::vector<std::pair<document, int>> intersection(std::vector<std::pair<char, int>>, std::vector<std::pair<char, int>>); 
     std::vector<std::pair<document, int>> complement(std::vector<std::pair<char, int>>, std::vector<std::pair<char, int>>); 
-    void relevency(std::vector<document>);
-    void setIndexHandler(IndexHandler *indexObject);
+    void setIndexHandler(IndexHandler* i);
+    std::vector<std::pair<document, int>> Relevency(std::vector<std::pair<document, int>>);
 };
 #endif

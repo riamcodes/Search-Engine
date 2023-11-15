@@ -4,32 +4,22 @@ UserInterface::UserInterface() // default constructor
 {
     numberOfArticles = 0;
     totalNodes = 0;
-    indexObject = nullptr;
 }
 
 UserInterface::~UserInterface() // destructor
 {
-    delete[] indexObject;
 }
 
 UserInterface::UserInterface(const UserInterface &rhs) // copy constructor
 {
     numberOfArticles = 0;
     totalNodes = 0;
-    indexObject = nullptr;
     numberOfArticles = rhs.numberOfArticles;
     totalNodes = rhs.totalNodes;
-    indexObject = rhs.indexObject;
 }
 
 UserInterface &UserInterface::operator=(const UserInterface &rhs) // assignment operator
 {
-    if (this != &rhs)
-    {
-        delete indexObject;
-        indexObject = rhs.indexObject;
-    }
-    return *this;
 }
 
 void UserInterface::initialQuestion()
