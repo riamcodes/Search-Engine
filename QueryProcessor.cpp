@@ -7,11 +7,12 @@ QueryProcessor::QueryProcessor() // Default Constructor
     // totalDocs = 0;
 }
 
-void QueryProcessor::setIndexHandler(IndexHandler *indexObject) // Sets the Index Handler Object
+void QueryProcessor::setIndexHandler(IndexHandler* i) // Sets the Index Handler Object
 {
+    indexObject = i;
 }
 
-std::vector<document> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
+std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
 {
     size_t start = 0;
     storage.clear();
@@ -83,11 +84,10 @@ std::vector<std::pair<document, int>> QueryProcessor::intersection(std::vector<s
     {
         for (int j = 0; j < docs2.size(); j++)
         {
-            if (docs1[i].first == docs2[j].first) // eventually need to add a unique identifier from doc parser
+            if (docs1[i].first.uuid == docs2[j].first.uuid) // eventually need to add a unique identifier from doc parser
             {
                 finalVector.push_back(docs1[i]);
-                int vectorSize = finalVector.size() - 1;
-                finalVector[vectorSize.second += docs2[j].second];
+                finalVector[finalVector.size() - 1].second += docs2[j].second;
                 break;
             }
         }
@@ -105,7 +105,7 @@ std::vector<std::pair<document, int>> QueryProcessor::complement(std::vector<std
         bool found = false;
         for (int j = 0; j < docs2.size(); j++)
         {
-            if (docs1[i].first == docs2[j].first) // eventually need to add a unique identifier from doc parser
+            if (docs1[i].first.uuid == docs2[j].first.uuid) // eventually need to add a unique identifier from doc parser
             {
                 found = true;
                 break;
@@ -119,6 +119,17 @@ std::vector<std::pair<document, int>> QueryProcessor::complement(std::vector<std
     return finalVector;
 }
 
-void QueryProcessor::relevency(std::vector<document> storage) // This finds the relevency of the document
+std::vector<std::pair<document, int>> QueryProcessor::Relevency(std::vector<std::pair<document, int>> finalVector) // This finds the relevency of the document
 {
+    // n = index handler docs.size()
+    // nword = search document size
+    for (int i = 0; i < finalVector.size(); i++)
+    {
+        double tf = (double)(finalVector[i].second / finalVector[i].first.totalWordCount); 
+        double idf = log2((double)(indexObject->getNumDocs() / finalVector.size())); // function from index handler
+        finalVector[i].first.relevancy = tf * idf;
+    }
+    // sort docs by docs[i].first.relevancy
+    // quick sort
+    return finalVector;
 }

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "QueryProcessor.h"
 #include "IndexHandler.h"
+#include "DocumentParser.h"
 
 class UserInterface
 {
