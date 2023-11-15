@@ -9,7 +9,7 @@ QueryProcessor::QueryProcessor() // Default Constructor
 
 void QueryProcessor::setIndexHandler(IndexHandler* i) // Sets the Index Handler Object
 {
-    indexObject = i;
+
 }
 
 std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI

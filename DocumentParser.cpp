@@ -147,6 +147,3 @@ void DocumentParser::traverseSubdirectory(const string& directoryPath){
         closedir(subDir);
     }
 }
-
-
-

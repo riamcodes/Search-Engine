@@ -21,6 +21,10 @@ private:
 
         DSAvlNode(const Comparable &theKey, DSAvlNode *lt, DSAvlNode *rt, int h)
             : key{theKey}, left{lt}, right{rt}, height{h} {}
+        DSAvlNode(const Comparable &theKey, Value v, DSAvlNode *lt, DSAvlNode *rt, int h)
+            : key{theKey}, left{lt}, right{rt}, height{h} {
+                mapVals.emplace(v, 1);
+            }
     };
 
     DSAvlNode *root;
@@ -63,9 +67,9 @@ public:
         makeEmpty(root);
     }
 
-    void insert(const Comparable &x, const Value &v, const int &f) // inserts x into the tree
+    void insert(const Comparable &x, const Value &v) // inserts x into the tree
     {
-        insert(x, v, f, root);
+        insert(x, v, root);
     }
 
     void remove(const Comparable &x) // removes x from the tree
@@ -84,29 +88,28 @@ public:
     }
 
 private:
-    void insert(const Comparable &x, const Value &v, const int &f, DSAvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
+    void insert(const Comparable &x, const Value &v, DSAvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
         {
-            t = new DSAvlNode{x, nullptr, nullptr, 0};
-            t->mapVals[v] = f;
+            t = new DSAvlNode{x, v, nullptr, nullptr, 0};
         }
         else if (x < t->key)
         {
-            insert(x, v, f, t->left);
+            insert(x, v, t->left);
         }
         else if (t->key < x)
         {
-            insert(x, v, f, t->right);
+            insert(x, v, t->right);
         }
         else
         {
             if (t->mapVals.find(v) == t->mapVals.end()) {
-                t->mapVals[v] = f;
+                t->mapVals[v] = 1;
             } else {
-                t->mapVals[v] += f;
+                t->mapVals[v] += 1;
             }
-            return;
+            return;//COME BACK
             // THIS PROCESS SHOULD GO IN INDEX HANDLER
             // tempMap = t->value;
             // if (tempMap.find(v == tempMap.end()))
@@ -338,7 +341,7 @@ private:
     {
 #ifdef DEBUG
         std::cout << "need to rotateWithLeftChild for node " << k2->key << std::endl;
-        std::cout << "Before:" << std::endl;
+        //std::cout << "Before:" << std::endl;
         //prettyPrintTree();
 #endif
 
@@ -349,7 +352,7 @@ private:
         k1->height = max(height(k1->left), k2->height) + 1;
         k2 = k1;
 #ifdef DEBUG
-        std::cout << "After:" << std::endl;
+        //std::cout << "After:" << std::endl;
         //prettyPrintTree();
 #endif
     }
