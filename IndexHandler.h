@@ -2,6 +2,7 @@
 #define INDEX_HANDLER_H
 #include "Hash.h"
 #include "DSAvlTree.h"
+#include <algorithm>
 #include <string>
 #include <vector>
 
