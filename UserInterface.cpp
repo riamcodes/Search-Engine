@@ -72,8 +72,6 @@ void UserInterface::secondQuestion()
     }
 }
 
-// Prints the titles of the 15 most relevant articles
-
 void UserInterface::completePrint() // Prints out the contents of a file
 {
     std::string yesOrNo;
@@ -92,5 +90,7 @@ void UserInterface::completePrint() // Prints out the contents of a file
     else
     {
         std::cout << "Thank you for using our search engine." << std::endl;
+        std::cout << "Here are some of our runtime statistics:" << std::endl;
+        // print out time etc.
     }
 }
