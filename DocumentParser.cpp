@@ -15,7 +15,6 @@ using namespace rapidjson;
 using namespace std;
 
 void DocumentParser::parseDocument(const string& jsonContent) {
-    string docId;
     ifstream ifs(jsonContent);
     if (!ifs.is_open()) {
         cerr << "Could not open file for reading: " << jsonContent << endl;
@@ -63,12 +62,7 @@ void DocumentParser::parseDocument(const string& jsonContent) {
     //     cout << "    > " << setw(30) << left << p["name"].GetString()
     //          << setw(10) << left << p["sentiment"].GetString() << "\n";
     // }
-if(d.HasMember("uuid") && d["uuid"].IsString()){
-    docId = d["uuid"].GetString();
-}
-else {
-    cerr << "The JSON does not contain a uuid attribute";
-}
+
 
      if (d.HasMember("text") && d["text"].IsString()) {
         //cout << "Text: " << d["text"].GetString() << "\n";
@@ -84,9 +78,7 @@ else {
             transform(word.begin(), word.end(), word.begin(), ::tolower); 
             Porter2Stemmer::stem(word);
 
-            cout << docId << endl;
             cout << word << endl;  // Print each word on a new line
-
         }
     } else {
         cerr << "The JSON does not contain a 'text' attribute or it is not a string." << endl;
@@ -155,13 +147,3 @@ void DocumentParser::traverseSubdirectory(const string& directoryPath){
         closedir(subDir);
     }
 }
-
-
-
-
-            //handler.addWords(word, id);
-            //handler.addPerson(person, id);
-            //handler.addOrgs(org, id);
-
-
-
