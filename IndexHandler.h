@@ -4,6 +4,7 @@
 #include "DSAvlTree.h"
 #include <algorithm>
 #include <string>
+#include <map>
 #include <vector>
 
 // This class should contain a lot of setter/getter functions for the avl and hash index
@@ -24,11 +25,11 @@ private:
 DSAvlTree<std::string, std::string> words;
 Hash<std::string, std::string> people;
 Hash<std::string, std::string> orgs;
-std::vector<document> docs;
+//std::vector<document> docs;
 public:
-std::vector<std::pair<document, int>> getWords(std::string);
-std::vector<std::pair<document, int>> getPeople(std::string);
-std::vector<std::pair<document, int>> getOrgs(std::string);
+std::map<std::string, int> getWords(std::string);
+std::map<std::string, int> getPeople(std::string);
+std::map<std::string, int> getOrgs(std::string);
 void addWords(std::string, std::string);
 void addPeople(std::string, std::string);
 void addOrgs(std::string, std::string);
