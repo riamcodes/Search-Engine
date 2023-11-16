@@ -14,7 +14,6 @@ private:
     {
         Comparable comp;
         std::map<Value, int> maps;
-        // std::vector<Value> val;
         HashNode *next;
         HashNode(Comparable c, Value v)
         {

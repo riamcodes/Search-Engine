@@ -14,9 +14,6 @@ void QueryProcessor::setIndexHandler(IndexHandler *i) // Sets the Index Handler 
 
 void QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
 {
-    // CHANGE TO STRING STREAM
-    // BREAK UP QUERY INTO STRING STREAM
-    // PUT INTO A VECTOR INTO FINAL
     size_t start = 0;
     storage.clear();
     std::string temp;
