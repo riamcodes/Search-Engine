@@ -22,18 +22,18 @@ class IndexHandler
 private:
 //int tf
 //int idf
-DSAvlTree<std::string, std::string> words;
-Hash<std::string, std::string> people;
-Hash<std::string, std::string> orgs;
-//std::vector<document> docs;
+DSAvlTree<std::string, int> words;
+Hash<std::string, int> people;
+Hash<std::string, int> orgs;
+std::vector<document> docs;
 public:
-std::map<std::string, int> getWords(std::string);
-std::map<std::string, int> getPeople(std::string);
-std::map<std::string, int> getOrgs(std::string);
-void addWords(std::string, std::string);
-void addPeople(std::string, std::string);
-void addOrgs(std::string, std::string);
-//void addDocument(document);
+std::vector<std::pair<document, int>> getWords(std::string);
+std::vector<std::pair<document, int>> getPeople(std::string);
+std::vector<std::pair<document, int>> getOrgs(std::string);
+void addWords(std::string, int);
+void addPeople(std::string, int);
+void addOrgs(std::string, int);
+void addDocument(document);
 void createPersistence(std::string);
 void readPersistence(std::string);
 };
