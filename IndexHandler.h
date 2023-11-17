@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "rapidjson/document.h"
+#include "document.h"
 #include <algorithm>
 
 // This class should contain a lot of setter/getter functions for the avl and hash index
@@ -27,15 +27,15 @@ private:
 DSAvlTree<std::string, int> words;
 Hash<std::string, int> people;
 Hash<std::string, int> orgs;
-std::map<int, rapidjson::Document> docs;
+std::map<int, document> docs;
 public:
-std::vector<std::pair<rapidjson::Document, int>> getWords(std::string);
-std::vector<std::pair<rapidjson::Document, int>> getPeople(std::string);
-std::vector<std::pair<rapidjson::Document, int>> getOrgs(std::string);
+std::vector<std::pair<document, int>> getWords(std::string);
+std::vector<std::pair<document, int>> getPeople(std::string);
+std::vector<std::pair<document, int>> getOrgs(std::string);
 void addWords(std::string, int);
 void addPeople(std::string, int);
 void addOrgs(std::string, int);
-void addDocument(int, rapidjson::Document);
+void addDocument(int, document);
 void createPersistence(std::string);
 void readPersistence(std::string);
 };
