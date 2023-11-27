@@ -68,7 +68,7 @@ void UserInterface::secondQuestion()
             std::cin >> answerOrganization;
             std::cin >> answerId;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            indexObject.addOrganization(answerOrganization, answerId);
+            indexObject.addOrgs(answerOrganization, answerId);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> elapsedTrain = finishTrain - startTrain;
         }
@@ -80,7 +80,7 @@ void UserInterface::secondQuestion()
             std::cin >> answerWord;
             std::cin >> answerId;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            indexObject.addWord(answerWord, answerId);
+            indexObject.addWords(answerWord, answerId);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> elapsedTrain = finishTrain - startTrain;
         }

@@ -36,7 +36,8 @@ void addWords(std::string, int);
 void addPeople(std::string, int);
 void addOrgs(std::string, int);
 void addDocument(int, DSDocument);
-void createPersistence(std::string);
+int getDocSize();
+void createPersistence(std::string, std::string);
 void readPersistence(std::string);
 };
 #endif

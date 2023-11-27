@@ -45,9 +45,27 @@ void IndexHandler::addOrgs(std::string org, int id){
 void IndexHandler::addDocument(int id, DSDocument doc){
     docs[id] = doc;
 }
-void IndexHandler::createPersistence(std::string filename){
-    //talking to lab today
+int IndexHandler::getDocSize(){
+    return docs.size();
 }
-void IndexHandler::readPersistence(std::string){
+void IndexHandler::createPersistence(std::string filename, std::string tree){
+    std::ofstream output(filename);
+    if(!output.is_open()){
+        std::cerr << "Error! File could not be opened!" << std::endl;
+        exit(-1);
+    }
+    if(tree == "words"){
+        words.printTree(output);
+    }
+    else if(tree == "people"){
+        people.printHash(output);
+    }
+    else if(tree == "orgs"){
+        orgs.printHash(output);
+    }
+
+    output.close();
+}
+void IndexHandler::readPersistence(std::string filename){
     
 }
