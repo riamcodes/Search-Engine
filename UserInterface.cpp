@@ -39,6 +39,7 @@ void UserInterface::initialQuestion()
         }
     }
 }
+
 void UserInterface::secondQuestion()
 {
     QueryProcessor queryObject;
