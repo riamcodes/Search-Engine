@@ -17,18 +17,34 @@ using namespace rapidjson;
 using namespace std;
 
 //list of stopwords found from https://gist.github.com/sebleier/554280 NLTK list of english stopwords
-set<string> stopWords = { "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your",
-    "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her",
-    "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs",
-    "themselves", "what", "which", "who", "whom", "this", "that", "these", "those",
-    "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had",
-    "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or",
-    "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against",
-    "between", "into", "through", "during", "before", "after", "above", "below", "to", "from",
-    "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once",
-    "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more",
-    "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too",
-    "very", "s", "t", "can", "will", "just", "don", "should", "now"};
+// set<string> stopWords = { "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your",
+//     "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her",
+//     "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs",
+//     "themselves", "what", "which", "who", "whom", "this", "that", "these", "those",
+//     "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had",
+//     "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or",
+//     "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against",
+//     "between", "into", "through", "during", "before", "after", "above", "below", "to", "from",
+//     "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once",
+//     "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more",
+//     "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too",
+//     "very", "s", "t", "can", "will", "just", "don", "should", "now"};
+
+DocumentParser::DocumentParser(){
+    char filename[] = "stopWords.txt"; // go two back in the directory and get stopwords out of the assignment folder
+    char buffer[1000];                      // declare buffer
+    ifstream input(filename);               // declare ifstream and open stopwords file
+    if (!input.is_open())                   // make sure it is open
+    {
+        cerr << "Opening the stopwords file failed!";
+        exit(1);
+    }
+    while (input.getline(buffer, 1000, ',')) // while there are more comma separated values
+    {
+        stopwords.push_back(buffer); // push back the values to stopwords vector
+    }
+    input.close();
+}
 
 void DocumentParser::parseDocument(const string& jsonContent) {
     IndexHandler index;
