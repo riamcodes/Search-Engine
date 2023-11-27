@@ -30,7 +30,7 @@ using namespace std;
 //     "very", "s", "t", "can", "will", "just", "don", "should", "now"};
 
 DocumentParser::DocumentParser(){
-    string filename = "stopWords.txt"; // go two back in the directory and get stopwords out of the assignment folder
+    string filename = "sample_data/stopWords.txt"; // go two back in the directory and get stopwords out of the assignment folder
     string temp;
     ifstream input(filename);               // declare ifstream and open stopwords file
     if (!input.is_open())                   // make sure it is open
