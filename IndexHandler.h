@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "document.h"
+#include "DSDocument.h"
 #include <algorithm>
 
 // This class should contain a lot of setter/getter functions for the avl and hash index
