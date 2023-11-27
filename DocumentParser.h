@@ -13,6 +13,7 @@ class DocumentParser
 {
 private:
 // IndexHandler handler;
+vector<std::string> stopwords;
 
 
 //Might need to change this but currently declared as a nested map
@@ -38,6 +39,7 @@ public:
 // told to include a setter function as well
 
 //
+DocumentParser();
 void parseDocument(const std::string& jsonContent);
 //void parse
 
