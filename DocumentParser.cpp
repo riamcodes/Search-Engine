@@ -57,7 +57,7 @@ void DocumentParser::parseDocument(const string& jsonContent) {
    
 if (d.HasMember("uuid") && d["uuid"].IsString()) {
      docID = d["uuid"].GetString();
-  //   index.addDocument(int, document); ask anekah how this works 
+  //   index.addDocument(int, DSDocument); ask anekah how this works 
 }
 
 if (d.HasMember("persons") && d["persons"].IsString()) {
@@ -66,7 +66,7 @@ if (d.HasMember("persons") && d["persons"].IsString()) {
 }
 if (d.HasMember("organizations") && d["organizations"].IsString()) {
      org = d["organizations"].GetString();
-  //   void addOrgs(int, document); ask anekah how this works WARNING THIS IS USUALLY BLANK
+  //   void addOrgs(int, DSDocument); ask anekah how this works WARNING THIS IS USUALLY BLANK
 }
 
 

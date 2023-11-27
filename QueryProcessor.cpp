@@ -30,19 +30,19 @@ void QueryProcessor::disectAnswer() // This function disects the parsed answer
         if (storage[i].length() > 4 && storage[i].substr(0, 4) == "ORG:")
         {
             std::string term = storage[i].substr(4, storage[i].length() - 4);
-            std::vector<std::pair<document, int>> docs = indexObject->getOrgs(term);
+            std::vector<std::pair<DSDocument, int>> docs = indexObject->getOrgs(term);
             relevantDocuments = intersection(relevantDocuments, docs);
         }
         else if (storage[i].length() > 7 && storage[i].substr(0, 7) == "PERSON:")
         {
             std::string term = storage[i].substr(7, storage[i].length() - 7);
-            std::vector<std::pair<document, int>> docs = indexObject->getPeople(term);
+            std::vector<std::pair<DSDocument, int>> docs = indexObject->getPeople(term);
             relevantDocuments = intersection(relevantDocuments, docs);
         }
         else if (storage[i].substr(0, 1) == "-")
         {
             std::string term = storage[i].substr(1, storage[i].length() - 1);
-            std::vector<std::pair<document, int>> docs = indexObject->getWords(term);
+            std::vector<std::pair<DSDocument, int>> docs = indexObject->getWords(term);
             relevantDocuments = complement(relevantDocuments, docs);
         }
         else
@@ -54,18 +54,18 @@ void QueryProcessor::disectAnswer() // This function disects the parsed answer
             }
             else
             {
-                std::vector<std::pair<document, int>> docs = indexObject->getWords(term);
+                std::vector<std::pair<DSDocument, int>> docs = indexObject->getWords(term);
                 relevantDocuments = intersection(relevantDocuments, docs);
             }
         }
     }
 }
 
-std::vector<std::pair<document, int>> QueryProcessor::intersection(std::vector<std::pair<document, int>> relevantDocuments, std::vector<std::pair<document, int>> docs) // documents in "A" and "B"
+std::vector<std::pair<DSDocument, int>> QueryProcessor::intersection(std::vector<std::pair<DSDocument, int>> relevantDocuments, std::vector<std::pair<DSDocument, int>> docs) // documents in "A" and "B"
 {
-    std::vector<std::pair<document, int>> docs1;
-    std::vector<std::pair<document, int>> docs2;
-    std::vector<std::pair<document, int>> finalVector;
+    std::vector<std::pair<DSDocument, int>> docs1;
+    std::vector<std::pair<DSDocument, int>> docs2;
+    std::vector<std::pair<DSDocument, int>> finalVector;
     for (int i = 0; i < docs1.size(); i++)
     {
         for (int j = 0; j < docs2.size(); j++)
@@ -81,11 +81,11 @@ std::vector<std::pair<document, int>> QueryProcessor::intersection(std::vector<s
     return finalVector;
 }
 
-std::vector<std::pair<document, int>> QueryProcessor::complement(std::vector<std::pair<document, int>> relevantDocuments, std::vector<std::pair<document, int>> docs) // documents in "A" and not "B"
+std::vector<std::pair<DSDocument, int>> QueryProcessor::complement(std::vector<std::pair<DSDocument, int>> relevantDocuments, std::vector<std::pair<DSDocument, int>> docs) // documents in "A" and not "B"
 {
-    std::vector<std::pair<document, int>> docs1;
-    std::vector<std::pair<document, int>> docs2;
-    std::vector<std::pair<document, int>> finalVector;
+    std::vector<std::pair<DSDocument, int>> docs1;
+    std::vector<std::pair<DSDocument, int>> docs2;
+    std::vector<std::pair<DSDocument, int>> finalVector;
     for (int i = 0; i < docs1.size(); i++)
     {
         bool found = false;
@@ -105,10 +105,10 @@ std::vector<std::pair<document, int>> QueryProcessor::complement(std::vector<std
     return finalVector;
 }
 
-std::vector<std::pair<document, int>> QueryProcessor::Relevency(std::vector<std::pair<document, int>> finalVector) // This finds the relevency of the document
+std::vector<std::pair<DSDocument, int>> QueryProcessor::Relevency(std::vector<std::pair<DSDocument, int>> finalVector) // This finds the relevency of the document
 {
-    // n = index handler docs.size()
-    // nword = search document size
+    int n = indexObject->docs.size();
+    // int nword = search document size
     for (int i = 0; i < finalVector.size(); i++)
     {
         double tf = (double)(finalVector[i].second / finalVector[i].first.totalWordCount);
@@ -117,10 +117,21 @@ std::vector<std::pair<document, int>> QueryProcessor::Relevency(std::vector<std:
     }
     int size = finalVector.size();
     quickSort(finalVector, 0, size);
-    return finalVector;
+    if (finalVector.size() <= 15) 
+    {
+        printVector = finalVector;
+    }
+    else 
+    {
+        for (int i = 0; i <= 15; i++)
+        {
+            printVector.push_back(finalVector[i]);
+        }
+    }
+    return printVector;
 }
 
-void QueryProcessor::quickSort(std::vector<std::pair<document, int>> &vec, int low, int high)
+void QueryProcessor::quickSort(std::vector<std::pair<DSDocument, int>> &vec, int low, int high)
 {
     if (low < high)
     {
@@ -130,7 +141,7 @@ void QueryProcessor::quickSort(std::vector<std::pair<document, int>> &vec, int l
     }
 }
 
-int QueryProcessor::partition(std::vector<std::pair<document, int>> vec, int low, int high)
+int QueryProcessor::partition(std::vector<std::pair<DSDocument, int>> vec, int low, int high)
 {
     double pivot = vec[high].first.relevancy;
     int i = (low - 1);

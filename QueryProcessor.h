@@ -7,7 +7,7 @@
 #include <math.h>
 #include <sstream>
 #include "IndexHandler.h"
-#include "document.h"
+#include "DSDocument.h"
 
 class QueryProcessor
 {
@@ -17,7 +17,8 @@ private:
     // int idf; // idf = log2(n/nWord)
     // tf - idf = (tf)(idf)
     std::vector<std::string> storage;
-    std::vector<std::pair<document, int>> relevantDocuments; 
+    std::vector<std::pair<DSDocument, int>> relevantDocuments; 
+    std::vector<std::pair<DSDocument, int>> printVector;
     IndexHandler *indexObject;
 
 public:
@@ -25,11 +26,11 @@ public:
     void parsingAnswer(std::string); 
     void disectAnswer();
     void relevancy(); 
-    std::vector<std::pair<document, int>> intersection(std::vector<std::pair<document, int>>, std::vector<std::pair<document, int>>); 
-    std::vector<std::pair<document, int>> complement(std::vector<std::pair<document, int>>, std::vector<std::pair<document, int>>); 
+    std::vector<std::pair<DSDocument, int>> intersection(std::vector<std::pair<DSDocument, int>>, std::vector<std::pair<DSDocument, int>>); 
+    std::vector<std::pair<DSDocument, int>> complement(std::vector<std::pair<DSDocument, int>>, std::vector<std::pair<DSDocument, int>>); 
     void setIndexHandler(IndexHandler* i);
-    std::vector<std::pair<document, int>> Relevency(std::vector<std::pair<document, int>>);
-    void quickSort(std::vector<std::pair<document, int>>&, int, int);
-    int partition(std::vector<std::pair<document, int>>, int, int);
+    std::vector<std::pair<DSDocument, int>> Relevency(std::vector<std::pair<DSDocument, int>>);
+    void quickSort(std::vector<std::pair<DSDocument, int>>&, int, int);
+    int partition(std::vector<std::pair<DSDocument, int>>, int, int);
 };
 #endif
