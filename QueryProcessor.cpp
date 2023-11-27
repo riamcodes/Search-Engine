@@ -105,7 +105,7 @@ std::vector<std::pair<DSDocument, int>> QueryProcessor::complement(std::vector<s
     return finalVector;
 }
 
-std::vector<std::pair<DSDocument, int>> QueryProcessor::Relevency(std::vector<std::pair<DSDocument, int>> finalVector) // This finds the relevency of the document
+std::vector<DSDocument> QueryProcessor::Relevency(std::vector<std::pair<DSDocument, int>> finalVector) // This finds the relevency of the document
 {
     int n = indexObject->docs.size();
     // int nword = search document size
@@ -119,13 +119,16 @@ std::vector<std::pair<DSDocument, int>> QueryProcessor::Relevency(std::vector<st
     quickSort(finalVector, 0, size);
     if (finalVector.size() <= 15) 
     {
-        printVector = finalVector;
+        for (int j = 0; j <= finalVector.size(); j++)
+        {
+            printVector.push_back(finalVector[j].first);
+        }
     }
     else 
     {
         for (int i = 0; i <= 15; i++)
         {
-            printVector.push_back(finalVector[i]);
+            printVector.push_back(finalVector[i].first);
         }
     }
     return printVector;
