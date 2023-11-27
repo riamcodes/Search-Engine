@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <set>
 #include "rapidjson/istreamwrapper.h"
 #include "rapidjson/document.h"
 
@@ -13,7 +14,7 @@ class DocumentParser
 {
 private:
 // IndexHandler handler;
-vector<std::string> stopwords;
+std::set<std::string> stopwords;
 
 
 //Might need to change this but currently declared as a nested map

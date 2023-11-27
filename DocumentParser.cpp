@@ -10,7 +10,6 @@
 #include <dirent.h>
 #include <algorithm>
 #include "IndexHandler.h"
-#include <set>
 #include "porter2_stemmer.h" // Include the Porter Stemmer header
 //str tok in the remove  or use the existing sentiment analyzer
 using namespace rapidjson;
@@ -31,17 +30,17 @@ using namespace std;
 //     "very", "s", "t", "can", "will", "just", "don", "should", "now"};
 
 DocumentParser::DocumentParser(){
-    char filename[] = "stopWords.txt"; // go two back in the directory and get stopwords out of the assignment folder
-    char buffer[1000];                      // declare buffer
+    string filename = "stopWords.txt"; // go two back in the directory and get stopwords out of the assignment folder
+    string temp;
     ifstream input(filename);               // declare ifstream and open stopwords file
     if (!input.is_open())                   // make sure it is open
     {
         cerr << "Opening the stopwords file failed!";
         exit(1);
     }
-    while (input.getline(buffer, 1000, ',')) // while there are more comma separated values
+    while(getline(cin, temp)) // while there are more comma separated values
     {
-        stopwords.push_back(buffer); // push back the values to stopwords vector
+        stopwords.insert(temp); // push back the values to stopwords vector
     }
     input.close();
 }
@@ -100,7 +99,7 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
             transform(word.begin(), word.end(), word.begin(), ::tolower); 
             Porter2Stemmer::stem(word);
             //cout << docID<< endl; 
-             if (stopWords.find(word) == stopWords.end()) {
+             if (stopwords.find(word) == stopwords.end()) {
             cout << word << endl;  // Print each word on a new line
             wordCount++;
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
