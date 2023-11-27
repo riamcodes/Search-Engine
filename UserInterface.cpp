@@ -127,6 +127,7 @@ void UserInterface::secondQuestion()
         auto finishTrain = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsedTrain = finishTrain - startTrain;
     }
+//lol
     std::cout << "Thank you for using our search engine." << std::endl;
     std::cout << "Here are some of our runtime statistics:" << std::endl;
     std::cout << "Runtime: " << elapsedTrain.count() << " seconds." << std::endl;
