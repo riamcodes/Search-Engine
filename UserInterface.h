@@ -1,6 +1,8 @@
 #ifndef USER_INTERFACE_H
 #define USER_INTERFACE_H
 #include <iostream>
+#include <cstdio>
+#include <chrono>
 #include "QueryProcessor.h"
 #include "IndexHandler.h"
 #include "DocumentParser.h"
@@ -22,6 +24,5 @@ public:
     UserInterface &operator=(const UserInterface &rhs); // Assignment Operator
     void initialQuestion(); // Asks the initial question
     void secondQuestion(); // Asks the second question
-    void completePrint(); // Asks the final printing question
 };
 #endif

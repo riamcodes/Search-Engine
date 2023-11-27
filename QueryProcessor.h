@@ -18,7 +18,7 @@ private:
     // tf - idf = (tf)(idf)
     std::vector<std::string> storage;
     std::vector<std::pair<DSDocument, int>> relevantDocuments; 
-    std::vector<std::pair<DSDocument, int>> printVector;
+    std::vector<DSDocument> printVector;
     IndexHandler *indexObject;
 
 public:
@@ -29,7 +29,7 @@ public:
     std::vector<std::pair<DSDocument, int>> intersection(std::vector<std::pair<DSDocument, int>>, std::vector<std::pair<DSDocument, int>>); 
     std::vector<std::pair<DSDocument, int>> complement(std::vector<std::pair<DSDocument, int>>, std::vector<std::pair<DSDocument, int>>); 
     void setIndexHandler(IndexHandler* i);
-    std::vector<std::pair<DSDocument, int>> Relevency(std::vector<std::pair<DSDocument, int>>);
+    std::vector<DSDocument> Relevency(std::vector<std::pair<DSDocument, int>>);
     void quickSort(std::vector<std::pair<DSDocument, int>>&, int, int);
     int partition(std::vector<std::pair<DSDocument, int>>, int, int);
 };

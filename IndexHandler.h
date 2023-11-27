@@ -27,7 +27,7 @@ private:
 DSAvlTree<std::string, int> words;
 Hash<std::string, int> people;
 Hash<std::string, int> orgs;
-std::map<int, DSDocument> docs;
+std::vector<DSDocument> docs;
 public:
 std::vector<std::pair<DSDocument, int>> getWords(std::string);
 std::vector<std::pair<DSDocument, int>> getPeople(std::string);
