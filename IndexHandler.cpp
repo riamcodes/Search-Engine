@@ -17,7 +17,7 @@ void IndexHandler::addPeople(std::string person, std::string id){
 void IndexHandler::addOrgs(std::string org, std::string id){
     orgs.insert(org, id);
 }
-void IndexHandler::addDocument(int id){
+void IndexHandler::addDocument(std::string id){
     docs.push_back(id);
 }
 int IndexHandler::getDocSize(){
