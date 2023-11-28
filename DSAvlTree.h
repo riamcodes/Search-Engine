@@ -77,6 +77,10 @@ public:
         remove(x, root);
     }
 
+    int getSize(){
+        return size;
+    }
+
     // void prettyPrintTree() const // prints the tree
     // {
     //     prettyPrintTree("", root, false);
@@ -123,7 +127,7 @@ private:
             // t->value = tempMap;
             // delete tempMap;
         }
-        size += 1;
+        size++;
         balance(t);
     }
 
@@ -174,7 +178,7 @@ private:
             }
         }
         t->height = std::max(height(t->left), height(t->right)) + 1;
-        size -= 1;
+        size--;
         balance(t);
     }
 

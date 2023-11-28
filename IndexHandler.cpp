@@ -1,5 +1,5 @@
 #include "IndexHandler.h"
-
+//freq of words
 std::vector<std::pair<DSDocument, int>> IndexHandler::getWords(std::string word){
     std::map<int, int> idAndFreq;
     std::map<DSDocument, int> temp;
@@ -102,4 +102,33 @@ void IndexHandler::readPersistence(std::string filename, std::string tree){
             orgs.insert(key, stoi(val1));
         }
     }
+}
+
+int IndexHandler::returnNumArticles(std::string index, std::string tree){
+    std::map<int, int> temp;
+    if(tree == "words"){
+        temp = words.contains(index);
+        return temp.size();
+    }
+    else if(tree == "orgs"){
+        temp = orgs.find(index);
+        return temp.size();
+    }
+    else if(tree == "people"){
+        temp = people.find(index);
+        return temp.size();
+    }
+    return -1;
+}
+int IndexHandler::returnSize(std::string tree){
+    if(tree == "words"){
+        return words.getSize();
+    }
+    else if(tree == "orgs"){
+        return orgs.getSize();
+    }
+    else if(tree == "people"){
+        return people.getSize();
+    }
+    return -1;
 }
