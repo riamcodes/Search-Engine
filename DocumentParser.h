@@ -1,20 +1,15 @@
 #ifndef DOCUMENT_PARSER_H
 #define DOCUMENT_PARSER_H
-
 // #include "IndexHandler.h"
 #include <string>
 #include <vector>
 #include <map>
-#include <set>
 #include "rapidjson/istreamwrapper.h"
 #include "rapidjson/document.h"
-
-
 class DocumentParser
 {
 private:
 // IndexHandler handler;
-std::set<std::string> stopwords;
 
 
 //Might need to change this but currently declared as a nested map
@@ -23,7 +18,6 @@ std::set<std::string> stopwords;
 // The vector of ints should represent the location of where the matching words are in the specific document. If the word apple is mentioned in the first 5th and 7th word it would store a vector of {1,5,7}
 ///brief param return 
 //std::map<std::string, std::map<int, std::vector<int>>> index;
-
 // recommended variable to keep track of, will be calculated in query processor
 // count of word in doc // possibly store
 //int nWordDoc;
@@ -40,7 +34,6 @@ public:
 // told to include a setter function as well
 
 //
-DocumentParser();
 void parseDocument(const std::string& jsonContent);
 //void parse
 
