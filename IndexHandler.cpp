@@ -43,9 +43,10 @@ void IndexHandler::createPersistence(std::string filename, std::string tree){
 void IndexHandler::readPersistence(std::string filename, std::string tree){
     std::ifstream input(filename);
     std::string temp;
-    std::string key;
-    std::string val1;
-    std::string val2;
+    std::string node;
+    std::string id;
+    std::string freq;
+    std::map<std::string, int> temporary;
     if(!input.is_open()){
         std::cerr << "Error! File could not be opened!" << std::endl;
         exit(-1);
@@ -54,28 +55,30 @@ void IndexHandler::readPersistence(std::string filename, std::string tree){
         int index = 0;
         for(int i = 0; i < temp.length(); i++){
             if(temp[i] == ':'){
-                key = temp.substr(index, i-1);
+                node = temp.substr(index, i-1);
                 index = i+1;
             }
             else if(temp[i] == ','){
-                val1 = temp.substr(index, i-1);
+                id = temp.substr(index, i-1);
                 index = i+1;
             }
             else if(temp[i] == ';'){
-                val2 = temp.substr(index, i-1);
+                freq = temp.substr(index, i-1);
                 index = i+1;
+                temporary[id] = stoi(freq);
             }
         }
         if(tree == "words"){
-            words.insert(key, val1);
+            words.insert(node, id);
         }
         if(tree == "people"){
-            people.insert(key, val1);
+            people.insert(node, id);
         }
         if(tree == "orgs"){
-            orgs.insert(key, val1);
+            orgs.insert(node, id);
         }
     }
+    input.close();
 }
 
 int IndexHandler::returnNumArticles(std::string index, std::string tree){
