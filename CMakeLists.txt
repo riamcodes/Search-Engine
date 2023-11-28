@@ -68,7 +68,7 @@ include(CTest)
 add_executable(test_DSAvlTree test_DSAvlTree.cpp)
 add_test(NAME TestAvlTree COMMAND test_DSAvlTree)
 
-add_executable(test_IndexHandler test_IndexHandler.cpp)
+add_executable(test_IndexHandler test_IndexHandler.cpp IndexHandler.cpp DocumentParser.cpp)
 add_test(NAME TestIndexHandler COMMAND test_IndexHandler)
 
 add_executable(test_DSHash test_DSHash.cpp)
