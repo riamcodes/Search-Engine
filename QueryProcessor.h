@@ -7,7 +7,6 @@
 #include <math.h>
 #include <sstream>
 #include "IndexHandler.h"
-#include "DSDocument.h"
 
 class QueryProcessor
 {

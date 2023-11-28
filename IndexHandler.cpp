@@ -55,7 +55,6 @@ void IndexHandler::readPersistence(std::string tree){
     std::string node;
     std::string id;
     std::string freq;
-    std::map<std::string, int> temporary;
     if(!input.is_open()){
         std::cerr << "Error! File could not be opened!" << std::endl;
         exit(-1);
@@ -74,17 +73,16 @@ void IndexHandler::readPersistence(std::string tree){
             else if(temp[i] == ';'){
                 freq = temp.substr(index, i-1);
                 index = i+1;
-                temporary[id] = stoi(freq);
             }
         }
         if(tree == "words"){
-            words.insert(node, id);
+            words.insert(node, id, stoi(freq));
         }
         if(tree == "people"){
-            people.insert(node, id);
+            people.insert(node, id, stoi(freq));
         }
         if(tree == "orgs"){
-            orgs.insert(node, id);
+            orgs.insert(node, id, stoi(freq));
         }
     }
     input.close();
