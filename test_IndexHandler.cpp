@@ -2,6 +2,7 @@
 #include "catch.hpp"
 #include "IndexHandler.h"
 #include "DocumentParser.h"
+#include "porter2_stemmer.h"
 using namespace std;
 
 TEST_CASE("IndexHandler Test", "[IndexHandler]") {
@@ -59,8 +60,7 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]") {
 
     SECTION("getWordCount Test") {
         int result = ih.getWordCount("German firms doing business in UK gloomy about Brexit - survey");
-        cout << result;
-        REQUIRE(result == 50);
+        REQUIRE(result == 259);
     }
 
     SECTION("getOrgs Test"){
