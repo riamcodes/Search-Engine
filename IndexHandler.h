@@ -27,7 +27,7 @@ private:
 DSAvlTree<std::string, std::string> words;
 Hash<std::string, std::string> people;
 Hash<std::string, std::string> orgs;
-std::vector<int> docs;
+std::vector<std::string> docs;
 public:
 std::map<std::string, int> getWords(std::string);
 std::map<std::string, int> getPeople(std::string);
@@ -35,7 +35,7 @@ std::map<std::string, int> getOrgs(std::string);
 void addWords(std::string, std::string);
 void addPeople(std::string, std::string);
 void addOrgs(std::string, std::string);
-void addDocument(int);
+void addDocument(std::string);
 int getDocSize();
 void createPersistence(std::string, std::string);
 void readPersistence(std::string, std::string);
