@@ -28,7 +28,7 @@ add_test(NAME TestHash COMMAND test_DSHash)
 
 #add a testDocumentParser
 include(CTest)
-add_executable(testDocumentParser testDocumentParser.cpp DocumentParser.cpp porter2_stemmer.cpp)
+add_executable(testDocumentParser testDocumentParser.cpp DocumentParser.cpp porter2_stemmer.cpp IndexHandler.cpp)
 add_test(NAME testDocumentParser COMMAND testDocumentParser)
 
 

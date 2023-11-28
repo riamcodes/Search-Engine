@@ -110,15 +110,16 @@ void DocumentParser::parseDocument(const string& jsonContent) {
    
 if (d.HasMember("uuid") && d["uuid"].IsString()) {
      docID = d["uuid"].GetString();
-   // ih.addDocument(docID);
+   ih.addDocument(docID);
 }
 if (d.HasMember("persons") && d["persons"].IsString()) {
      docPersons = d["persons"].GetString();
-  //   index.addPeople(std::string, int) ask anekah how this works 
+    ih.addPeople(docPersons,docID);
 }
 if (d.HasMember("organizations") && d["organizations"].IsString()) {
      org = d["organizations"].GetString();
   //   void addOrgs(int, DSDocument); ask anekah how this works WARNING THIS IS USUALLY BLANK
+   ih.addOrgs(org,docID);
 }
      if (d.HasMember("text") && d["text"].IsString()) {
         //cout << "Text: " << d["text"].GetString() << "\n";
@@ -135,6 +136,7 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
             cout << word << endl;  // Print each word on a new line
+             ih.addWords(word,docID);
             wordCount++;
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
              }
