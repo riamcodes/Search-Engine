@@ -7,6 +7,7 @@ using namespace std;
 #include "UserInterface.h"
 #include "DocumentParser.h"
 #include "DSAvlTree.h"
+#include "SearchEngine.h"
 //persistence 
 //make sure ui options adequate 
 //fix segFault in Doc parser ih->addDocument
