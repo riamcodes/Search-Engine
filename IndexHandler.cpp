@@ -1,20 +1,20 @@
 #include "IndexHandler.h"
-std::map<int, int> IndexHandler::getWords(std::string word){
+std::map<std::string, int> IndexHandler::getWords(std::string word){
     return words.contains(word);
 }
-std::map<int, int> IndexHandler::getPeople(std::string person){
+std::map<std::string, int> IndexHandler::getPeople(std::string person){
     return people.find(person);
 }
-std::map<int, int> IndexHandler::getOrgs(std::string org){
+std::map<std::string, int> IndexHandler::getOrgs(std::string org){
     return orgs.find(org);
 }
-void IndexHandler::addWords(std::string word, int id){
+void IndexHandler::addWords(std::string word, std::string id){
     words.insert(word, id);
 }
-void IndexHandler::addPeople(std::string person, int id){
+void IndexHandler::addPeople(std::string person, std::string id){
     people.insert(person, id);
 }
-void IndexHandler::addOrgs(std::string org, int id){
+void IndexHandler::addOrgs(std::string org, std::string id){
     orgs.insert(org, id);
 }
 void IndexHandler::addDocument(int id){
@@ -38,7 +38,6 @@ void IndexHandler::createPersistence(std::string filename, std::string tree){
     else if(tree == "orgs"){
         orgs.printHash(output);
     }
-
     output.close();
 }
 void IndexHandler::readPersistence(std::string filename, std::string tree){
@@ -68,19 +67,19 @@ void IndexHandler::readPersistence(std::string filename, std::string tree){
             }
         }
         if(tree == "words"){
-            words.insert(key, stoi(val1));
+            words.insert(key, val1);
         }
         if(tree == "people"){
-            people.insert(key, stoi(val1));
+            people.insert(key, val1);
         }
         if(tree == "orgs"){
-            orgs.insert(key, stoi(val1));
+            orgs.insert(key, val1);
         }
     }
 }
 
 int IndexHandler::returnNumArticles(std::string index, std::string tree){
-    std::map<int, int> temp;
+    std::map<std::string, int> temp;
     if(tree == "words"){
         temp = words.contains(index);
         return temp.size();
