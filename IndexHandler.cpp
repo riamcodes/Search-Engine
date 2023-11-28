@@ -43,41 +43,66 @@ int IndexHandler::getDocSize()
 {
     return docs.size();
 }
-void IndexHandler::createPersistence(std::string tree)
+void IndexHandler::createPersistence()
 {
-    if (tree == "words")
-    {
-        std::ofstream output("words.txt");
-        if (!output.is_open())
-        {
-            std::cerr << "Error! File could not be opened!" << std::endl;
-            exit(-1);
-        }
-        words.printTree(output);
-        output.close();
+    std::ofstream output("persistence.txt");
+    if(!output.is_open()){
+        std::cerr << "Error! File could not be opened!" << std::endl;
+        exit(-1);
     }
-    else if (tree == "people")
-    {
-        std::ofstream output("people.txt");
-        if (!output.is_open())
-        {
-            std::cerr << "Error! File could not be opened!" << std::endl;
-            exit(-1);
+
+    output << "WORDS" << std::endl;
+    words.printTree(output);
+    
+    output << "PEOPLE" << std::endl;
+    people.printHash(output);
+
+    output << "ORGS" << std::endl;
+    orgs.printHash(output);
+
+    output << "DOCUMENTS" << std::endl;
+        for(const auto itr : docs){
+            output << itr.first << "," << itr.second;
         }
-        people.printHash(output);
-        output.close();
+    
+    output << "WORDCOUNTS" << std::endl;
+    for(const auto itr : wordCount){
+        output << itr.first << "," << itr.second;
     }
-    else if (tree == "orgs")
-    {
-        std::ofstream output("orgs.txt");
-        if (!output.is_open())
-        {
-            std::cerr << "Error! File could not be opened!" << std::endl;
-            exit(-1);
-        }
-        orgs.printHash(output);
-        output.close();
-    }
+
+    // if (tree == "words")
+    // {
+    //     std::ofstream output("words.txt");
+    //     if (!output.is_open())
+    //     {
+    //         std::cerr << "Error! File could not be opened!" << std::endl;
+    //         exit(-1);
+    //     }
+    //     words.printTree(output);
+    //     output.close();
+    // }
+    // else if (tree == "people")
+    // {
+    //     std::ofstream output("people.txt");
+    //     if (!output.is_open())
+    //     {
+    //         std::cerr << "Error! File could not be opened!" << std::endl;
+    //         exit(-1);
+    //     }
+    //     people.printHash(output);
+    //     output.close();
+    // }
+    // else if (tree == "orgs")
+    // {
+    //     std::ofstream output("orgs.txt");
+    //     if (!output.is_open())
+    //     {
+    //         std::cerr << "Error! File could not be opened!" << std::endl;
+    //         exit(-1);
+    //     }
+    //     orgs.printHash(output);
+    //     output.close();
+    // }
 }
 void IndexHandler::readPersistence(std::string tree)
 {
@@ -100,17 +125,17 @@ void IndexHandler::readPersistence(std::string tree)
             {
                 if (temp[i] == ':')
                 {
-                    node = temp.substr(index, i - 1);
+                    node = temp.substr(index, i - index);
                     index = i + 1;
                 }
                 else if (temp[i] == ',')
                 {
-                    id = temp.substr(index, i - 1);
+                    id = temp.substr(index, i - index);
                     index = i + 1;
                 }
                 else if (temp[i] == ';')
                 {
-                    freq = temp.substr(index, i - 1);
+                    freq = temp.substr(index, i - index);
                     index = i + 1;
                 }
             }
@@ -137,17 +162,17 @@ void IndexHandler::readPersistence(std::string tree)
             {
                 if (temp[i] == ':')
                 {
-                    node = temp.substr(index, i - 1);
+                    node = temp.substr(index, i - index);
                     index = i + 1;
                 }
                 else if (temp[i] == ',')
                 {
-                    id = temp.substr(index, i - 1);
+                    id = temp.substr(index, i - index);
                     index = i + 1;
                 }
                 else if (temp[i] == ';')
                 {
-                    freq = temp.substr(index, i - 1);
+                    freq = temp.substr(index, i - index);
                     index = i + 1;
                 }
             }
@@ -174,17 +199,17 @@ void IndexHandler::readPersistence(std::string tree)
             {
                 if (temp[i] == ':')
                 {
-                    node = temp.substr(index, i - 1);
+                    node = temp.substr(index, i - index);
                     index = i + 1;
                 }
                 else if (temp[i] == ',')
                 {
-                    id = temp.substr(index, i - 1);
+                    id = temp.substr(index, i - index);
                     index = i + 1;
                 }
                 else if (temp[i] == ';')
                 {
-                    freq = temp.substr(index, i - 1);
+                    freq = temp.substr(index, i - index);
                     index = i + 1;
                 }
             }

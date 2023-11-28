@@ -193,6 +193,7 @@ public:
         if (table[index] == nullptr)
         {
             table[index] = new HashNode(comp, val);
+            table[index]->maps[val] = freq;
             size++;
         }
         else
@@ -239,10 +240,10 @@ public:
             HashNode *itr = table[i];
             while (itr != nullptr)
             {
-                out << itr->comp;
+                out << itr->comp << ":" ;
                 for (const auto &itr : itr->maps)
                 {
-                    out << ";" << itr.first << "," << itr.second;
+                    out << itr.first << "," << itr.second << ";";
                 }
                 out << std::endl;
                 itr = itr->next;

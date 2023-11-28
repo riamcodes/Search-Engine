@@ -43,7 +43,7 @@ void addOrgs(std::string, std::string);
 void addDocument(std::string, std::string);
 void addWordCount(std::string, int);
 int getDocSize();
-void createPersistence(std::string);
+void createPersistence();
 void readPersistence(std::string);
 int returnNumArticles(std::string, std::string);
 int returnSize(std::string);

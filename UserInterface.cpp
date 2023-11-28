@@ -34,11 +34,8 @@ void UserInterface::initialQuestion()
         }
         else if (answer == "2") // Create Persistence
         {
-            std::cout << "Would you like to create a word, person, or organization?" << std::endl;
-            std::string answerCreate;
-            std::cin >> answerCreate;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih->createPersistence(answerCreate);
+            ih->createPersistence();
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }

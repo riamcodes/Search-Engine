@@ -3,9 +3,7 @@
 void SearchEngine::input(char** answer){
     if(answer[1] == "index"){
         dp->traverseSubdirectory(answer[2]);
-        ih->createPersistence("words");
-        ih->createPersistence("people");
-        ih->createPersistence("orgs");
+        ih->createPersistence();
     }
     else if(answer[1] == "query"){
         ih->readPersistence("words");

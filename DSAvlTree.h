@@ -147,7 +147,7 @@ private:
         if (t == nullptr)
         {
             t = new DSAvlNode{x, v, nullptr, nullptr, 0};
-            t->mapVals[v] = 1;
+            t->mapVals[v] = a;
             size++;
         }
         else if (x < t->key)
@@ -365,10 +365,10 @@ private:
     {
         if (t != nullptr)
         {
-            out << t->key;
+            out << t->key << ":" ;
             for (const auto &itr : t->mapVals)
             {
-                out << ":" << itr.first << "," << itr.second << ";";
+                out << itr.first << "," << itr.second << ";";
             }
             out << std::endl;
             printTree(out, t->left);
