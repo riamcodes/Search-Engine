@@ -66,10 +66,12 @@ void IndexHandler::createPersistence(std::string filename, std::string tree){
 
     output.close();
 }
-void IndexHandler::readPersistence(std::string filename){
+void IndexHandler::readPersistence(std::string filename, std::string tree){
     std::ifstream input(filename);
     std::string temp;
     std::string key;
+    std::string val1;
+    std::string val2;
     if(!input.is_open()){
         std::cerr << "Error! File could not be opened!" << std::endl;
         exit(-1);
@@ -77,11 +79,27 @@ void IndexHandler::readPersistence(std::string filename){
     while(getline(input, temp)){
         int index = 0;
         for(int i = 0; i < temp.length(); i++){
-            if(temp[i] == ';'){
+            if(temp[i] == ':'){
                 key = temp.substr(index, i-1);
                 index = i+1;
             }
-            else if(temp[i] == )
+            else if(temp[i] == ','){
+                val1 = temp.substr(index, i-1);
+                index = i+1;
+            }
+            else if(temp[i] == ';'){
+                val2 = temp.substr(index, i-1);
+                index = i+1;
+            }
+        }
+        if(tree == "words"){
+            words.insert(key, stoi(val1));
+        }
+        if(tree == "people"){
+            people.insert(key, stoi(val1));
+        }
+        if(tree == "orgs"){
+            orgs.insert(key, stoi(val1));
         }
     }
 }

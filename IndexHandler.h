@@ -38,6 +38,6 @@ void addOrgs(std::string, int);
 void addDocument(int, DSDocument);
 int getDocSize();
 void createPersistence(std::string, std::string);
-void readPersistence(std::string);
+void readPersistence(std::string, std::string);
 };
 #endif
