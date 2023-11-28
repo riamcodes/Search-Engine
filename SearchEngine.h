@@ -7,10 +7,10 @@
 
 class SearchEngine{
     private:
-    IndexHandler ih;
-    DocumentParser dp;
-    UserInterface ui;
-    QueryProcessor qp;
+    IndexHandler *ih = new IndexHandler();
+    DocumentParser *dp = new DocumentParser();
+    UserInterface *ui = new UserInterface();
+    QueryProcessor *qp = new QueryProcessor();
     public:
     void input(char**);
 };
