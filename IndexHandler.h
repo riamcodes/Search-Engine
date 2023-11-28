@@ -27,15 +27,15 @@ private:
 DSAvlTree<std::string, int> words;
 Hash<std::string, int> people;
 Hash<std::string, int> orgs;
-std::vector<DSDocument> docs;
+std::vector<int> docs;
 public:
-std::vector<std::pair<DSDocument, int>> getWords(std::string);
-std::vector<std::pair<DSDocument, int>> getPeople(std::string);
-std::vector<std::pair<DSDocument, int>> getOrgs(std::string);
+std::map<int, int> getWords(std::string);
+std::map<int, int> getPeople(std::string);
+std::map<int, int> getOrgs(std::string);
 void addWords(std::string, int);
 void addPeople(std::string, int);
 void addOrgs(std::string, int);
-void addDocument(int, DSDocument);
+void addDocument(int);
 int getDocSize();
 void createPersistence(std::string, std::string);
 void readPersistence(std::string, std::string);
