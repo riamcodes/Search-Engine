@@ -310,7 +310,7 @@ private:
         out << t->key;
         for (const auto &itr : t->mapVals)
         {
-            out << ";" << itr.first << "," << itr.second;
+            out << ":" << itr.first << "," << itr.second << ";";
         }
         out << std::endl;
         printTree(out, t->left);

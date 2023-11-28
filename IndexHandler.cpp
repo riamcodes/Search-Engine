@@ -67,5 +67,21 @@ void IndexHandler::createPersistence(std::string filename, std::string tree){
     output.close();
 }
 void IndexHandler::readPersistence(std::string filename){
-    
+    std::ifstream input(filename);
+    std::string temp;
+    std::string key;
+    if(!input.is_open()){
+        std::cerr << "Error! File could not be opened!" << std::endl;
+        exit(-1);
+    }
+    while(getline(input, temp)){
+        int index = 0;
+        for(int i = 0; i < temp.length(); i++){
+            if(temp[i] == ';'){
+                key = temp.substr(index, i-1);
+                index = i+1;
+            }
+            else if(temp[i] == )
+        }
+    }
 }
