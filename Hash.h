@@ -230,11 +230,6 @@ public:
         }
     }
 
-    int getSize() // returns the size of the hash
-    {
-        return size;
-    }
-
     std::map<Value, int> find(const Comparable comp) // finds a comp in the hash
     {
         int index = hash(comp);
