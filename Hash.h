@@ -87,6 +87,10 @@ public:
         return *this;
     }
 
+    int getSize(){
+        return size;
+    }
+
     void clear() // clears the hash table
     {
         for (int i = 0; i < capacity; i++)

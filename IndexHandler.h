@@ -39,5 +39,7 @@ void addDocument(int, DSDocument);
 int getDocSize();
 void createPersistence(std::string, std::string);
 void readPersistence(std::string, std::string);
+int returnNumArticles(std::string, std::string);
+int returnSize(std::string);
 };
 #endif
