@@ -41,11 +41,8 @@ void UserInterface::initialQuestion()
         }
         else if (answer == "3") // Read Persistence
         {
-            std::cout << "Would you like to read a word, person, or organization?" << std::endl;
-            std::string answerRead;
-            std::cin >> answerRead;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih->readPersistence(answerRead);
+            ih->readPersistence();
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }

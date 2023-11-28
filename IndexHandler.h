@@ -44,7 +44,7 @@ void addDocument(std::string, std::string);
 void addWordCount(std::string, int);
 int getDocSize();
 void createPersistence();
-void readPersistence(std::string);
+void readPersistence();
 int returnNumArticles(std::string, std::string);
 int returnSize(std::string);
 };
