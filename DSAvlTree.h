@@ -309,7 +309,7 @@ private:
      * Modified from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
      */
 
-    void printTree(std::ostream out, DSAvlNode *&t)
+    void printTree(std::ostream& out, DSAvlNode *&t)
     {
         out << t->key;
         for (const auto &itr : t->mapVals)
