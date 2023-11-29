@@ -85,7 +85,7 @@ void UserInterface::initialQuestion()
                 std::cout << "Here are the most relevant documents" << std::endl;
                 for (const auto &item : qp.getPrintVector())
                 {
-                    std::cout << count << ". " << std::endl;
+                    std::cout << count << ". ";
                     dp.printInfo(item); // Print information for each relevant document
                     std::cout << std::endl;
                     ++count;
