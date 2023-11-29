@@ -11,7 +11,8 @@ class UserInterface
 {
 private:
     std::chrono::duration<double> elapsedTrain;
-    IndexHandler *ih = new IndexHandler();
+    IndexHandler ih;
+    IndexHandler ih2;
     QueryProcessor qp;
     DocumentParser dp;
     // int numberOfArticles; // This integer keeps track of the total number of articles in the current index

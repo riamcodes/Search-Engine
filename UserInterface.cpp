@@ -35,7 +35,7 @@ void UserInterface::initialQuestion()
         {
             std::cout << "Check persistence.txt to see the persistence that was just created" << std::endl;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih->createPersistence(); // CHANGE TO OBJECT
+            ih.createPersistence(); // CHANGE TO OBJECT
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -43,7 +43,7 @@ void UserInterface::initialQuestion()
         {
             std::cout << "Okay, lets read the persistence" << std::endl;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih->readPersistence(); // CHANGE TO OBJECT
+            ih2.readPersistence(); // CHANGE TO OBJECT
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -75,7 +75,7 @@ void UserInterface::initialQuestion()
                 std::string number;
                 std::getline(std::cin, number);
                 int num = stoi(number);
-                ih->getFilePath(qp.printVector[num - 1]);
+                ih.getFilePath(qp.printVector[num - 1]);
             }
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
@@ -84,9 +84,9 @@ void UserInterface::initialQuestion()
         {
             std::cout << "Here are some of our runtime statistics:" << std::endl;
             std::cout << "Runtime: " << elapsedTrain.count() << " seconds." << std::endl;
-            //std::cout << "Total number of individual articles in the current index: " << ih->returnNumArticles() << std::endl;
-            std::cout << "Total articles: " << ih->getDocSize();
-            //std::cout << "Total number of unique words indexed: " << ih->returnSize() << std::endl;
+            //std::cout << "Total number of individual articles in the current index: " << ih.returnNumArticles() << std::endl;
+            std::cout << "Total articles: " << ih.getDocSize();
+            //std::cout << "Total number of unique words indexed: " << ih.returnSize() << std::endl;
         }
         else if (answer == "6")
         {
@@ -120,14 +120,14 @@ void UserInterface::initialQuestion()
     //     {
     //         auto startTrain = std::chrono::high_resolution_clock::now();
     //         //  ih = dp.getIndex();
-    //         ih->createPersistence();
+    //         ih.createPersistence();
     //         auto finishTrain = std::chrono::high_resolution_clock::now();
     //         elapsedTrain = finishTrain - startTrain;
     //     }
     // else if (answer == "3") // Read Persistence
     // {
     //     auto startTrain = std::chrono::high_resolution_clock::now();
-    //     ih->readPersistence();
+    //     ih.readPersistence();
     //     auto finishTrain = std::chrono::high_resolution_clock::now();
     //     elapsedTrain = finishTrain - startTrain;
     // }
@@ -151,7 +151,7 @@ void UserInterface::initialQuestion()
     //         std::cout << "Please enter in the title of the document that you would like to see." << std::endl;
     //         std::string titleDocument;
     //         std::getline(std::cin, titleDocument);
-    //         dp.parseDocument(ih->getFilePath(titleDocument));
+    //         dp.parseDocument(ih.getFilePath(titleDocument));
     //     }
     //     auto finishTrain = std::chrono::high_resolution_clock::now();
     //     elapsedTrain = finishTrain - startTrain;
@@ -161,7 +161,7 @@ void UserInterface::initialQuestion()
 //         std::cout << "Here are some of our runtime statistics:" << std::endl;
 //         std::cout << "Runtime: " << elapsedTrain.count() << " seconds." << std::endl;
 //         // std::cout << "Total number of individual articles in the current index: " << # << std::endl;
-//         std::cout << "Total articles: " << ih->getDocSize();
+//         std::cout << "Total articles: " << ih.getDocSize();
 //         // std::cout << "Total number of unique words indexed: " << (number of nodes in AVLTree) << std::endl;
 //     }
 //     else if (answer == "6")
