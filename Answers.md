@@ -38,7 +38,7 @@ Task: Overall project integration, Planned completion: Nov 30, Actual completion
 
 - Add a UML class diagram, etc.
 
-![UML Class Diagram](SearchEngine_UML_page-0001 (1).jpg)
+![UML Class Diagram](UML.jpg)
 - High-level pseudo code for each component.
 
 Main Pseudo Code:
