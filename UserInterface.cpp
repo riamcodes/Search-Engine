@@ -27,8 +27,11 @@ void UserInterface::initialQuestion()
         }
         else if (answer == "1") // Populates with documents
         {
+            std::cout << "Please enter a directory filepath" << std::endl;
+            std::string answer2;
+            std::getline(std::cin, answer2);
             auto startTrain = std::chrono::high_resolution_clock::now();
-            dp->traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000");
+            dp->traverseSubdirectory(answer2);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
