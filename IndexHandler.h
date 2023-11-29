@@ -32,10 +32,12 @@ public:
 std::map<std::string, int> getWords(std::string);
 std::map<std::string, int> getPeople(std::string);
 std::map<std::string, int> getOrgs(std::string);
+// std::map<int, int> getWordCount(int);
 void addWords(std::string, std::string);
 void addPeople(std::string, std::string);
 void addOrgs(std::string, std::string);
 void addDocument(std::string);
+// void addWordCount(int);
 int getDocSize();
 void createPersistence(std::string, std::string);
 void readPersistence(std::string, std::string);

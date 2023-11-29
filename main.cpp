@@ -1,6 +1,7 @@
 #include <iostream>
 
 using namespace std;
+ #include "UserInterface.h"
 
 int main()
 {
@@ -13,6 +14,24 @@ int main()
          << "\tsupersearch  ui\n\n";
 
     cout << "supersearch not implemented yet." << endl; //edits
-   
-    return 0;
 }
+
+//     #include "UserInterface.h"
+
+// userinterface ui;
+// String mode; 
+// mode = argv[1];
+
+// if (mode =="index"){
+//     string directory = argv[2];
+//     uicreateIndex(directory);
+// }
+
+// if(mode == "query"){
+//     string queryCommand = argv[2];
+//     ui.enterQuery(queryCommand);
+// }
+    
+   
+//     return 0;
+// }
