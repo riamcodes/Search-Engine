@@ -130,10 +130,12 @@ public:
             while (itr1 != nullptr)
             {
                 HashNode *newNode = new HashNode(*itr1);
-                if(prev == nullptr){
+                if (prev == nullptr)
+                {
                     table[i] = newNode;
                 }
-                else{
+                else
+                {
                     prev->next = newNode;
                 }
                 prev = newNode;
@@ -168,7 +170,6 @@ public:
                     }
                     break;
                 }
-                // may need to do this by reference
                 prev = itr;
                 itr = itr->next;
             }
@@ -214,7 +215,6 @@ public:
                     }
                     break;
                 }
-                // may need to do this by reference
                 prev = itr;
                 itr = itr->next;
             }
@@ -240,7 +240,7 @@ public:
             HashNode *itr = table[i];
             while (itr != nullptr)
             {
-                out << itr->comp << ":" ;
+                out << itr->comp << ":";
                 for (const auto &itr : itr->maps)
                 {
                     out << itr.first << "," << itr.second << ";";
@@ -267,13 +267,12 @@ public:
             {
                 if (itr->comp == comp)
                 {
-                    for(const auto &entry : val){
+                    for (const auto &entry : val)
+                    {
                         itr->maps[entry.first] = entry.second;
                     }
-                    //itr->maps = val;
                     break;
                 }
-                // may need to do this by reference
                 prev = itr;
                 itr = itr->next;
             }
@@ -305,4 +304,3 @@ public:
     }
 };
 #endif
-/////
