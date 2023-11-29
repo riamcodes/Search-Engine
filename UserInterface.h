@@ -12,7 +12,10 @@ class UserInterface
 private:
     int numberOfArticles; // This integer keeps track of the total number of articles in the current index
     int totalNodes; // This integer keeps track of the total number of nodes (unique words) in the AVL tree
-    IndexHandler *indexObject; // This is an object of the IndexHandler
+    std::chrono::duration<double> elapsedTrain;
+    IndexHandler* ih;
+    QueryProcessor* qp;
+    DocumentParser* dc;
 public:
     std::string answer;  // answer to first question
     std::string answer1; // possible answer to second question
