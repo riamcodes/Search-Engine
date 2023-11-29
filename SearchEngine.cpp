@@ -5,17 +5,21 @@
 
 void SearchEngine::input(int num, char **answer)
 {
- if (strcmp(answer[1], "index") == 0)
+  if (strcmp(answer[1], "index") == 0)
   {
+    std::cout << "Reading files..." << std::endl;
     dp.traverseSubdirectory(answer[2]);
     ih = dp.getIndex();
-    std::cout << "Creating persistence, this may take a minute!" << std::endl;
-    ih.createPersistence(); // CHANGE TO OBJECT
+    std::cout << "Done!" << std::endl;
+    std::cout << "Creating persistence, this may take a minute..." << std::endl;
+    ih.createPersistence();
+    std::cout << "Persistence has been created!" << std::endl;
   }
   else if (strcmp(answer[1], "query") == 0)
   {
-    std::cout << "Reading persistence" << std::endl;
-    ih.readPersistence(); // CHANGE TO OBJECT/
+    std::cout << "Reading persistence..." << std::endl;
+    ih.readPersistence();
+    std::cout << "Persistence has been read!" << std::endl;
     dp.setIndex(ih);
     qp.setIndexHandler(ih);
     std::string answer2 = answer[2];
@@ -24,9 +28,7 @@ void SearchEngine::input(int num, char **answer)
       answer2 = answer2 + " " + answer[i];
     }
     std::map<std::string, int> relevantDocs = qp.parsingAnswer(answer2);
-
     int count = 1;
-
     std::cout << "Here are the most relevant documents" << std::endl;
     for (const auto &item : qp.printVector)
     {
