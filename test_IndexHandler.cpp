@@ -4,17 +4,22 @@
 #include "DocumentParser.h"
 using namespace std;
 
+// Test suite for IndexHandler
 TEST_CASE("IndexHandler Test", "[IndexHandler]")
 {
-    // Create an instance of IndexHandler
+    // Initialize DocumentParser for document parsing
     DocumentParser dp;
 
-    // Add test data
+    // Parsing documents for testing
     dp.parseDocument("../sample_data/coll_1/news_0064567.json");
-    IndexHandler ih = dp.getIndex();
+    IndexHandler ih = dp.getIndex(); // Getting the IndexHandler from DocumentParser
 
+    // Test case to verify getWords functionality
     SECTION("getWords Test")
     {
+        // Tests to verify the correct mapping of words to their counts and document paths
+        // Each REQUIRE checks that the function returns the expected number of occurrences and paths
+        // Test cases for different words and their expected occurrences
         map<string, int> result = ih.getWords("plan");
         REQUIRE(result.size() == 1);
         REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2);
@@ -38,8 +43,13 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(result6.size() == 0);
     }
 
+    // Test case to verify getPeople functionality
     SECTION("getPeople Test")
     {
+        // Tests to verify the correct mapping of people's names to their counts and document paths
+        // Each REQUIRE checks that the function returns the expected number of occurrences and paths
+
+        // Test cases for different names and their expected occurrences
         map<string, int> result4 = ih.getPeople("schweitzer");
         REQUIRE(result4.size() == 1);
         map<string, int> result5 = ih.getPeople("adam");
@@ -49,14 +59,23 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         map<string, int> result7 = ih.getPeople("sarah");
         REQUIRE(result7.size() == 0);
     }
-
+    // Test case to verify getWordCount functionality
     SECTION("getWordCount Test")
     {
+        // Test to verify the correct count of words in a specific document
+        // REQUIRE checks that the function returns the expected word count for the document
+
+        // Test case for a specific document and its expected word count
         REQUIRE(ih.getWordCount("../sample_data/coll_1/news_0064567.json") == 251);
     }
 
+    // Test case to verify getOrgs functionality
     SECTION("getOrgs Test")
     {
+        // Tests to verify the correct mapping of organizations' names to their counts and document paths
+        // Each REQUIRE checks that the function returns the expected number of occurrences and paths
+
+        // Test cases for different organizations and their expected occurrences
         map<string, int> result = ih.getOrgs("cnn");
         REQUIRE(result.size() == 0);
         map<string, int> result1 = ih.getOrgs("nbc");
@@ -68,13 +87,19 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(result3["../sample_data/coll_1/news_0064567.json"] == 1);
     }
 
+    // Test case to verify persistence functionality
     SECTION("Persistance tests")
     {
-        ih.createPersistence();
+        // Testing the persistence functionality of IndexHandler
+        // This includes creating persistence, reading it back, and verifying the data
+
+        ih.createPersistence(); // Creating persistence from the IndexHandler data
 
         IndexHandler index;
+        index.readPersistence(); // Reading the persisted data into a new IndexHandler instance
 
-        index.readPersistence();
+        // Tests to verify the data integrity after reading from persistence
+        // Test cases to verify the correct data is retrieved after persistence
 
         map<string, int> result = index.getWords("plan");
         REQUIRE(result.size() == 1);
@@ -116,10 +141,15 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(index.getDocSize() == 1);
     }
 
+    // Test case to verify functionality with multiple documents
     SECTION("Multiple Doc Testing")
     {
+        // Additional parsing of a document
         dp.parseDocument("../sample_data/coll_1/news_0064568.json");
-        IndexHandler ih = dp.getIndex();
+        IndexHandler ih = dp.getIndex(); // Update IndexHandler with new data
+
+        // Tests to verify the correct handling of multiple documents
+        // Test cases for words present in multiple documents
 
         map<string, int> result1 = ih.getWords("german");
         REQUIRE(result1.size() == 1);
