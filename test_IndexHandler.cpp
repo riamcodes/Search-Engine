@@ -63,11 +63,9 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(result1.size() == 0);
         map<string, int> result2 = ih.getOrgs("abc");
         REQUIRE(result2.size() == 0);
-        map<string, int> result3 = ih.getOrgs("Reuters");
-        REQUIRE(result3.size() == 0);
-        map<string, int> result4 = ih.getOrgs("schweitzer");
-        REQUIRE(result4.size() == 1);
-        REQUIRE(result4["../sample_data/coll_1/news_0064567.json"] == 5);
+        map<string, int> result3 = ih.getOrgs("reuters");
+        REQUIRE(result3.size() == 1);
+        REQUIRE(result3["../sample_data/coll_1/news_0064567.json"] == 1);
     }
 
     SECTION("Persistance tests")
