@@ -77,7 +77,7 @@ void IndexHandler::createPersistence()
     output << "//wordCount" << std::endl;
     for (const auto &itr : wordCount)
     {
-        output << itr.first << "|" << itr.second << "*" << std::endl;
+        output << itr.first << "^" << itr.second << "#" << std::endl;
     }
 }
 
@@ -129,7 +129,7 @@ void IndexHandler::readPersistence()
                 else if (answer == "orgs")
                     orgs.insert(node, id, num);
             }
-            else if (buffer[i] == '|')
+            else if (buffer[i] == '^')
             {
                 title = buffer.substr(index, i - index);
                 index = i + 1;
@@ -139,7 +139,7 @@ void IndexHandler::readPersistence()
                 path = buffer.substr(index, i - index);
                 docs.push_back(path);
             }
-            else if (buffer[i] == '*')
+            else if (buffer[i] == '#')
             {
                 count = buffer.substr(index, i - index);
                 index = i + 1;
