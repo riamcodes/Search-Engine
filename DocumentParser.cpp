@@ -2,7 +2,6 @@
 using namespace rapidjson;
 using namespace std;
 
-
 // list of stopwords found from https://gist.github.com/sebleier/554280 NLTK list of english stopwords
 set<string> stopWords = {"able", "about", "above", "abroad", "according", "accordingly", "across", "actually", "adj", "after",
                          "afterwards", "again", "against", "ago", "ahead", "ain't", "all", "allow", "allows", "almost",
@@ -69,13 +68,11 @@ set<string> stopWords = {"able", "about", "above", "abroad", "according", "accor
                          "won't", "would", "wouldn't", "yes", "yet", "you", "you'd", "you'll", "your", "you're",
                          "yours", "yourself", "yourselves", "you've", "zero"};
 
-
 // Sets the IndexHandler instance for this DocumentParser
 void DocumentParser::setIndex(IndexHandler index)
 {
     ih = index; // Assigns the provided IndexHandler to the local instance
 }
-
 
 // Returns the IndexHandler instance used by this DocumentParser
 IndexHandler DocumentParser::getIndex()
@@ -83,13 +80,11 @@ IndexHandler DocumentParser::getIndex()
     return ih; // Returns the current IndexHandler instance
 }
 
-
 // Prints basic information extracted from the JSON content of a document
 void DocumentParser::printInfo(const string &jsonContent)
 {
     // Variables to store extracted information
     string title, publication, datePublished, finalInfoString;
-
 
     // Open the JSON file
     ifstream ifs(jsonContent);
@@ -98,7 +93,6 @@ void DocumentParser::printInfo(const string &jsonContent)
         cerr << "Could not open file for reading: " << jsonContent << endl;
         return;
     }
-
 
     // Parse the JSON document
     IStreamWrapper isw(ifs);
@@ -109,7 +103,6 @@ void DocumentParser::printInfo(const string &jsonContent)
         cerr << "JSON parse error: " << d.GetParseError() << endl;
         return;
     }
-
 
     // Extract and process relevant information from the JSON document
     // Extract title
@@ -132,12 +125,10 @@ void DocumentParser::printInfo(const string &jsonContent)
         datePublished = datePublished.substr(0, 10); // Extracting only the date part
     }
 
-
     // Combine extracted information into a single string and print
     finalInfoString = "Title: " + title + ", Publication: " + publication + ", Date Published: " + datePublished;
     cout << finalInfoString << endl;
 }
-
 
 // Parses a document from its JSON content and indexes its data
 void DocumentParser::parseDocument(const string &jsonContent)
@@ -146,7 +137,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
     int wordCount = 0;
     string docPersons, org, title;
 
-
     // Open the JSON file
     ifstream ifs(jsonContent);
     if (!ifs.is_open())
@@ -154,7 +144,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
         cerr << "Could not open file for reading: " << jsonContent << endl;
         return;
     }
-
 
     // Parse the JSON document
     IStreamWrapper isw(ifs);
@@ -165,7 +154,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
         cerr << "JSON parse error: " << d.GetParseError() << endl;
         return;
     }
-
 
     // Parsing and processing logic for different parts of the JSON document
     // Extract title and add to IndexHandler
@@ -191,7 +179,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
                         allPeople = personObject["name"].GetString();
                         istringstream iss5(allPeople);
 
-
                         while (iss5 >> docPersons)
                         {
                             ih.addPeople(docPersons, jsonContent); // call index handler to add the people
@@ -201,7 +188,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
             }
         }
     }
-
 
     if (d.HasMember("entities") && d["entities"].IsObject())
     {
@@ -220,7 +206,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
                         allOrgs = orgsObject["name"].GetString();
                         istringstream iss6(allOrgs);
 
-
                         while (iss6 >> org)
                         {
                             ih.addOrgs(org, jsonContent); // add the organizations through indexHandler
@@ -230,7 +215,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
             }
         }
     }
-
 
     if (d.HasMember("text") && d["text"].IsString())
     {
@@ -245,7 +229,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
             word.erase(remove_if(word.begin(), word.end(), [](char c)
                                  { return !isalpha(c); }),
                        word.end());
-
 
             transform(word.begin(), word.end(), word.begin(), ::tolower);
             Porter2Stemmer::trim(word);
@@ -266,7 +249,6 @@ void DocumentParser::parseDocument(const string &jsonContent)
     std::cout << endl;
     std::cout << "Document ID: " << jsonContent << " Word Count: " << wordCount << endl;
 }
-
 
 // Traverses a directory and processes each file within it
 void DocumentParser::traverseSubdirectory(const string &directoryPath)
@@ -302,7 +284,6 @@ void DocumentParser::traverseSubdirectory(const string &directoryPath)
             continue;
         }
 
-
         std::cout << "Contents of subdirectory: " << subdir << endl;
         // Read the subdirectory entries
         while ((entry = readdir(subDir)) != nullptr)
@@ -314,7 +295,6 @@ void DocumentParser::traverseSubdirectory(const string &directoryPath)
         closedir(subDir);
     }
 }
-
 
 void DocumentParser::printDocument(const string &jsonContent)
 {
@@ -342,7 +322,6 @@ void DocumentParser::printDocument(const string &jsonContent)
         title = d["title"].GetString();
         std::cout << "Title: " << title << endl;
     }
-
 
     if (d.HasMember("persons") && d["persons"].IsString())
     {
