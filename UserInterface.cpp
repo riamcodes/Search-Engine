@@ -24,6 +24,9 @@ UserInterface &UserInterface::operator=(const UserInterface &rhs) // assignment 
 
 void UserInterface::initialQuestion()
 {
+    ih = new IndexHandler();
+    qp = new QueryProcessor();
+    dp = new DocumentParser();
     while (true)
     {
         std::cout << "Hello! Welcome to our search engine" << std::endl;
@@ -52,7 +55,7 @@ void UserInterface::initialQuestion()
                 std::cin >> answerPerson;
                 std::cin >> answerId;
                 auto startTrain = std::chrono::high_resolution_clock::now();
-                ih.addPeople(answerPerson, answerId);
+                ih->addPeople(answerPerson, answerId);
                 auto finishTrain = std::chrono::high_resolution_clock::now();
                 elapsedTrain = finishTrain - startTrain;
             }
@@ -64,7 +67,7 @@ void UserInterface::initialQuestion()
                 std::cin >> answerOrganization;
                 std::cin >> answerId;
                 auto startTrain = std::chrono::high_resolution_clock::now();
-                ih.addOrgs(answerOrganization, answerId);
+                ih->addOrgs(answerOrganization, answerId);
                 auto finishTrain = std::chrono::high_resolution_clock::now();
                 elapsedTrain = finishTrain - startTrain;
             }
@@ -76,7 +79,7 @@ void UserInterface::initialQuestion()
                 std::cin >> answerWord;
                 std::cin >> answerId;
                 auto startTrain = std::chrono::high_resolution_clock::now();
-                ih.addWords(answerWord, answerId);
+                ih->addWords(answerWord, answerId);
                 auto finishTrain = std::chrono::high_resolution_clock::now();
                 elapsedTrain = finishTrain - startTrain;
             }
@@ -87,7 +90,7 @@ void UserInterface::initialQuestion()
             std::string answerCreate;
             std::cin >> answerCreate;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih.createPersistence(answerCreate);
+            ih->createPersistence(answerCreate);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -97,7 +100,7 @@ void UserInterface::initialQuestion()
             std::string answerRead;
             std::cin >> answerRead;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih.readPersistence(answerRead);
+            ih->readPersistence(answerRead);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -106,18 +109,20 @@ void UserInterface::initialQuestion()
             std::cout << "Please enter a query" << std::endl;
             std::getline(std::cin, answer3);
             auto startTrain = std::chrono::high_resolution_clock::now();
-            qp.parsingAnswer(answer3);
+            qp->parsingAnswer(answer3);
             std::string yesOrNo;
             std::string fileName;
             std::cout << "Would you like to see the contents of a file?" << std::endl;
             std::cin >> yesOrNo;
+            //have the user enter in the title that they would like to print
+            // find the matching uuid and send to the function
             for (int i = 0; i < yesOrNo.length(); i++)
             {
                 tolower(yesOrNo.at(i));
             }
             if (yesOrNo == "yes")
             {
-              dp.parseDocument();
+              dp->parseDocument();
             }
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
