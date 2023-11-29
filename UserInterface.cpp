@@ -15,17 +15,19 @@ void UserInterface::initialQuestion()
         std::cout << "6) Quit" << std::endl;
         std::string answer;
         std::getline(std::cin, answer);
-
+        std::cin.ignore();
         if (!(answer == "1" || answer == "2" || answer == "3" || answer == "4" || answer == "5" || answer == "6"))
         {
             std::cout << "Error! This is an invalid answer. Please select numbers 1 through 6." << std::endl;
             std::getline(std::cin, answer);
+            std::cin.ignore();
         }
         else if (answer == "1")
         {
             std::cout << "Please enter a directory filepath" << std::endl;
             std::string answer2;
             std::getline(std::cin, answer2);
+            std::cin.ignore();
             auto startTrain = std::chrono::high_resolution_clock::now();
             std::cout << "Reading files..." << std::endl;
             dp.traverseSubdirectory(answer2);
@@ -60,6 +62,8 @@ void UserInterface::initialQuestion()
             std::cout << "Please enter a query" << std::endl;
             std::string answer3;
             std::getline(std::cin, answer3);
+            std::cin.ignore();
+
             auto startTrain = std::chrono::high_resolution_clock::now();
             std::map<std::string, int> relevantDocs = qp.parsingAnswer(answer3);
             if (qp.printVector.size() > 1)
@@ -76,6 +80,7 @@ void UserInterface::initialQuestion()
                 std::string yesOrNo;
                 std::cout << "Would you like to see the contents of a file listed above?" << std::endl;
                 std::getline(std::cin, yesOrNo);
+                std::cin.ignore();
                 for (size_t i = 0; i < yesOrNo.length(); i++)
                 {
                     tolower(yesOrNo.at(i));
@@ -85,6 +90,7 @@ void UserInterface::initialQuestion()
                     std::cout << "Please enter in the number of the corresponding document that you would like to see." << std::endl;
                     std::string number;
                     std::getline(std::cin, number);
+                    std::cin.ignore();
                     int num = stoi(number);
                     dp.printDocument(qp.printVector[num - 1]);
                 }
@@ -106,5 +112,6 @@ void UserInterface::initialQuestion()
             std::cout << "Thank you for using our search engine." << std::endl;
             break;
         }
+        std::cin.ignore();
     }
 }
