@@ -2,6 +2,9 @@
 std::map<std::string, int> IndexHandler::getWords(std::string word){
     return words.contains(word);
 }
+// std::map<int,int> IndexHandler ::getWordCount(int wordCount){
+// words.insert(wordCount,id);
+// }
 std::map<std::string, int> IndexHandler::getPeople(std::string person){
     return people.find(person);
 }

@@ -82,7 +82,12 @@ set<string> stopWords = {     "able", "about", "above", "abroad", "according", "
     "won't", "would", "wouldn't", "yes", "yet", "you", "you'd", "you'll", "your", "you're",
     "yours", "yourself", "yourselves", "you've", "zero"};
 
- IndexHandler ih;
+ void DocumentParser::setIndex(IndexHandler* index){
+    ih = index;
+ }
+
+
+
 void DocumentParser::parseDocument(const string& jsonContent) {
    
     int wordCount = 0;
@@ -110,17 +115,34 @@ void DocumentParser::parseDocument(const string& jsonContent) {
    
 if (d.HasMember("uuid") && d["uuid"].IsString()) {
      docID = d["uuid"].GetString();
-   ih.addDocument(docID);
+   ih->addDocument(docID);
 }
 if (d.HasMember("persons") && d["persons"].IsString()) {
-     docPersons = d["persons"].GetString();
-    ih.addPeople(docPersons,docID);
+   string allPeople = d["persons"].GetString();
+   istringstream iss2(allPeople);
+   //docPersons declared above
+   while (iss2 >> docPersons){
+   transform(docPersons.begin(), docPersons.end(), docPersons.begin(), ::tolower);
+    ih->addPeople(docPersons,docID);
+   }
+   
 }
+
+
 if (d.HasMember("organizations") && d["organizations"].IsString()) {
-     org = d["organizations"].GetString();
+    string allOrgs= d["organizations"].GetString();
+    istringstream iss1(allOrgs);
+    //org declared aboce
+    while (iss1 >> org){
+        transform(org.begin(), org.end(), org.begin(), ::tolower);
+         ih->addOrgs(org,docID);
+    }
+     //org = d["organizations"].GetString();
   //   void addOrgs(int, DSDocument); ask anekah how this works WARNING THIS IS USUALLY BLANK
-   ih.addOrgs(org,docID);
+  
 }
+
+
      if (d.HasMember("text") && d["text"].IsString()) {
         //cout << "Text: " << d["text"].GetString() << "\n";
         //THIS PRINTS OUT EACH WORD ON A NEW LINE
@@ -136,7 +158,7 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
             cout << word << endl;  // Print each word on a new line
-             ih.addWords(word,docID);
+             ih->addWords(word,docID);
             wordCount++;
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
              }
