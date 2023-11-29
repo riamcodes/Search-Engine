@@ -38,7 +38,7 @@ void SearchEngine::input(int num, char **answer)
     int count = 1;
     std::cout << "Here are the most relevant documents" << std::endl;
     // Print the information of relevant documents
-    for (const auto &item : qp.printVector)
+    for (const auto &item : qp.getPrintVector())
     {
       std::cout << count << ". ";
       dp.printInfo(item); // Print document information
@@ -58,11 +58,11 @@ void SearchEngine::input(int num, char **answer)
     {
       std::cout << "Please enter in the number of the corresponding document that you would like to see." << std::endl;
       std::string number;
-      std::getline(std::cin, number);            // Get the document number from user
-      int num = stoi(number);                    // Convert input to an integer
-      dp.printDocument(qp.printVector[num - 1]); // Print the selected document
+      std::getline(std::cin, number);         // Get the document number from user
+      int num = stoi(number);                 // Convert input to an integer
+      dp.printDocument(qp.getPrint(num - 1)); // Print the selected document
     }
-    qp.printVector.clear(); // Clear the vector for next query
+    qp.clearPrintVector(); // Clear the vector for next query
   }
   // Check if the command is to interact through the user interface
   else if (strcmp(answer[1], "ui") == 0)
