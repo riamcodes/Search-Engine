@@ -15,7 +15,7 @@ private:
     std::chrono::duration<double> elapsedTrain;
     IndexHandler* ih;
     QueryProcessor* qp;
-    DocumentParser* dc;
+    DocumentParser* dp;
 public:
     std::string answer;  // answer to first question
     std::string answer1; // possible answer to second question
