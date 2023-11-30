@@ -2,32 +2,38 @@
 std::map<std::string, int> IndexHandler::getWords(std::string word){
     return words.contains(word);
 }
-// std::map<int,int> IndexHandler ::getWordCount(int wordCount){
-// words.insert(wordCount,id);
-// }
+int IndexHandler ::getWordCount(std::string title){
+    return wordCount[title];
+}
 std::map<std::string, int> IndexHandler::getPeople(std::string person){
     return people.find(person);
 }
 std::map<std::string, int> IndexHandler::getOrgs(std::string org){
     return orgs.find(org);
 }
-void IndexHandler::addWords(std::string word, std::string id){
-    words.insert(word, id);
+std::string IndexHandler::getFilePath(std::string title){
+    return docs[title];
 }
-void IndexHandler::addPeople(std::string person, std::string id){
-    people.insert(person, id);
+void IndexHandler::addWordCount(std::string title, int count){
+    wordCount[title] = count;
 }
-void IndexHandler::addOrgs(std::string org, std::string id){
-    orgs.insert(org, id);
+void IndexHandler::addWords(std::string word, std::string filepath){
+    words.insert(word, filepath);
 }
-void IndexHandler::addDocument(std::string id){
-    docs.push_back(id);
+void IndexHandler::addPeople(std::string person, std::string filepath){
+    people.insert(person, filepath);
+}
+void IndexHandler::addOrgs(std::string org, std::string filepath){
+    orgs.insert(org, filepath);
+}
+void IndexHandler::addDocument(std::string filepath, std::string title){
+    docs[title] = filepath;
 }
 int IndexHandler::getDocSize(){
     return docs.size();
 }
-void IndexHandler::createPersistence(std::string filename, std::string tree){
-    std::ofstream output(filename);
+void IndexHandler::createPersistence(std::string tree){
+    std::ofstream output("persistence.txt");
     if(!output.is_open()){
         std::cerr << "Error! File could not be opened!" << std::endl;
         exit(-1);
@@ -43,8 +49,8 @@ void IndexHandler::createPersistence(std::string filename, std::string tree){
     }
     output.close();
 }
-void IndexHandler::readPersistence(std::string filename, std::string tree){
-    std::ifstream input(filename);
+void IndexHandler::readPersistence(std::string tree){
+    std::ifstream input("persistence.txt");
     std::string temp;
     std::string node;
     std::string id;
