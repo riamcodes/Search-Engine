@@ -131,7 +131,7 @@ if (d.HasMember("persons") && d["persons"].IsString()) {
    //docPersons declared above
    while (iss2 >> docPersons){
    transform(docPersons.begin(), docPersons.end(), docPersons.begin(), ::tolower);
-    ih->addPeople(docPersons,docID);
+   // ih->addPeople(docPersons,docID);
    }
    
 }
@@ -143,7 +143,7 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
     //org declared aboce
     while (iss1 >> org){
         transform(org.begin(), org.end(), org.begin(), ::tolower);
-         ih->addOrgs(org,docID);
+       //  ih->addOrgs(org,docID);
     }
      //org = d["organizations"].GetString();
   //   void addOrgs(int, DSDocument); ask anekah how this works WARNING THIS IS USUALLY BLANK
@@ -166,9 +166,9 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
             cout << word << endl;  // Print each word on a new line
-             ih->addWords(word,docID);
+          //   ih->addWords(word,docID);
             wordCount++;
-              ih->addWordCount(title, wordCount);
+             // ih->addWordCount(title, wordCount);
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
              }
         }
