@@ -40,6 +40,7 @@ public:
     void printDocument(const std:: string&jsonContent);
 
     void setIndex(IndexHandler *ih);
+    IndexHandler getIndex();
 
     //
     void traverseSubdirectory(const std::string &directoryPath);

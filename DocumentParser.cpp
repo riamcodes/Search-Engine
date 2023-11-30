@@ -88,6 +88,10 @@ set<string> stopWords = {     "able", "about", "above", "abroad", "according", "
     ih = index;
  }
 
+ IndexHandler DocumentParser ::getIndex(){
+    return *ih;
+ }
+
 void DocumentParser::printDocument(const string& jsonContent){
      int wordCount = 0;
     string docID;
