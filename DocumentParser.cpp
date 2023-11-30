@@ -115,7 +115,7 @@ void DocumentParser::parseDocument(const string& jsonContent) {
    
 if (d.HasMember("uuid") && d["uuid"].IsString()) {
      docID = d["uuid"].GetString();
-   ih->addDocument(docID);
+   ih->addDocument(jsonContent);
 }
 if (d.HasMember("persons") && d["persons"].IsString()) {
    string allPeople = d["persons"].GetString();

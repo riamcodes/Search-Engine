@@ -90,7 +90,7 @@ void UserInterface::initialQuestion()
             std::string answerCreate;
             std::cin >> answerCreate;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih->createPersistence(answerCreate);
+        //    ih->createPersistence(answerCreate);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -100,7 +100,7 @@ void UserInterface::initialQuestion()
             std::string answerRead;
             std::cin >> answerRead;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih->readPersistence(answerRead);
+            // ih->readPersistence(answerRead);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -122,7 +122,7 @@ void UserInterface::initialQuestion()
             }
             if (yesOrNo == "yes")
             {
-              dp->parseDocument();
+            //   dp->parseDocument();
             }
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;

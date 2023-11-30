@@ -31,4 +31,9 @@ include(CTest)
 add_executable(testDocumentParser testDocumentParser.cpp DocumentParser.cpp porter2_stemmer.cpp IndexHandler.cpp)
 add_test(NAME testDocumentParser COMMAND testDocumentParser)
 
+include(CTest)
+add_executable(main main.cpp DocumentParser.cpp porter2_stemmer.cpp IndexHandler.cpp UserInterface.cpp QueryProcessor.cpp)
+add_test(NAME main COMMAND main)
+
+
 

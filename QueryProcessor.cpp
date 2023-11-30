@@ -66,7 +66,7 @@ void QueryProcessor::disectAnswer() // This function disects the parsed answer
     }
 }
 
-std::vector<std::pair<std::string, int>> QueryProcessor::intersection(std::vector<std::pair<std::string, int>> relevantDocuments, std::map<std::string, int>> docs) // documents in "A" and "B"
+std::vector<std::pair<std::string, int>> QueryProcessor::intersection(std::vector<std::pair<std::string, int>> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and "B"
 {
     std::vector<std::pair<std::string, int>> docs1;
     std::vector<std::pair<std::string, int>> docs2;
