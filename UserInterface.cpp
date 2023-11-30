@@ -1,26 +1,29 @@
 #include "UserInterface.h"
 
-UserInterface::UserInterface() // default constructor
-{
-    numberOfArticles = 0;
-    totalNodes = 0;
-}
+// UserInterface::UserInterface() // default constructor
+// {
+//     numberOfArticles = 0;
+//     totalNodes = 0;
+// }
 
-UserInterface::~UserInterface() // destructor
-{
-}
+// UserInterface::~UserInterface() // destructor
+// {
+//     delete ih;
+//     delete qp;
+//     delete dp;
+// }
 
-UserInterface::UserInterface(const UserInterface &rhs) // copy constructor
-{
-    numberOfArticles = 0;
-    totalNodes = 0;
-    numberOfArticles = rhs.numberOfArticles;
-    totalNodes = rhs.totalNodes;
-}
+// UserInterface::UserInterface(const UserInterface &rhs) // copy constructor
+// {
+//     numberOfArticles = 0;
+//     totalNodes = 0;
+//     numberOfArticles = rhs.numberOfArticles;
+//     totalNodes = rhs.totalNodes;
+// }
 
-UserInterface &UserInterface::operator=(const UserInterface &rhs) // assignment operator
-{
-}
+// UserInterface &UserInterface::operator=(const UserInterface &rhs) // assignment operator
+// {
+// }
 
 void UserInterface::initialQuestion()
 {
@@ -45,52 +48,62 @@ void UserInterface::initialQuestion()
         }
         if (answer == "1")
         {
-            std::cout << "Would you like to create a person, organization, or word index?" << std::endl;
-            std::getline(std::cin, answer1);
-            if (answer1 == "person")
-            {
-                std::cout << "Please enter the person and id that you would like to add." << std::endl;
-                std::string answerPerson;
-                std::string answerId;
-                std::cin >> answerPerson;
-                std::cin >> answerId;
-                auto startTrain = std::chrono::high_resolution_clock::now();
-                ih->addPeople(answerPerson, answerId);
-                auto finishTrain = std::chrono::high_resolution_clock::now();
-                elapsedTrain = finishTrain - startTrain;
-            }
-            else if (answer1 == "organization")
-            {
-                std::cout << "Please enter the organization and id that you would like to add." << std::endl;
-                std::string answerOrganization;
-                std::string answerId;
-                std::cin >> answerOrganization;
-                std::cin >> answerId;
-                auto startTrain = std::chrono::high_resolution_clock::now();
-                ih->addOrgs(answerOrganization, answerId);
-                auto finishTrain = std::chrono::high_resolution_clock::now();
-                elapsedTrain = finishTrain - startTrain;
-            }
-            else if (answer1 == "word")
-            {
-                std::cout << "Please enter the word and id that you would like to add." << std::endl;
-                std::string answerWord;
-                std::string answerId;
-                std::cin >> answerWord;
-                std::cin >> answerId;
-                auto startTrain = std::chrono::high_resolution_clock::now();
-                ih->addWords(answerWord, answerId);
-                auto finishTrain = std::chrono::high_resolution_clock::now();
-                elapsedTrain = finishTrain - startTrain;
-            }
+            // std::cout << "Would you like to create a person, organization, or word index?" << std::endl;
+            // std::getline(std::cin, answer1);
+            // if (answer1 == "person")
+            // {
+            auto startTrain = std::chrono::high_resolution_clock::now();
+            dp->traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000");
+            auto finishTrain = std::chrono::high_resolution_clock::now();
+            elapsedTrain = finishTrain - startTrain;
+            // std::cout << "Please enter the person and id that you would like to add." << std::endl;
+            // std::string answerPerson;
+            // std::string answerId;
+            // std::cin >> answerPerson;
+            // std::cin >> answerId;
+
+            // ih->addPeople(answerPerson, answerId);
         }
+        // else if (answer1 == "organization")
+        // {
+        //     //std::cout << "Please enter the organization that you would like to add." << std::endl;
+        //     auto startTrain = std::chrono::high_resolution_clock::now();
+        //     dp->traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000");
+        //     auto finishTrain = std::chrono::high_resolution_clock::now();
+        //     elapsedTrain = finishTrain - startTrain;
+        // std::string answerOrganization;
+        // std::string answerId;
+        // std::cin >> answerOrganization;
+        // std::cin >> answerId;
+        // auto startTrain = std::chrono::high_resolution_clock::now();
+        // ih->addOrgs(answerOrganization, answerId);
+        // auto finishTrain = std::chrono::high_resolution_clock::now();
+        // elapsedTrain = finishTrain - startTrain;
+        //}
+        // else if (answer1 == "word")
+        // {
+        //     auto startTrain = std::chrono::high_resolution_clock::now();
+        //     dp->traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000");
+        //     auto finishTrain = std::chrono::high_resolution_clock::now();
+        //     elapsedTrain = finishTrain - startTrain;
+        // std::cout << "Please enter the word and id that you would like to add." << std::endl;
+        // std::string answerWord;
+        // std::string answerId;
+        // std::cin >> answerWord;
+        // std::cin >> answerId;
+        // auto startTrain = std::chrono::high_resolution_clock::now();
+        // ih->addWords(answerWord, answerId);
+        // auto finishTrain = std::chrono::high_resolution_clock::now();
+        // elapsedTrain = finishTrain - startTrain;
+        //}
+        //}
         else if (answer == "2")
         {
             std::cout << "Would you like to create a word, person, or organization?" << std::endl;
             std::string answerCreate;
             std::cin >> answerCreate;
             auto startTrain = std::chrono::high_resolution_clock::now();
-          ih->createPersistence(answerCreate);
+            ih->createPersistence(answerCreate);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -114,8 +127,6 @@ void UserInterface::initialQuestion()
             std::string fileName;
             std::cout << "Would you like to see the contents of a file?" << std::endl;
             std::cin >> yesOrNo;
-            //have the user enter in the title that they would like to print
-            // find the matching uuid and send to the function
             for (int i = 0; i < yesOrNo.length(); i++)
             {
                 tolower(yesOrNo.at(i));
@@ -124,7 +135,7 @@ void UserInterface::initialQuestion()
             {
                 std::cout << "Please enter in the title of the document that you would like to see." << std::endl;
                 std::string titleDocument;
-                std::getline(std::cin, titleDocument);           
+                std::getline(std::cin, titleDocument);
                 dp->parseDocument(ih->getFilePath(titleDocument));
             }
             auto finishTrain = std::chrono::high_resolution_clock::now();

@@ -21,10 +21,10 @@ public:
     std::string answer1; // possible answer to second question
     std::string answer2; // possible answer to second question
     std::string answer3; // possible answer to second question
-    UserInterface(); // Default constructor
-    ~UserInterface(); // Destructor
-    UserInterface(const UserInterface &rhs); // Copy Constructor
-    UserInterface &operator=(const UserInterface &rhs); // Assignment Operator
+    // UserInterface(); // Default constructor
+    // ~UserInterface(); // Destructor
+    // UserInterface(const UserInterface &rhs); // Copy Constructor
+    // UserInterface &operator=(const UserInterface &rhs); // Assignment Operator
     void initialQuestion(); // Asks the initial question
     void secondQuestion(); // Asks the second question
 };
