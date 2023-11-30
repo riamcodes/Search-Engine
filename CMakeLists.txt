@@ -53,7 +53,7 @@ add_compile_options(-Wall -Wextra -pedantic)
 add_executable(rapidJSONExample rapidJSONExample.cpp)
 
 # Create the supersearch executable with all necessary source files
-add_executable(supersearch main.cpp UserInterface.cpp DocumentParser.cpp QueryProcessor.cpp IndexHandler.cpp porter2_stemmer.cpp)
+add_executable(supersearch main.cpp UserInterface.cpp DocumentParser.cpp QueryProcessor.cpp IndexHandler.cpp SearchEngine.cpp porter2_stemmer.cpp)
 
 # If you have other dependencies like headers, libraries, etc., link them here
 # For example: target_link_libraries(supersearch some_library)
