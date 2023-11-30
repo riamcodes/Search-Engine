@@ -12,7 +12,7 @@ using namespace std;
 //fix segFault in Doc parser ih->addDocument
 
 
-int main()
+int main(int argc, char** argv)
 {
 //     cout << "Usage:\n"
 //          << "\tIndex all files in <directory> and store the index in one or several files:\n"
@@ -23,8 +23,11 @@ int main()
 //          << "\tsupersearch  ui\n\n";
 
 //     cout << "supersearch not implemented yet." << endl; //edits
-UserInterface ui;
-ui.initialQuestion();
+// UserInterface ui;
+// ui.initialQuestion();
+
+SearchEngine se;
+se.input(argv);
 
 }
 

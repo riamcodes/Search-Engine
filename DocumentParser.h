@@ -9,7 +9,7 @@
 class DocumentParser
 {
 private:
-    IndexHandler* ih;
+    IndexHandler* ih = new IndexHandler();
 
     // Might need to change this but currently declared as a nested map
     // the first part is a string which represents the keyword we are looking for in a document or query - For example if we were trying to find the word apple and all related documents the string would be apple

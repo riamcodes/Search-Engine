@@ -12,6 +12,8 @@
 #include "IndexHandler.h"
 #include <set>
 #include "porter2_stemmer.h" // Include the Porter Stemmer header
+
+
 //str tok in the remove  or use the existing sentiment analyzer
 using namespace rapidjson;
 using namespace std;
