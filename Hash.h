@@ -187,6 +187,51 @@ public:
         }
     }
 
+    void insert(Comparable comp, Value val, int freq) // inserts a comp into a hash at val
+    {
+        int index = hash(comp);
+        if (table[index] == nullptr)
+        {
+            table[index] = new HashNode(comp, val);
+            size++;
+        }
+        else
+        {
+            HashNode *itr = table[index];
+            HashNode *prev = nullptr;
+            while (itr != nullptr)
+            {
+                if (itr->comp == comp)
+                {
+                    if (itr->maps.find(val) == itr->maps.end())
+                    {
+                        itr->maps[val] = freq;
+                    }
+                    else
+                    {
+                        itr->maps[val] += freq;
+                    }
+                    break;
+                }
+                // may need to do this by reference
+                prev = itr;
+                itr = itr->next;
+            }
+            if (itr == nullptr)
+            {
+                if (prev != nullptr)
+                {
+                    prev->next = new HashNode(comp, val);
+                    size++;
+                }
+            }
+        }
+        if (size == capacity)
+        {
+            rehash();
+        }
+    }
+
     void printHash(std::ostream &out)
     {
         for (int i = 0; i < capacity; i++)

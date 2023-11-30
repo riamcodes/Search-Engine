@@ -73,6 +73,10 @@ public:
         insert(x, v, root);
     }
 
+    void insert(const Comparable &x, const Value &v, const int &a){
+        insert(x, v, a, root);
+    }
+
     void remove(const Comparable &x) // removes x from the tree
     {
         remove(x, root);
@@ -131,6 +135,35 @@ private:
             // }
             // t->value = tempMap;
             // delete tempMap;
+        }
+        size++;
+        balance(t);
+    }
+
+    void insert(const Comparable &x, const Value &v, const int &a, DSAvlNode *&t){
+        if (t == nullptr)
+        {
+            t = new DSAvlNode{x, v, nullptr, nullptr, 0};
+        }
+        else if (x < t->key)
+        {
+            insert(x, v, a, t->left);
+        }
+        else if (t->key < x)
+        {
+            insert(x, v, a, t->right);
+        }
+        else
+        {
+            if (t->mapVals.find(v) == t->mapVals.end())
+            {
+                t->mapVals[v] = a;
+            }
+            else
+            {
+                t->mapVals[v] += a;
+            }
+            return;
         }
         size++;
         balance(t);
