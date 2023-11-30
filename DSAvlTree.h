@@ -22,16 +22,17 @@ private:
         DSAvlNode(const Comparable &theKey, DSAvlNode *lt, DSAvlNode *rt, int h)
             : key{theKey}, left{lt}, right{rt}, height{h} {}
         DSAvlNode(const Comparable &theKey, Value v, DSAvlNode *lt, DSAvlNode *rt, int h)
-            : key{theKey}, left{lt}, right{rt}, height{h} {
-                mapVals.emplace(v, 1);
-            }
+            : key{theKey}, left{lt}, right{rt}, height{h}
+        {
+            mapVals.emplace(v, 1);
+        }
     };
 
     DSAvlNode *root;
     int size;
 
 public:
-    DSAvlTree() : root{nullptr} // default constructor
+    DSAvlTree() : root{nullptr}, size{0} // default constructor
     {
     }
 
@@ -77,7 +78,8 @@ public:
         remove(x, root);
     }
 
-    int getSize(){
+    int getSize()
+    {
         return size;
     }
 
@@ -108,12 +110,15 @@ private:
         }
         else
         {
-            if (t->mapVals.find(v) == t->mapVals.end()) {
+            if (t->mapVals.find(v) == t->mapVals.end())
+            {
                 t->mapVals[v] = 1;
-            } else {
+            }
+            else
+            {
                 t->mapVals[v] += 1;
             }
-            return;//COME BACK
+            return; // COME BACK
             // THIS PROCESS SHOULD GO IN INDEX HANDLER
             // tempMap = t->value;
             // if (tempMap.find(v == tempMap.end()))
@@ -134,7 +139,7 @@ private:
     void remove(const Comparable &x, DSAvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
     {
         if (t == nullptr)
-                {
+        {
             throw std::runtime_error("Error, could not find 'x' in private remove function");
         }
         if (x < t->key)
@@ -151,44 +156,46 @@ private:
             {
                 DSAvlNode *tCopy = t;
                 t->key = deleteLeftMostIn(tCopy->right);
-            // Update the key of the current node with the new key
-           
-                t->height = std::max(height(t->left), height(t->right)) + 1;
+                // Update the key of the current node with the new key
+
+                // t->height = std::max(height(t->left), height(t->right)) + 1;
             }
             else if (t->left != nullptr)
             {
                 DSAvlNode *tCopy = t;
                 t = t->left;
                 delete tCopy;
-                if (t != nullptr)
-                {
-                    t->height = std::max(height(t->left), height(t->right)) + 1;
-                }
-                else
-                {
-                    return;
-                }
+                // if (t != nullptr)
+                // {
+                //     t->height = std::max(height(t->left), height(t->right)) + 1;
+                // }
+                // else
+                // {
+                //     return;
+                // }
             }
             else
             {
                 delete t;
                 t = nullptr;
-                //delete t;
+                size--;
+                // delete t;
                 return;
             }
         }
-        t->height = std::max(height(t->left), height(t->right)) + 1;
-        size--;
         balance(t);
+        t->height = std::max(height(t->left), height(t->right)) + 1;
+        // size--;
     }
 
     Comparable deleteLeftMostIn(DSAvlNode *&t) // delete left most node in the passed subtree, and returns the key in that node
-    { 
+    {
         if (t == nullptr) // this should not happen
         {
             throw std::runtime_error("Error in Comparable deleteLeftMostIn(DSAvlNode *t)");
         }
-        if (t->left == nullptr) {
+        if (t->left == nullptr)
+        {
             // found left most node in subtree
             Comparable valueToReturn = t->key;
             delete t;
@@ -209,7 +216,7 @@ private:
     {
         if (t == nullptr)
         {
-            return std::map<Value, int> (); // returns an empty vector
+            return std::map<Value, int>(); // returns an empty vector
         }
         else if (x < t->key)
         {
@@ -309,16 +316,19 @@ private:
      * Modified from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
      */
 
-    void printTree(std::ostream& out, DSAvlNode *&t)
+    void printTree(std::ostream &out, DSAvlNode *&t)
     {
-        out << t->key;
-        for (const auto &itr : t->mapVals)
+        if (t != nullptr)
         {
-            out << ":" << itr.first << "," << itr.second << ";";
+            out << t->key;
+            for (const auto &itr : t->mapVals)
+            {
+                out << ":" << itr.first << "," << itr.second << ";";
+            }
+            out << std::endl;
+            printTree(out, t->left);
+            printTree(out, t->right);
         }
-        out << std::endl;
-        printTree(out, t->left);
-        printTree(out, t->right);
     }
     // void prettyPrintTree(const std::string &prefix, const DSAvlNode *node, bool isRight) const
     // {
@@ -345,8 +355,8 @@ private:
     {
 #ifdef DEBUG
         std::cout << "need to rotateWithLeftChild for node " << k2->key << std::endl;
-        //std::cout << "Before:" << std::endl;
-        //prettyPrintTree();
+        // std::cout << "Before:" << std::endl;
+        // prettyPrintTree();
 #endif
 
         DSAvlNode *k1 = k2->left;
@@ -356,8 +366,8 @@ private:
         k1->height = max(height(k1->left), k2->height) + 1;
         k2 = k1;
 #ifdef DEBUG
-        //std::cout << "After:" << std::endl;
-        //prettyPrintTree();
+        // std::cout << "After:" << std::endl;
+        // prettyPrintTree();
 #endif
     }
 
@@ -371,7 +381,7 @@ private:
 #ifdef DEBUG
         std::cout << "need to rotateWithRightChild for node " << k1->key << std::endl;
         std::cout << "Before:" << std::endl;
-        //prettyPrintTree();
+        // prettyPrintTree();
 
 #endif
 
@@ -383,7 +393,7 @@ private:
         k1 = k2;
 #ifdef DEBUG
         std::cout << "After:" << std::endl;
-        //prettyPrintTree();
+        // prettyPrintTree();
 #endif
     }
 

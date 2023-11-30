@@ -27,13 +27,8 @@ private:
             maps = v;
             next = nullptr;
         }
-        HashNode(const HashNode& n)
-        {
-            comp = n.comp;
-            maps = n.maps;
-            next = nullptr;
-        }
-    }; 
+        HashNode(const HashNode &n) : comp(n.comp), maps(n.maps), next(nullptr) {}
+    };
     int capacity;
     int size;
     HashNode **table;
@@ -41,21 +36,21 @@ private:
     {
         int storeCapacity = capacity;
         capacity = capacity * 2;
-        HashNode** storeTable = table;
+        HashNode **storeTable = table;
         createHash(capacity);
-        for (int i = 0; i < storeCapacity; i++) 
+        for (int i = 0; i < storeCapacity; i++)
         {
-            HashNode* itr = storeTable[i];
+            HashNode *itr = storeTable[i];
             while (itr != nullptr)
             {
                 secondInsert(itr->comp, itr->maps);
-                HashNode* temp = itr;
+                HashNode *temp = itr;
                 itr = itr->next;
                 delete temp;
             }
             storeTable[i] = nullptr;
         }
-        delete storeTable;
+        delete[] storeTable;
     }
 
     int hash(Comparable comp)
@@ -75,19 +70,23 @@ public:
         delete[] table;
     }
 
-    Hash(const HashNode &rhs) : table{nullptr} // copy constructor
+    Hash(const Hash &rhs) : table{nullptr} // copy constructor
     {
-        table = clone(rhs.table);
+        clone(rhs);
     }
 
-    HashNode &operator=(const HashNode &rhs) // assignment operator
+    Hash &operator=(const Hash &rhs) // assignment operator
     {
-        clear();
-        table = clone(rhs.table);
+        if (this != &rhs)
+        {
+            clear();
+            clone(rhs);
+        }
         return *this;
     }
 
-    int getSize(){
+    int getSize()
+    {
         return size;
     }
 
@@ -120,19 +119,25 @@ public:
         }
     }
 
-    void clone(const Hash& copy) // clones a hash
+    void clone(const Hash &copy) // clones a hash
     {
         createHash(copy.capacity);
         size = copy.size;
         for (int i = 0; i < capacity; i++)
         {
             HashNode *itr1 = copy.table[i];
-            HashNode *itr2 = table[i];
+            HashNode *prev = nullptr;
             while (itr1 != nullptr)
             {
-                itr2 = new HashNode(*itr1);
+                HashNode *newNode = new HashNode(*itr1);
+                if(prev == nullptr){
+                    table[i] = newNode;
+                }
+                else{
+                    prev->next = newNode;
+                }
+                prev = newNode;
                 itr1 = itr1->next;
-                itr2 = itr2->next;
             }
         }
     }
@@ -148,7 +153,7 @@ public:
         else
         {
             HashNode *itr = table[index];
-            HashNode* prev = nullptr;
+            HashNode *prev = nullptr;
             while (itr != nullptr)
             {
                 if (itr->comp == comp)
@@ -156,7 +161,9 @@ public:
                     if (itr->maps.find(val) == itr->maps.end())
                     {
                         itr->maps[val] = 1;
-                    } else {
+                    }
+                    else
+                    {
                         itr->maps[val] += 1;
                     }
                     break;
@@ -167,8 +174,11 @@ public:
             }
             if (itr == nullptr)
             {
-                prev->next = new HashNode(comp, val);
-                size++;
+                if (prev != nullptr)
+                {
+                    prev->next = new HashNode(comp, val);
+                    size++;
+                }
             }
         }
         if (size == capacity)
@@ -177,9 +187,9 @@ public:
         }
     }
 
-    void printHash(std::ostream &out) 
+    void printHash(std::ostream &out)
     {
-         for (int i = 0; i < capacity; i++)
+        for (int i = 0; i < capacity; i++)
         {
             HashNode *itr = table[i];
             while (itr != nullptr)
@@ -211,7 +221,10 @@ public:
             {
                 if (itr->comp == comp)
                 {
-                    itr->maps = val;
+                    for(const auto &entry : val){
+                        itr->maps[entry.first] = entry.second;
+                    }
+                    //itr->maps = val;
                     break;
                 }
                 // may need to do this by reference
@@ -233,16 +246,16 @@ public:
     std::map<Value, int> find(const Comparable comp) // finds a comp in the hash
     {
         int index = hash(comp);
-        HashNode* itr = table[index];
+        HashNode *itr = table[index];
         while (itr != nullptr)
         {
-            if (itr->comp == comp) 
+            if (itr->comp == comp)
             {
                 return itr->maps;
             }
             itr = itr->next;
         }
-    return std::map<Value, int>();
+        return std::map<Value, int>();
     }
 };
 #endif
