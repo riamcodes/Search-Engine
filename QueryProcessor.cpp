@@ -14,7 +14,7 @@ void QueryProcessor::setIndexHandler(IndexHandler *i) // Sets the Index Handler 
 
 std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
 {
-    size_t start = 0;
+    //size_t start = 0;
     storage.clear();
     std::string temp;
     std::stringstream ss(answer);
@@ -26,7 +26,7 @@ std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Pa
 
 std::vector<std::string> QueryProcessor::disectAnswer() // This function disects the parsed answer
 {
-    for (int i = 0; i < storage.size(); i++)
+    for (size_t i = 0; i < storage.size(); i++)
     {
         if (storage[i].length() > 4 && storage[i].substr(0, 4) == "ORG:")
         {
@@ -70,12 +70,12 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
 
 std::vector<std::string> QueryProcessor::intersection(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and "B"
 {
-    std::map<std::string, int> docs1;
-    std::map<std::string, int> docs2;
+    // std::map<std::string, int> docs1;
+    // std::map<std::string, int> docs2;
     std::map<std::string, int> finalVector;
-    for (const auto &itr : docs1) 
+    for (const auto &itr : relevantDocuments) 
     {
-        if(docs2.find(itr.first) != docs2.end()){
+        if(docs.find(itr.first) != docs.end()){
             finalVector[itr.first] = itr.second;
         }
     }
@@ -96,12 +96,12 @@ std::vector<std::string> QueryProcessor::intersection(std::map<std::string, int>
 
 std::vector<std::string> QueryProcessor::complement(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and not "B"
 {
-    std::map<std::string, int> docs1;
-    std::map<std::string, int> docs2;
+    // std::map<std::string, int> docs1;
+    // std::map<std::string, int> docs2;
     std::map<std::string, int> finalVector;
-    for (const auto &itr : docs1) 
+    for (const auto &itr : relevantDocuments) 
     {
-        if(docs2.find(itr.first) == docs2.end()){
+        if(docs.find(itr.first) == docs.end()){
             finalVector[itr.first] = itr.second;
         }
     }
@@ -126,7 +126,7 @@ std::vector<std::string> QueryProcessor::complement(std::map<std::string, int> r
 
 std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> finalVector) // This finds the relevency of the document
 {
-    int n = indexObject->getDocSize();
+    //int n = indexObject->getDocSize();
     for (auto &itr : finalVector)
     {
         double wordCount = indexObject->getWordCount(itr.first);
@@ -140,7 +140,7 @@ std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> fi
     //     double idf = log2((double)(indexObject->getDocSize() / finalVector.size())); /////////////////
     //     finalVector[i].second = tf * idf;
     // }
-    int size = finalVector.size();
+    //int size = finalVector.size();
     //quickSort(finalVector, 0, size);
     if (finalVector.size() <= 15) 
     {
