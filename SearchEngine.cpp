@@ -17,6 +17,9 @@ void SearchEngine::input(char** answer){
         }
     }
     else if(answer[1] == "ui"){
+        ih->readPersistence("words");
+        ih->readPersistence("people");
+        ih->readPersistence("orgs");
         ui->initialQuestion();
     }
 }
