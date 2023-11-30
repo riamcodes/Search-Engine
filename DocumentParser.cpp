@@ -94,6 +94,7 @@ void DocumentParser::parseDocument(const string& jsonContent) {
     string docID;
     string docPersons;
     string org;
+    string title;
     ifstream ifs(jsonContent);
     if (!ifs.is_open()) {
         cerr << "Could not open file for reading: " << jsonContent << endl;
@@ -113,10 +114,17 @@ void DocumentParser::parseDocument(const string& jsonContent) {
 // void addOrgs(std::string, int);
 // void addDocument(int);
    
-if (d.HasMember("uuid") && d["uuid"].IsString()) {
-     docID = d["uuid"].GetString();
-   ih->addDocument(jsonContent);
+// if (d.HasMember("uuid") && d["uuid"].IsString()) {
+//      docID = d["uuid"].GetString();
+//   // ih->addDocument(jsonContent); // filepath to jsons
+// }
+
+if (d.HasMember("title") && d["title"].IsString()) {
+     title = d["title"].GetString();
+   ih->addDocument(jsonContent, title); // filepath to jsons
 }
+
+
 if (d.HasMember("persons") && d["persons"].IsString()) {
    string allPeople = d["persons"].GetString();
    istringstream iss2(allPeople);
@@ -160,6 +168,7 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
             cout << word << endl;  // Print each word on a new line
              ih->addWords(word,docID);
             wordCount++;
+              ih->addWordCount(title, wordCount);
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
              }
         }

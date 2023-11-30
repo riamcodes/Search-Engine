@@ -90,7 +90,7 @@ void UserInterface::initialQuestion()
             std::string answerCreate;
             std::cin >> answerCreate;
             auto startTrain = std::chrono::high_resolution_clock::now();
-        //    ih->createPersistence(answerCreate);
+          ih->createPersistence(answerCreate);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -100,7 +100,7 @@ void UserInterface::initialQuestion()
             std::string answerRead;
             std::cin >> answerRead;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            // ih->readPersistence(answerRead);
+            ih->readPersistence(answerRead);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -109,7 +109,7 @@ void UserInterface::initialQuestion()
             std::cout << "Please enter a query" << std::endl;
             std::getline(std::cin, answer3);
             auto startTrain = std::chrono::high_resolution_clock::now();
-            qp->parsingAnswer(answer3);
+            std::vector<std::string> final = qp->parsingAnswer(answer3);
             std::string yesOrNo;
             std::string fileName;
             std::cout << "Would you like to see the contents of a file?" << std::endl;
@@ -122,7 +122,10 @@ void UserInterface::initialQuestion()
             }
             if (yesOrNo == "yes")
             {
-            //   dp->parseDocument();
+                std::cout << "Please enter in the title of the document that you would like to see." << std::endl;
+                std::string titleDocument;
+                std::getline(std::cin, titleDocument);           
+                dp->parseDocument(ih->getFilePath(titleDocument));
             }
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
