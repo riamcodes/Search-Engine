@@ -34,7 +34,10 @@ public:
 
     //
     void parseDocument(const std::string &jsonContent);
+
     // void parse
+
+    void printDocument(const std:: string&jsonContent);
 
     void setIndex(IndexHandler *ih);
 

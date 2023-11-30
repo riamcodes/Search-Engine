@@ -88,6 +88,88 @@ set<string> stopWords = {     "able", "about", "above", "abroad", "according", "
     ih = index;
  }
 
+void DocumentParser::printDocument(const string& jsonContent){
+     int wordCount = 0;
+    string docID;
+    string docPersons;
+    string org;
+    string title;
+    ifstream ifs(jsonContent);
+    if (!ifs.is_open()) {
+        cerr << "Could not open file for reading: " << jsonContent << endl;
+        return;
+    }
+    IStreamWrapper isw(ifs);
+    Document d;
+    d.ParseStream(isw);
+    if (d.HasParseError()) {
+        cerr << "JSON parse error: " << d.GetParseError() << endl;
+        return;
+    }
+   d.ParseStream(isw);
+
+
+if (d.HasMember("title") && d["title"].IsString()) {
+     title = d["title"].GetString();
+  std::cout << "Title: " << title << endl;
+}
+
+
+if (d.HasMember("persons") && d["persons"].IsString()) {
+   string allPeople = d["persons"].GetString();
+   //istringstream iss2(allPeople);
+   //docPersons declared above
+   //while (iss2 >> docPersons){
+  std::cout << "Persons: " << allPeople << endl;
+   
+   
+}
+
+
+if (d.HasMember("organizations") && d["organizations"].IsString()) {
+    string allOrgs= d["organizations"].GetString();
+   // istringstream iss1(allOrgs);
+    //org declared aboce
+   // while (iss1 >> org){
+     //   transform(org.begin(), org.end(), org.begin(), ::tolower);
+       //  ih->addOrgs(org,docID);
+       std::cout << "Organizations: " <<  allOrgs << endl;
+    }
+     //org = d["organizations"].GetString();
+  //   void addOrgs(int, DSDocument); ask anekah how this works WARNING THIS IS USUALLY BLANK
+  
+
+
+
+     if (d.HasMember("text") && d["text"].IsString()) {
+        //cout << "Text: " << d["text"].GetString() << "\n";
+        //THIS PRINTS OUT EACH WORD ON A NEW LINE
+       string text = d["text"].GetString();
+        // // Use a string stream to tokenize the text
+        // istringstream iss(text);
+        // string word;
+        // while (iss >> word) {
+        //     // the transform function comes from tha algorithm include
+        //     //processes word from beginning to end and then goes back to the beginning and makes everyting lowercase 
+        //     transform(word.begin(), word.end(), word.begin(), ::tolower); 
+        //     Porter2Stemmer::stem(word);
+        //     //cout << docID<< endl; 
+        //      if (stopWords.find(word) == stopWords.end()) {
+        //  //   cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
+        //   //   ih->addWords(word,docID);
+        //     wordCount++;
+        //      // ih->addWordCount(title, wordCount);
+        //   //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
+        //      }
+        // }
+        cout << "Text: " << text << endl;
+    } else {
+        cerr << "The JSON does not contain a 'text' attribute or it is not a string." << endl;
+    }
+    cout << endl;
+   // cout << "Document ID: " << docID << " Word Count: " << wordCount++ << endl;
+}
+
 
 
 void DocumentParser::parseDocument(const string& jsonContent) {
@@ -167,7 +249,7 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
             Porter2Stemmer::stem(word);
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
-            cout << word << endl;  // Print each word on a new line
+         //   cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
           //   ih->addWords(word,docID);
             wordCount++;
              // ih->addWordCount(title, wordCount);
