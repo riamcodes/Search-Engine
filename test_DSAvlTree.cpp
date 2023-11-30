@@ -116,3 +116,43 @@ TEST_CASE("remove", "[DSAvlTree]")
     // test2.remove(4);
     // results2.erase(4);
 }
+TEST_CASE("Copy Constructor", "[DSAvlTree]")
+{
+    DSAvlTree<std::string, int> original;
+    original.insert("HELLO!", 4);
+    original.insert("HI", 4);
+    original.insert("hola", 4);
+
+    DSAvlTree<std::string, int> copy(original);
+
+    REQUIRE(copy.contains("HELLO!").size() == 1);
+    REQUIRE(copy.contains("HI").size() == 1);
+    REQUIRE(copy.contains("hola").size() == 1);
+
+    copy.remove("HELLO!");
+
+    REQUIRE(original.contains("HELLO!").size() == 1);
+    REQUIRE(copy.contains("HELLO!").size() == 0);
+}
+
+TEST_CASE("Assignment Operator", "[DSAvlTree]")
+{
+    DSAvlTree<std::string, int> original;
+    original.insert("HELLO!", 4);
+    original.insert("HI", 4);
+    original.insert("hola", 4);
+
+    DSAvlTree<std::string, int> copy;
+    copy.insert("bye", 10);
+
+    copy = original;
+
+    REQUIRE(copy.contains("HELLO!").size() == 1);
+    REQUIRE(copy.contains("HI").size() == 1);
+    REQUIRE(copy.contains("hola").size() == 1);
+
+    copy.remove("HELLO!");
+
+    REQUIRE(original.contains("HELLO!").size() == 1);
+    REQUIRE(copy.contains("HELLO!").size() == 0);
+}
