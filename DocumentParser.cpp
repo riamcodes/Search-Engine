@@ -144,8 +144,8 @@ if (d.HasMember("persons") && d["persons"].IsString()) {
 }
 
 
-if (d.HasMember("organizations") && d["organizations"].IsString()) {
-    string allOrgs= d["organizations"].GetString();
+if (d.HasMember("organizations") && d["entities"]["organizations"].IsString()) { /////////////////////////////////this cwas chagned 
+    string allOrgs= d["entities"]["organizations"].GetString();
     istringstream iss1(allOrgs);
     //org declared aboce
     while (iss1 >> org){
@@ -179,7 +179,7 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
             cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
            ih->addWords(word,docID);
             wordCount++;
-             // ih->addWordCount(title, wordCount);
+              ih->addWordCount(title, wordCount);
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
              }
         }
