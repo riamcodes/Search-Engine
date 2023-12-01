@@ -240,7 +240,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
 // diread todname to get file names
 // vectorMstring> folders
 // folders.pushback*diread- name 
-// then do it again
+// then do it againj
 void DocumentParser::traverseSubdirectory(const string& directoryPath){
  
 // Open the directory
