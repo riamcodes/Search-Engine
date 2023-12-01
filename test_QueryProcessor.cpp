@@ -33,7 +33,7 @@ int main()
   //std::string query = "businesses hi hello";
   Porter2Stemmer::stem(query1);
   std::cout << query1 << std::endl;
-    qp.parsingAnswer(query1);
+  qp.parsingAnswer(query1);
 
 
     // std::string query = "";
