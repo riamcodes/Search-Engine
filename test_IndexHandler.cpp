@@ -4,7 +4,8 @@
 #include "DocumentParser.h"
 using namespace std;
 
-TEST_CASE("IndexHandler Test", "[IndexHandler]") {
+TEST_CASE("IndexHandler Test", "[IndexHandler]")
+{
     // Create an instance of IndexHandler
     DocumentParser dp;
 
@@ -12,51 +13,43 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]") {
     dp.parseDocument("../sample_data/coll_1/news_0064567.json");
     IndexHandler ih = dp.getIndex();
 
-    SECTION("getWords Test") {
-        map<string, int> result = ih.getWords("businesses");
+    SECTION("getWords Test")
+    {
+        map<string, int> result = ih.getWords("plan");
         REQUIRE(result.size() == 1);
-         cout << "1" << endl;
         REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 3);
-        cout << "2" << endl;
 
         map<string, int> result1 = ih.getWords("Brexit");
-        REQUIRE(result.size() == 1);
-         cout << "3" << endl;
-        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 6);
- cout << "4" << endl;
-        map<string, int> result2 = ih.getWords("interests");
-        REQUIRE(result.size() == 1);
+        REQUIRE(result1.size() == 1);
+        REQUIRE(result1["../sample_data/coll_1/news_0064567.json"] == 6);
 
-         cout << "5" << endl;
-        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 1);
+        map<string, int> result2 = ih.getWords("interests");
+        REQUIRE(result2.size() == 1);
+        REQUIRE(result2["../sample_data/coll_1/news_0064567.json"] == 1);
 
         map<string, int> result3 = ih.getWords("prospect");
-        REQUIRE(result.size() == 1);
-         cout << "6" << endl;
-        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 1);
-         cout << "7" << endl;
+        REQUIRE(result3.size() == 1);
+        REQUIRE(result3["../sample_data/coll_1/news_0064567.json"] == 1);
 
         map<string, int> result4 = ih.getWords("prospects");
-        REQUIRE(result.size() == 1);
-         cout << "8" << endl;
-        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2);
- cout << "9" << endl;
+        REQUIRE(result4.size() == 1);
+        REQUIRE(result4["../sample_data/coll_1/news_0064567.json"] == 2);
+
         map<string, int> result5 = ih.getWords("potato");
-        REQUIRE(result.size() == 0);
- cout << "10" << endl;
+        REQUIRE(result5.size() == 0);
+
         map<string, int> result6 = ih.getWords("orange");
-        REQUIRE(result.size() == 0);
-        cout << "11" << endl; 
+        REQUIRE(result6.size() == 0);
     }
 
-    SECTION("getPeople Test") {
-        // map<string, int> result = ih.getPeople("eric schweitzer"); ////////////make parser able to connect two names 
-        // REQUIRE(result.size() == 1);
-        // map<string, int> result2 = ih.getPeople("carolyn julie fairbairn");
-        // REQUIRE(result2.size() == 1);
-        // map<string, int> result3 = ih.getPeople("joachim lang");
-        // REQUIRE(result2.size() == 1);
-        
+    SECTION("getPeople Test")
+    {
+        map<string, int> result = ih.getPeople("eric schweitzer"); ////////////make parser able to connect two names
+        REQUIRE(result.size() == 1);
+        map<string, int> result2 = ih.getPeople("carolyn julie fairbairn");
+        REQUIRE(result2.size() == 1);
+        map<string, int> result3 = ih.getPeople("joachim lang");
+        REQUIRE(result2.size() == 1);
         map<string, int> result4 = ih.getPeople("schweitzer");
         REQUIRE(result4.size() == 1);
         map<string, int> result5 = ih.getPeople("adam");
@@ -67,14 +60,13 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]") {
         REQUIRE(result7.size() == 0);
     }
 
-    SECTION("getWordCount Test") {
-        // int result = ih.getWordCount("German firms doing business in UK gloomy about Brexit - survey");
-        // cout << result;
-        // REQUIRE(result == 50);
+    SECTION("getWordCount Test")
+    {
         REQUIRE(ih.getWordCount("German firms doing business in UK gloomy about Brexit - survey") == 251);
     }
 
-    SECTION("getOrgs Test"){
+    SECTION("getOrgs Test")
+    {
         map<string, int> result = ih.getOrgs("cnn");
         REQUIRE(result.size() == 0);
         map<string, int> result1 = ih.getOrgs("nbc");
