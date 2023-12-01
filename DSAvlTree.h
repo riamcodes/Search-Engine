@@ -284,7 +284,12 @@ private:
         {
             return nullptr;
         }
-        return new DSAvlNode{t->key, clone(t->left), clone(t->right), t->height};
+        DSAvlNode* newNode = new DSAvlNode(*t);
+        newNode->left = clone(t->left);
+        newNode->right = clone(t->right);
+        newNode->height = t->height;
+        return newNode;
+        //return new DSAvlNode{t->key, clone(t->left), clone(t->right), t->height};
     }
 
     // Balancing: DSAVL Rotations
@@ -387,7 +392,7 @@ private:
     void rotateWithLeftChild(DSAvlNode *&k2)
     {
 #ifdef DEBUG
-        std::cout << "need to rotateWithLeftChild for node " << k2->key << std::endl;
+        //std::cout << "need to rotateWithLeftChild for node " << k2->key << std::endl;
         // std::cout << "Before:" << std::endl;
         // prettyPrintTree();
 #endif
@@ -412,8 +417,8 @@ private:
     void rotateWithRightChild(DSAvlNode *&k1)
     {
 #ifdef DEBUG
-        std::cout << "need to rotateWithRightChild for node " << k1->key << std::endl;
-        std::cout << "Before:" << std::endl;
+        //std::cout << "need to rotateWithRightChild for node " << k1->key << std::endl;
+        //std::cout << "Before:" << std::endl;
         // prettyPrintTree();
 
 #endif
@@ -425,7 +430,7 @@ private:
         k2->height = max(height(k2->right), k1->height) + 1;
         k1 = k2;
 #ifdef DEBUG
-        std::cout << "After:" << std::endl;
+        //std::cout << "After:" << std::endl;
         // prettyPrintTree();
 #endif
     }
@@ -439,7 +444,7 @@ private:
     void doubleWithLeftChild(DSAvlNode *&k3)
     {
 #ifdef DEBUG
-        std::cout << "doubleWithLeftChild" << std::endl;
+        //std::cout << "doubleWithLeftChild" << std::endl;
 #endif
         rotateWithRightChild(k3->left);
         rotateWithLeftChild(k3);
@@ -454,7 +459,7 @@ private:
     void doubleWithRightChild(DSAvlNode *&k1)
     {
 #ifdef DEBUG
-        std::cout << "doubleWithRightChild" << std::endl;
+        //std::cout << "doubleWithRightChild" << std::endl;
 #endif
         rotateWithLeftChild(k1->right);
         rotateWithRightChild(k1);
