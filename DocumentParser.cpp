@@ -127,35 +127,79 @@ void DocumentParser::parseDocument(const string& jsonContent) {
 // }
 
 if (d.HasMember("title") && d["title"].IsString()) {
+    //std:: cout << "hiiiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaaaa";
      title = d["title"].GetString();
    ih->addDocument(jsonContent, title); // filepath to jsons
 }
 
 
-if (d.HasMember("persons") && d["persons"].IsString()) {
-   string allPeople = d["persons"].GetString();
-   istringstream iss2(allPeople);
-   //docPersons declared above
-   while (iss2 >> docPersons){
-   transform(docPersons.begin(), docPersons.end(), docPersons.begin(), ::tolower);
-    ih->addPeople(docPersons,docID);
-   }
+// if (d.HasMember("persons") && d["persons"].IsString()) {
+//    string allPeople = d["persons"].GetString();
+//     std::cout << "THIS IS A TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTttt";
+//    istringstream iss2(allPeople);
+//    //docPersons declared above
+//    while (iss2 >> docPersons){
+//    transform(docPersons.begin(), docPersons.end(), docPersons.begin(), ::tolower);
+//     ih->addPeople(docPersons,docID);
+//    }
    
-}
+// }
 
 
-if (d.HasMember("organizations") && d["entities"]["organizations"].IsString()) { /////////////////////////////////this cwas chagned 
-    string allOrgs= d["entities"]["organizations"].GetString();
-    istringstream iss1(allOrgs);
-    //org declared aboce
-    while (iss1 >> org){
-        transform(org.begin(), org.end(), org.begin(), ::tolower);
-         ih->addOrgs(org,docID);
+
+
+if (d.HasMember("entities") && d["entities"].IsObject()) {
+    const rapidjson::Value& entities = d["entities"];
+    if (entities.HasMember("persons") && entities["persons"].IsArray()) {
+        const rapidjson::Value& personsArray = entities["persons"];
+        for (rapidjson::SizeType i = 0; i < personsArray.Size(); i++) {
+            if (personsArray[i].IsObject()) {
+                const rapidjson::Value& personObject = personsArray[i];
+                if (personObject.HasMember("name") && personObject["name"].IsString()) {
+                    docPersons = personObject["name"].GetString();
+                   //std::cout << "Person: " << docPersons << std::endl;
+                   
+                   ih->addPeople(docPersons,docID);
+                }
+            }
+        }
     }
-     //org = d["organizations"].GetString();
-  //   void addOrgs(int, DSDocument); ask anekah how this works WARNING THIS IS USUALLY BLANK
-  
 }
+
+
+
+if (d.HasMember("entities") && d["entities"].IsObject()) {
+    const rapidjson::Value& entities = d["entities"];
+    if (entities.HasMember("organizations") && entities["organizations"].IsArray()) {
+        const rapidjson::Value& orgArray = entities["organizations"];
+        for (rapidjson::SizeType i = 0; i < orgArray.Size(); i++) {
+            if (orgArray[i].IsObject()) {
+                const rapidjson::Value& personObject = orgArray[i];
+                if (personObject.HasMember("name") && personObject["name"].IsString()) {
+                    std::string org = personObject["name"].GetString();
+                    //std::cout << "ORG:  " << org<< std::endl;
+                   
+                   ih->addOrgs(docPersons,docID);
+                }
+            }
+        }
+    }
+}
+
+// if (d.HasMember("organizations") && d["organizations"].IsString()) { /////////////////////////////////this cwas chagned 
+//     string allOrgs= d["organizations"].GetString();
+//     std::cout << "THIS IS A TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTttt";
+//     istringstream iss1(allOrgs);
+//     //org declared aboce
+//     while (iss1 >> org){
+//         transform(org.begin(), org.end(), org.begin(), ::tolower);
+//         std::cout << "ORGORGORGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg" << org;
+//          ih->addOrgs(org,docID);
+//     }
+//      //org = d["organizations"].GetString();
+//   //   void addOrgs(int, DSDocument); ask anekah how this works WARNING THIS IS USUALLY BLANK
+  
+// }
 
 
      if (d.HasMember("text") && d["text"].IsString()) {
@@ -177,7 +221,7 @@ if (d.HasMember("organizations") && d["entities"]["organizations"].IsString()) {
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
             std::cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
-           ih->addWords(word,docID);
+           //ih->addWords(word,docID);
             wordCount++;
               ih->addWordCount(title, wordCount);
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
