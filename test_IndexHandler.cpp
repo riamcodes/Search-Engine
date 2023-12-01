@@ -128,5 +128,35 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(index.getFilePath("German firms doing business in UK gloomy about Brexit - survey") == "../sample_data/coll_1/news_0064567.json");
     }
 
+    SECTION("Multiple Doc Testing")
+    {
+        dp.parseDocument("../sample_data/coll_1/news_0064568.json");
+        IndexHandler ih = dp.getIndex();
+
+        map<string, int> result1 = ih.getWords("german");
+        REQUIRE(result1.size() == 1);
+        REQUIRE(result1["../sample_data/coll_1/news_0064567.json"] == 4);
+
+        map<string, int> result2 = ih.getWords("group");
+        REQUIRE(result2.size() == 2);
+        REQUIRE(result2["../sample_data/coll_1/news_0064567.json"] == 1);
+        REQUIRE(result2["../sample_data/coll_1/news_0064568.json"] == 2);
+
+        ih.createPersistence();
+
+        IndexHandler index2;
+
+        index2.readPersistence();
+
+        map<string, int> result = ih.getWords("german");
+        REQUIRE(result.size() == 1);
+        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 4);
+
+        map<string, int> result3 = ih.getWords("group");
+        REQUIRE(result3.size() == 2);
+        REQUIRE(result3["../sample_data/coll_1/news_0064567.json"] == 1);
+        REQUIRE(result3["../sample_data/coll_1/news_0064568.json"] == 2);
+    }
+
     // Add more test cases based on your specific methods and requirements
 }
