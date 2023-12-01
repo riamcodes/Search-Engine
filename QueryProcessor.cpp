@@ -2,9 +2,7 @@
 
 QueryProcessor::QueryProcessor() // Default Constructor
 {
-    // tf = 0;
-    // idf = 0;
-    // totalDocs = 0;
+  
 }
 
 void QueryProcessor::setIndexHandler(IndexHandler *i) // Sets the Index Handler Object
@@ -31,6 +29,7 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         if (storage[i].length() > 4 && storage[i].substr(0, 4) == "ORG:")
         {
             std::string term = storage[i].substr(4, storage[i].length() - 4);
+            Porter2Stemmer::stem(term);
             std::map<std::string, int> docs = indexObject->getOrgs(term);
             // std::vector<std::pair<std::string, int>> docs = indexObject->getOrgs(term); // was DSDocument
             relDocs = intersection(relevantDocuments, docs);
@@ -38,6 +37,8 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         else if (storage[i].length() > 7 && storage[i].substr(0, 7) == "PERSON:")
         {
             std::string term = storage[i].substr(7, storage[i].length() - 7);
+            Porter2Stemmer::stem(term);
+            std::cout << term << std::endl;
             std::map<std::string, int> docs = indexObject->getPeople(term);
             // std::vector<std::pair<std::string, int>> docs = indexObject->getPeople(term); // was DSDocument
             relDocs = intersection(relevantDocuments, docs);
@@ -45,6 +46,7 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         else if (storage[i].substr(0, 1) == "-")
         {
             std::string term = storage[i].substr(1, storage[i].length() - 1);
+            Porter2Stemmer::stem(term);
             std::map<std::string, int> docs = indexObject->getWords(term);
             // std::vector<std::pair<std::string, int>> docs = indexObject->getWords(term); // was DSDocument
             relDocs = complement(relevantDocuments, docs);

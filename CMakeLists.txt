@@ -77,4 +77,7 @@ add_test(NAME TestHash COMMAND test_DSHash)
 add_executable(testDocumentParser testDocumentParser.cpp DocumentParser.cpp porter2_stemmer.cpp IndexHandler.cpp)
 add_test(NAME testDocumentParser COMMAND testDocumentParser)
 
+add_executable(test_QueryProcessor test_QueryProcessor.cpp QueryProcessor.cpp IndexHandler.cpp porter2_stemmer.cpp DocumentParser.cpp)
+add_test(NAME TestQueryProcessor COMMAND test_QueryProcessor)
+
 # Add more tests as needed
