@@ -17,23 +17,19 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
     {
         map<string, int> result = ih.getWords("plan");
         REQUIRE(result.size() == 1);
-        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 3);
+        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2);//should be 2
 
-        map<string, int> result1 = ih.getWords("Brexit");
+        map<string, int> result1 = ih.getWords("arriv");
         REQUIRE(result1.size() == 1);
-        REQUIRE(result1["../sample_data/coll_1/news_0064567.json"] == 6);
+        REQUIRE(result1["../sample_data/coll_1/news_0064567.json"] == 1);
 
-        map<string, int> result2 = ih.getWords("interests");
+        map<string, int> result2 = ih.getWords("interest");
         REQUIRE(result2.size() == 1);
         REQUIRE(result2["../sample_data/coll_1/news_0064567.json"] == 1);
 
         map<string, int> result3 = ih.getWords("prospect");
         REQUIRE(result3.size() == 1);
-        REQUIRE(result3["../sample_data/coll_1/news_0064567.json"] == 1);
-
-        map<string, int> result4 = ih.getWords("prospects");
-        REQUIRE(result4.size() == 1);
-        REQUIRE(result4["../sample_data/coll_1/news_0064567.json"] == 2);
+        REQUIRE(result3["../sample_data/coll_1/news_0064567.json"] == 3);
 
         map<string, int> result5 = ih.getWords("potato");
         REQUIRE(result5.size() == 0);

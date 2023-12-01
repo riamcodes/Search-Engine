@@ -66,6 +66,8 @@ public:
     void makeEmpty() // emptys the tree
     {
         makeEmpty(root);
+        root = nullptr;
+        size = 0;
     }
 
     void insert(const Comparable &x, const Value &v) // inserts x into the tree
@@ -103,6 +105,7 @@ private:
         if (t == nullptr)
         {
             t = new DSAvlNode{x, v, nullptr, nullptr, 0};
+            size++;
         }
         else if (x < t->key)
         {
@@ -136,14 +139,16 @@ private:
             // t->value = tempMap;
             // delete tempMap;
         }
-        size++;
         balance(t);
     }
+    
 
     void insert(const Comparable &x, const Value &v, const int &a, DSAvlNode *&t){
         if (t == nullptr)
         {
             t = new DSAvlNode{x, v, nullptr, nullptr, 0};
+            t->mapVals[v] = 1;
+            size++;
         }
         else if (x < t->key)
         {
@@ -165,7 +170,6 @@ private:
             }
             return;
         }
-        size++;
         balance(t);
     }
 
@@ -267,15 +271,18 @@ private:
 
     void makeEmpty(DSAvlNode *&t) // emptys the subtree
     {
-        if (t == nullptr)
+        if (t != nullptr)
         {
-            return;
+            makeEmpty(t->left);
+            makeEmpty(t->right);
+            delete t;
+            t = nullptr;
         }
-        makeEmpty(t->left);
-        makeEmpty(t->right);
-        delete t;
-        t = nullptr;
-        size = 0;
+        // makeEmpty(t->left);
+        // makeEmpty(t->right);
+        // delete t;
+        // t = nullptr;
+        // size = 0;
     }
 
     DSAvlNode *clone(DSAvlNode *t) const // clones the subtree
