@@ -17,11 +17,11 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
     {
         map<string, int> result = ih.getWords("plan");
         REQUIRE(result.size() == 1);
-        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2);//should be 2
+        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2); // should be 2
 
-        map<string, int> result1 = ih.getWords("arriv");
+        map<string, int> result1 = ih.getWords("german");
         REQUIRE(result1.size() == 1);
-        REQUIRE(result1["../sample_data/coll_1/news_0064567.json"] == 1);
+        REQUIRE(result1["../sample_data/coll_1/news_0064567.json"] == 4);
 
         map<string, int> result2 = ih.getWords("interest");
         REQUIRE(result2.size() == 1);
@@ -66,11 +66,65 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         map<string, int> result = ih.getOrgs("cnn");
         REQUIRE(result.size() == 0);
         map<string, int> result1 = ih.getOrgs("nbc");
-        REQUIRE(result.size() == 0);
+        REQUIRE(result1.size() == 0);
         map<string, int> result2 = ih.getOrgs("abc");
-        REQUIRE(result.size() == 0);
+        REQUIRE(result2.size() == 0);
         map<string, int> result3 = ih.getOrgs("Reuters");
-        REQUIRE(result.size() == 0);
+        REQUIRE(result3.size() == 0);
+    }
+
+    SECTION("Persistance tests")
+    {
+        ih.createPersistence();
+
+        IndexHandler index;
+
+        index.readPersistence("words");
+        index.readPersistence("people");
+        index.readPersistence("orgs");
+
+        map<string, int> result = index.getWords("plan");
+        REQUIRE(result.size() == 1);
+        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2); // should be 2
+        map<string, int> result1 = index.getWords("german");
+        REQUIRE(result1.size() == 1);
+        REQUIRE(result1["../sample_data/coll_1/news_0064567.json"] == 4);
+        map<string, int> result2 = index.getWords("interest");
+        REQUIRE(result2.size() == 1);
+        REQUIRE(result2["../sample_data/coll_1/news_0064567.json"] == 1);
+        map<string, int> result3 = index.getWords("prospect");
+        REQUIRE(result3.size() == 1);
+        REQUIRE(result3["../sample_data/coll_1/news_0064567.json"] == 3);
+        map<string, int> result5 = index.getWords("potato");
+        REQUIRE(result5.size() == 0);
+        map<string, int> result6 = index.getWords("orange");
+        REQUIRE(result6.size() == 0);
+
+        map<string, int> result7 = index.getPeople("eric schweitzer"); ////////////make parser able to connect two names
+        REQUIRE(result7.size() == 1);
+        map<string, int> result8 = index.getPeople("carolyn julie fairbairn");
+        REQUIRE(result8.size() == 1);
+        map<string, int> result9 = index.getPeople("joachim lang");
+        REQUIRE(result9.size() == 1);
+        map<string, int> result10 = index.getPeople("schweitzer");
+        REQUIRE(result10.size() == 1);
+        map<string, int> result11 = index.getPeople("adam");
+        REQUIRE(result11.size() == 0);
+        map<string, int> result12 = index.getPeople("george");
+        REQUIRE(result12.size() == 0);
+        map<string, int> result13 = index.getPeople("sarah");
+        REQUIRE(result13.size() == 0);
+
+        REQUIRE(index.getWordCount("German firms doing business in UK gloomy about Brexit - survey") == 251);
+
+        map<string, int> result14 = index.getOrgs("cnn");
+        REQUIRE(result14.size() == 0);
+        map<string, int> result15 = index.getOrgs("nbc");
+        REQUIRE(result15.size() == 0);
+        map<string, int> result16 = index.getOrgs("abc");
+        REQUIRE(result16.size() == 0);
+        map<string, int> result17 = index.getOrgs("Reuters");
+        REQUIRE(result17.size() == 0);
     }
 
     // Add more test cases based on your specific methods and requirements
