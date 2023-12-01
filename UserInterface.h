@@ -10,22 +10,23 @@
 class UserInterface
 {
 private:
-    int numberOfArticles; // This integer keeps track of the total number of articles in the current index
-    int totalNodes; // This integer keeps track of the total number of nodes (unique words) in the AVL tree
     std::chrono::duration<double> elapsedTrain;
-    IndexHandler* ih;
-    QueryProcessor* qp;
-    DocumentParser* dp;
+    IndexHandler *ih;
+    QueryProcessor *qp;
+    DocumentParser *dp;
+    // int numberOfArticles; // This integer keeps track of the total number of articles in the current index
+    // int totalNodes; // This integer keeps track of the total number of nodes (unique words) in the AVL tree
 public:
-    std::string answer;  // answer to first question
-    std::string answer1; // possible answer to second question
-    std::string answer2; // possible answer to second question
-    std::string answer3; // possible answer to second question
-    // UserInterface(); // Default constructor
-    // ~UserInterface(); // Destructor
-    // UserInterface(const UserInterface &rhs); // Copy Constructor
-    // UserInterface &operator=(const UserInterface &rhs); // Assignment Operator
     void initialQuestion(); // Asks the initial question
-    void secondQuestion(); // Asks the second question
+                            // std::string answer;  // answer to first question
+                            // std::string answer1; // possible answer to second question
+                            // std::string answer2; // possible answer to second question
+                            // std::string answer3; // possible answer to second question
+                            // void secondQuestion(); // Asks the second question
 };
 #endif
+
+// UserInterface(); // Default constructor
+// ~UserInterface(); // Destructor
+// UserInterface(const UserInterface &rhs); // Copy Constructor
+// UserInterface &operator=(const UserInterface &rhs); // Assignment Operator
