@@ -7,6 +7,7 @@
 #include <math.h>
 #include <sstream>
 #include "IndexHandler.h"
+#include "porter2_stemmer.h"
 
 class QueryProcessor
 {
