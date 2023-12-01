@@ -62,13 +62,13 @@ void IndexHandler::createPersistence()
     orgs.printHash(output);
 
     output << "//docs" << std::endl;
-    for (const auto itr : docs)
+    for (const auto &itr : docs)
     {
         output << itr.first << "|" << itr.second << "," << std::endl;
     }
 
     output << "//wordCount" << std::endl;
-    for (const auto itr : wordCount)
+    for (const auto &itr : wordCount)
     {
         output << itr.first << "|" << itr.second << "*" << std::endl;
     }
@@ -93,7 +93,7 @@ void IndexHandler::readPersistence()
     while (getline(input, buffer))
     {
         int index = 0;
-        for (int i = 0; i < buffer.length(); i++)
+        for (size_t i = 0; i < buffer.length(); i++)
         {
             if(buffer[i] == '/' && buffer[i+1] == '/'){
                 answer = buffer.substr(2, buffer.length()-1);

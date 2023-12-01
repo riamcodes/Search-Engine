@@ -7,6 +7,7 @@
 #include <math.h>
 #include <sstream>
 #include "IndexHandler.h"
+#include "porter2_stemmer.h"
 
 class QueryProcessor
 {
@@ -20,7 +21,7 @@ private:
     std::map<std::string, int> relevantDocuments;
     std::vector<std::string> relDocs;
     std::vector<std::string> printVector;
-    IndexHandler *indexObject;
+    IndexHandler *indexObject = new IndexHandler();
 
 public:
     QueryProcessor(); 
