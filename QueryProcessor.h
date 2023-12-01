@@ -21,7 +21,7 @@ private:
     std::map<std::string, int> relevantDocuments;
     std::vector<std::string> relDocs;
     std::vector<std::string> printVector;
-    IndexHandler *indexObject;
+    IndexHandler *indexObject = new IndexHandler();
 
 public:
     QueryProcessor(); 
