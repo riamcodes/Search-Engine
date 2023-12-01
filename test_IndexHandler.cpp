@@ -79,9 +79,7 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
 
         IndexHandler index;
 
-        index.readPersistence("words");
-        index.readPersistence("people");
-        index.readPersistence("orgs");
+        index.readPersistence();
 
         map<string, int> result = index.getWords("plan");
         REQUIRE(result.size() == 1);
@@ -125,6 +123,9 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(result16.size() == 0);
         map<string, int> result17 = index.getOrgs("Reuters");
         REQUIRE(result17.size() == 0);
+
+        REQUIRE(index.getDocSize() == 1);
+        REQUIRE(index.getFilePath("German firms doing business in UK gloomy about Brexit - survey") == "../sample_data/coll_1/news_0064567.json");
     }
 
     // Add more test cases based on your specific methods and requirements

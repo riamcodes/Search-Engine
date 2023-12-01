@@ -6,18 +6,14 @@ void SearchEngine::input(char** answer){
         ih->createPersistence();
     }
     else if(answer[1] == "query"){
-        ih->readPersistence("words");
-        ih->readPersistence("people");
-        ih->readPersistence("orgs");
+        ih->readPersistence();
         std::vector<std::string> final = qp->parsingAnswer(answer[2]);
         for(int i = 0; i<final.size(); i++){
             std::cout << final[i] << std::endl;
         }
     }
     else if(answer[1] == "ui"){
-        ih->readPersistence("words");
-        ih->readPersistence("people");
-        ih->readPersistence("orgs");
+        ih->readPersistence();
         ui->initialQuestion();
     }
 }

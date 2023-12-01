@@ -46,176 +46,100 @@ int IndexHandler::getDocSize()
 void IndexHandler::createPersistence()
 {
     std::ofstream output("persistence.txt");
-    if(!output.is_open()){
+    if (!output.is_open())
+    {
         std::cerr << "Error! File could not be opened!" << std::endl;
         exit(-1);
     }
 
-    output << "WORDS" << std::endl;
+    output << "//words" << std::endl;
     words.printTree(output);
-    
-    output << "PEOPLE" << std::endl;
+
+    output << "//people" << std::endl;
     people.printHash(output);
 
-    output << "ORGS" << std::endl;
+    output << "//orgs" << std::endl;
     orgs.printHash(output);
 
-    output << "DOCUMENTS" << std::endl;
-        for(const auto itr : docs){
-            output << itr.first << "," << itr.second;
-        }
-    
-    output << "WORDCOUNTS" << std::endl;
-    for(const auto itr : wordCount){
-        output << itr.first << "," << itr.second;
+    output << "//docs" << std::endl;
+    for (const auto itr : docs)
+    {
+        output << itr.first << "|" << itr.second << "," << std::endl;
     }
 
-    // if (tree == "words")
-    // {
-    //     std::ofstream output("words.txt");
-    //     if (!output.is_open())
-    //     {
-    //         std::cerr << "Error! File could not be opened!" << std::endl;
-    //         exit(-1);
-    //     }
-    //     words.printTree(output);
-    //     output.close();
-    // }
-    // else if (tree == "people")
-    // {
-    //     std::ofstream output("people.txt");
-    //     if (!output.is_open())
-    //     {
-    //         std::cerr << "Error! File could not be opened!" << std::endl;
-    //         exit(-1);
-    //     }
-    //     people.printHash(output);
-    //     output.close();
-    // }
-    // else if (tree == "orgs")
-    // {
-    //     std::ofstream output("orgs.txt");
-    //     if (!output.is_open())
-    //     {
-    //         std::cerr << "Error! File could not be opened!" << std::endl;
-    //         exit(-1);
-    //     }
-    //     orgs.printHash(output);
-    //     output.close();
-    // }
+    output << "//wordCount" << std::endl;
+    for (const auto itr : wordCount)
+    {
+        output << itr.first << "|" << itr.second << "*" << std::endl;
+    }
 }
-void IndexHandler::readPersistence(std::string tree)
+void IndexHandler::readPersistence()
 {
-    if (tree == "words")
+    std::ifstream input("persistence.txt");
+    std::string buffer;
+    std::string answer;
+    std::string node;
+    std::string id;
+    std::string freq;
+    std::string title;
+    std::string count;
+    bool goIn = false;
+    bool goIn2 = false;
+    if (!input.is_open())
     {
-        std::ifstream input("words.txt");
-        std::string temp;
-        std::string node;
-        std::string id;
-        std::string freq;
-        if (!input.is_open())
+        std::cerr << "Error! File could not be opened!" << std::endl;
+        exit(-1);
+    }
+    while (getline(input, buffer))
+    {
+        int index = 0;
+        for (int i = 0; i < buffer.length(); i++)
         {
-            std::cerr << "Error! File could not be opened!" << std::endl;
-            exit(-1);
-        }
-        while (getline(input, temp))
-        {
-            int index = 0;
-            for (int i = 0; i < temp.length(); i++)
-            {
-                if (temp[i] == ':')
-                {
-                    node = temp.substr(index, i - index);
-                    index = i + 1;
-                }
-                else if (temp[i] == ',')
-                {
-                    id = temp.substr(index, i - index);
-                    index = i + 1;
-                }
-                else if (temp[i] == ';')
-                {
-                    freq = temp.substr(index, i - index);
-                    index = i + 1;
-                }
+            if(buffer[i] == '/' && buffer[i+1] == '/'){
+                answer = buffer.substr(2, buffer.length()-1);
+                goIn = false;
+                goIn2 = false;
+                break;
             }
+            else if (buffer[i] == ':')
+            {
+                node = buffer.substr(index, i - index);
+                index = i + 1;
+            }
+            else if (buffer[i] == ',')
+            {
+                id = buffer.substr(index, i - index);
+                index = i + 1;
+                goIn2 = true;
+            }
+            else if (buffer[i] == ';')
+            {
+                freq = buffer.substr(index, i - index);
+                index = i + 1;
+                goIn = true;
+            }
+            else if(buffer[i] == '|'){
+                title = buffer.substr(index, i - index);
+                index = i+1;
+            }
+            else if(buffer[i] == '*'){
+                count = buffer.substr(index, i - index);
+                index = i+1;
+                goIn = true;
+            }
+        }
+        if(answer == "words" && goIn)
             words.insert(node, id, stoi(freq));
-        }
-        input.close();
-    }
-    else if (tree == "people")
-    {
-        std::ifstream input("people.txt");
-        std::string temp;
-        std::string node;
-        std::string id;
-        std::string freq;
-        if (!input.is_open())
-        {
-            std::cerr << "Error! File could not be opened!" << std::endl;
-            exit(-1);
-        }
-        while (getline(input, temp))
-        {
-            int index = 0;
-            for (int i = 0; i < temp.length(); i++)
-            {
-                if (temp[i] == ':')
-                {
-                    node = temp.substr(index, i - index);
-                    index = i + 1;
-                }
-                else if (temp[i] == ',')
-                {
-                    id = temp.substr(index, i - index);
-                    index = i + 1;
-                }
-                else if (temp[i] == ';')
-                {
-                    freq = temp.substr(index, i - index);
-                    index = i + 1;
-                }
-            }
+        else if(answer == "people" && goIn)
             people.insert(node, id, stoi(freq));
-        }
-        input.close();
-    }
-    else if (tree == "orgs")
-    {
-        std::ifstream input("orgs.txt");
-        std::string temp;
-        std::string node;
-        std::string id;
-        std::string freq;
-        if (!input.is_open())
-        {
-            std::cerr << "Error! File could not be opened!" << std::endl;
-            exit(-1);
-        }
-        while (getline(input, temp))
-        {
-            int index = 0;
-            for (int i = 0; i < temp.length(); i++)
-            {
-                if (temp[i] == ':')
-                {
-                    node = temp.substr(index, i - index);
-                    index = i + 1;
-                }
-                else if (temp[i] == ',')
-                {
-                    id = temp.substr(index, i - index);
-                    index = i + 1;
-                }
-                else if (temp[i] == ';')
-                {
-                    freq = temp.substr(index, i - index);
-                    index = i + 1;
-                }
-            }
+        else if(answer == "orgs" && goIn)
             orgs.insert(node, id, stoi(freq));
-        }
+        else if(answer == "docs" && goIn2)
+            docs[title] = id;
+        else if(answer == "wordCount" && goIn)
+            wordCount[title] = stoi(count);
     }
+    input.close();
 }
 
 int IndexHandler::returnNumArticles(std::string index, std::string tree)
