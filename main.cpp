@@ -26,7 +26,6 @@ int main(int argc, char** argv)
 //     cout << "supersearch not implemented yet." << endl; //edits
 // UserInterface ui;
 // ui.initialQuestion();
-
 SearchEngine se;
 se.input(argv);
 
