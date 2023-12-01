@@ -31,9 +31,9 @@ int main()
 
   std::string query1 = "PERSON:businesses";
   //std::string query = "businesses hi hello";
-  //Porter2Stemmer::stem(query);
-  //std::cout << query << std::endl;
-    //qp.parsingAnswer(query);
+  Porter2Stemmer::stem(query1);
+  std::cout << query1 << std::endl;
+    qp.parsingAnswer(query1);
 
 
     // std::string query = "";
