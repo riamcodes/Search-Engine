@@ -176,7 +176,7 @@ if (d.HasMember("organizations") && d["entities"]["organizations"].IsString()) {
             Porter2Stemmer::stem(word);
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
-            cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
+            std::cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
            ih->addWords(word,docID);
             wordCount++;
               ih->addWordCount(title, wordCount);
@@ -186,8 +186,8 @@ if (d.HasMember("organizations") && d["entities"]["organizations"].IsString()) {
     } else {
         cerr << "The JSON does not contain a 'text' attribute or it is not a string." << endl;
     }
-    cout << endl;
-    cout << "Document ID: " << docID << " Word Count: " << wordCount++ << endl;
+    std::cout << endl;
+    std::cout << "Document ID: " << docID << " Word Count: " << wordCount++ << endl;
 }
 // // make a directroy set it to to the big file then dirent read directory of the big file  as long as it doesnt equal nullptr
 // //Open directoryin folder with open dir
@@ -230,7 +230,7 @@ void DocumentParser::traverseSubdirectory(const string& directoryPath){
             continue;
         }
     
-     cout << "Contents of subdirectory: " << subdir << endl;
+     std::cout << "Contents of subdirectory: " << subdir << endl;
         // Read the subdirectory entries
         while ((entry = readdir(subDir)) != nullptr) {
         
@@ -317,10 +317,10 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
         //   //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
         //      }
         // }
-        cout << "Text: " << text << endl;
+        std::cout << "Text: " << text << endl;
     } else {
         cerr << "The JSON does not contain a 'text' attribute or it is not a string." << endl;
     }
-    cout << endl;
+    std::cout << endl;
    // cout << "Document ID: " << docID << " Word Count: " << wordCount++ << endl;
 }
