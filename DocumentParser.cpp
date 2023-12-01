@@ -165,7 +165,6 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
         }
     }
 }
-//hello
 
 
 if (d.HasMember("entities") && d["entities"].IsObject()) {
