@@ -171,7 +171,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
                     docPersons = personObject["name"].GetString();
                    //std::cout << "Person: " << docPersons << std::endl;
                    
-                   ih->addPeople(docPersons,docID);
+                   ih->addPeople(docPersons,jsonContent);
                 }
             }
         }
@@ -190,7 +190,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
                     std::string org = personObject["name"].GetString();
                     //std::cout << "ORG:  " << org<< std::endl;
                    
-                   ih->addOrgs(docPersons,docID);
+                   ih->addOrgs(docPersons,jsonContent);
                 }
             }
         }
@@ -216,8 +216,8 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
             Porter2Stemmer::stem(word);
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
-            std::cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
-           ih->addWords(word,docID);
+            //std::cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
+           ih->addWords(word,jsonContent);
             wordCount++;
               ih->addWordCount(title, wordCount);
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
@@ -227,7 +227,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
         cerr << "The JSON does not contain a 'text' attribute or it is not a string." << endl;
     }
     std::cout << endl;
-    std::cout << "Document ID: " << docID << " Word Count: " << wordCount++ << endl;
+    std::cout << "Document ID: " << jsonContent << " Word Count: " << wordCount++ << endl;
 }
 // // make a directroy set it to to the big file then dirent read directory of the big file  as long as it doesnt equal nullptr
 // //Open directoryin folder with open dir
