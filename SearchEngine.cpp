@@ -33,6 +33,9 @@ std::getline(std::cin, answer3);
 // Get the relevant documents
 std::vector<std::string> relevantDocs = qp.parsingAnswer(answer3);
 
+std::cout << "Is printVector empty 1 means yes 0 means no " << std::endl;
+std::cout << qp.printVector.empty();
+
 // Print the relevant documents
 std::cout << "Top Relevant Documents:" << std::endl;
 for (const std::string& doc : relevantDocs) {
@@ -40,34 +43,34 @@ for (const std::string& doc : relevantDocs) {
 }
 
 
-std::cout << "Please enter a query" << std::endl;
-            std::string answer3;
-            std::getline(std::cin, answer3);
+// std::cout << "Please enter a query" << std::endl;
+//             std::string answer3;
+//             std::getline(std::cin, answer3);
             
-            std::vector<std::string> final = qp.parsingAnswer(answer3);
+//             std::vector<std::string> final = qp.parsingAnswer(answer3);
            
-         std::cout << "Top Relevant Documents:" << std::endl;
-        std::cout << qp.printVector.empty();
-        
-    for (const std::string& doc : qp.printVector) {
-        std::cout << doc << std::endl;
-    }
+//          std::cout << "Top Relevant Documents:" << std::endl;
+//         std::cout << qp.printVector.empty();
 
-            std::string yesOrNo;
-            std::string fileName;
-            std::cout << "Would you like to see the contents of a file?" << std::endl;
-            std::cin >> yesOrNo;
-            for (size_t i = 0; i < yesOrNo.length(); i++)
-            {
-                tolower(yesOrNo.at(i));
-            }
-            if (yesOrNo == "yes")
-            {
-                std::cout << "Please enter in the title of the document that you would like to see." << std::endl;
-                std::string titleDocument;
-                std::getline(std::cin, titleDocument);
-                dp.printDocument(ih.getFilePath(titleDocument));
-            }
+//     for (const std::string& doc : qp.printVector) {
+//         std::cout << doc << std::endl;
+//     }
+
+//             std::string yesOrNo;
+//             std::string fileName;
+//             std::cout << "Would you like to see the contents of a file?" << std::endl;
+//             std::cin >> yesOrNo;
+//             for (size_t i = 0; i < yesOrNo.length(); i++)
+//             {
+//                 tolower(yesOrNo.at(i));
+//             }
+//             if (yesOrNo == "yes")
+//             {
+//                 std::cout << "Please enter in the title of the document that you would like to see." << std::endl;
+//                 std::string titleDocument;
+//                 std::getline(std::cin, titleDocument);
+//                 dp.printDocument(ih.getFilePath(titleDocument));
+//             }
             //auto finishTrain = std::chrono::high_resolution_clock::now();
           //  elapsedTrain = finishTrain - startTrain;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
