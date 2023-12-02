@@ -38,6 +38,7 @@ void UserInterface::initialQuestion()
         else if (answer == "2") // Create Persistence
         {
             auto startTrain = std::chrono::high_resolution_clock::now();
+            //  ih = dp.getIndex();
             ih->createPersistence();
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
@@ -79,7 +80,9 @@ void UserInterface::initialQuestion()
             std::cout << "Here are some of our runtime statistics:" << std::endl;
             std::cout << "Runtime: " << elapsedTrain.count() << " seconds." << std::endl;
             // std::cout << "Total number of individual articles in the current index: " << # << std::endl;
+            std::cout << "Total articles: " << ih->getDocSize();
             // std::cout << "Total number of unique words indexed: " << (number of nodes in AVLTree) << std::endl;
+
         }
         else if (answer == "6")
         {

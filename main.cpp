@@ -2,8 +2,11 @@
 #include "SearchEngine.h"
 using namespace std;
 
-int main(int argc, char **argv)
+int main()
 {
     SearchEngine se;
-    se.input(argv);
+    se.input();
+    //index directory
+    //query question
+    //ui
 }

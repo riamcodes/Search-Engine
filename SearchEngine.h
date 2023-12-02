@@ -5,13 +5,14 @@
 #include "UserInterface.h"
 #include "QueryProcessor.h"
 
+
 class SearchEngine{
     private:
-    IndexHandler *ih = new IndexHandler();
-    DocumentParser *dp = new DocumentParser();
-    UserInterface *ui = new UserInterface();
-    QueryProcessor *qp = new QueryProcessor();
+    IndexHandler ih;
+    DocumentParser dp;
+    UserInterface ui;
+    QueryProcessor qp;
     public:
-    void input(char**);
+    void input();
 };
 #endif
