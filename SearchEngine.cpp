@@ -13,13 +13,31 @@ QueryProcessor qp;
 std::cout << "HIIIIIIIIIII";
 DocumentParser dp;
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-        dp.traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000");//////////////////
+       // dp.traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000");//////////////////
+       dp.parseDocument("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000/2018_03_112b52537b67659ad3609a234388c50a/news_0022791.json");
+       dp.parseDocument("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000/2018_03_112b52537b67659ad3609a234388c50a/news_0022810.json");
      ih = dp.getIndex();//////////
      ih.createPersistence();/////////////////
 
 // ///////read persistence
  ih.readPersistence();
+// After creating the index
+ih = dp.getIndex();
+qp.setIndexHandler(&ih);  // Assuming such a method exists
 
+// Process the query
+std::cout << "Please enter a query" << std::endl;
+std::string answer3;
+std::getline(std::cin, answer3);
+
+// Get the relevant documents
+std::vector<std::string> relevantDocs = qp.parsingAnswer(answer3);
+
+// Print the relevant documents
+std::cout << "Top Relevant Documents:" << std::endl;
+for (const std::string& doc : relevantDocs) {
+    std::cout << doc << std::endl;
+}
 
 
 std::cout << "Please enter a query" << std::endl;
@@ -27,6 +45,14 @@ std::cout << "Please enter a query" << std::endl;
             std::getline(std::cin, answer3);
             
             std::vector<std::string> final = qp.parsingAnswer(answer3);
+           
+         std::cout << "Top Relevant Documents:" << std::endl;
+        std::cout << qp.printVector.empty();
+        
+    for (const std::string& doc : qp.printVector) {
+        std::cout << doc << std::endl;
+    }
+
             std::string yesOrNo;
             std::string fileName;
             std::cout << "Would you like to see the contents of a file?" << std::endl;

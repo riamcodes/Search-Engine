@@ -38,7 +38,7 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         {
             std::string term = storage[i].substr(7, storage[i].length() - 7);
             Porter2Stemmer::stem(term);
-            std::cout << term << std::endl;
+           // std::cout << term << std::endl;
             std::map<std::string, int> docs = indexObject->getPeople(term);
             // std::vector<std::pair<std::string, int>> docs = indexObject->getPeople(term); // was DSDocument
             relDocs = intersection(relevantDocuments, docs);
@@ -67,7 +67,15 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
             }
         }
     }
+    
+
+// //-------------------------------------------Ria added this 
+//     std::cout << "Relevant Documents:" << std::endl;
+//     for (const auto& doc : relDocs) {
+//         std::cout << doc << std::endl;}
+//         //-------------------------------------------
     return relDocs;
+    
 }
 
 std::vector<std::string> QueryProcessor::intersection(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and "B"
@@ -171,6 +179,7 @@ std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> fi
     return printVector;
 }
 
+    
 // void QueryProcessor::quickSort(std::map<std::string, int> &vec, int low, int high)
 // {
 //     if (low < high)
