@@ -178,3 +178,11 @@ int IndexHandler::returnSize(std::string tree)
     }
     return -1;
 }
+
+//NOTE GPT SAYS THIS BUT IDK IF I BELIEVE IT 
+//it could ctually be why the qp is not adding anything to its vectors but idk because it worked in testing 
+// Incorrect Return Types in getWords, getPeople, and getOrgs Methods:
+
+// The getWords, getPeople, and getOrgs methods are supposed to return a std::map<std::string, int>, but the current implementations are incorrect. The contains and find methods (if these are standard methods from the STL) don't return a map.
+// For getWords: If words is a data structure that supports the contains method, and it returns a boolean, you need to change the logic to return the appropriate map.
+// For getPeople and getOrgs: If people and orgs are data structures (like a hash table or a map) that support the find method, it typically returns an iterator. You'll need to adjust the logic to return a map or modify the function's return type and logic to align with how find works.

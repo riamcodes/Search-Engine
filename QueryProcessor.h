@@ -20,11 +20,14 @@ private:
     //std::vector<std::pair<std::string, int>> relevantDocuments; 
     std::map<std::string, int> relevantDocuments;
     std::vector<std::string> relDocs;
-    std::vector<std::string> printVector;
+   
     IndexHandler *indexObject = new IndexHandler();
 
 public:
     QueryProcessor(); 
+    ///moved just to see if works
+     std::vector<std::string> printVector;
+////
     std::vector<std::string> parsingAnswer(std::string); 
     std::vector<std::string> disectAnswer();
     std::vector<std::string> relevancy(); 

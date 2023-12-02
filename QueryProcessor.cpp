@@ -12,14 +12,47 @@ void QueryProcessor::setIndexHandler(IndexHandler *i) // Sets the Index Handler 
 
 std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
 {
-    //size_t start = 0;
+    // //size_t start = 0;
+    // storage.clear();
+    // std::string temp;
+    // std::stringstream ss(answer);
+    // while (getline(ss, temp, ' ')) {
+    //     storage.push_back(temp);
+    // std::cout << " Parsing Answer TEST " << std::endl;
+    // }
+    // return disectAnswer();
     storage.clear();
-    std::string temp;
-    std::stringstream ss(answer);
-    while (getline(ss, temp, ' ')) {
-        storage.push_back(temp);
+    std::istringstream ss(answer);
+    std::string token;
+    std::string currentTerm;
+
+    while (ss >> token) {
+        if (token.substr(0, 7) == "PERSON:") {
+            // Handle special case for PERSON: (captures full name)
+            if (!currentTerm.empty()) {
+                storage.push_back(currentTerm);
+            }
+            currentTerm = token;  // Start capturing the full name
+        } else if (!currentTerm.empty() && currentTerm.substr(0, 7) == "PERSON:") {
+            // Continue capturing the full name
+            currentTerm += " " + token;
+        } else {
+            // For regular tokens or when a new token starts after capturing a full name
+            if (!currentTerm.empty()) {
+                storage.push_back(currentTerm);
+                currentTerm.clear();
+            }
+            storage.push_back(token);
+        }
     }
+
+    // Push the last term if exists
+    if (!currentTerm.empty()) {
+        storage.push_back(currentTerm);
+    }
+std::cout << " Parsing Answer TEST " << std::endl;
     return disectAnswer();
+   
 }
 
 std::vector<std::string> QueryProcessor::disectAnswer() // This function disects the parsed answer
@@ -29,7 +62,7 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         if (storage[i].length() > 4 && storage[i].substr(0, 4) == "ORG:")
         {
             std::string term = storage[i].substr(4, storage[i].length() - 4);
-            Porter2Stemmer::stem(term);
+            //Porter2Stemmer::stem(term);
             std::map<std::string, int> docs = indexObject->getOrgs(term);
             // std::vector<std::pair<std::string, int>> docs = indexObject->getOrgs(term); // was DSDocument
             relDocs = intersection(relevantDocuments, docs);
@@ -37,10 +70,15 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         else if (storage[i].length() > 7 && storage[i].substr(0, 7) == "PERSON:")
         {
             std::string term = storage[i].substr(7, storage[i].length() - 7);
-            Porter2Stemmer::stem(term);
-            std::cout << term << std::endl;
+           // Porter2Stemmer::stem(term);
+           std::cout << "stemming shouldnt happen " << std::endl;
+           
+           // std::cout << term << std::endl;
             std::map<std::string, int> docs = indexObject->getPeople(term);
+            std::cout << "term =" << term << std::endl;
             // std::vector<std::pair<std::string, int>> docs = indexObject->getPeople(term); // was DSDocument
+            if (term == "bud conlin"){std::cout << "TEST bud conlin FOUND YAY" << std::endl;}
+            if (term != "bud conlin"){std::cout << "TEST bud conlin NOT FOUND" << std::endl;}
             relDocs = intersection(relevantDocuments, docs);
         }
         else if (storage[i].substr(0, 1) == "-")
@@ -58,16 +96,26 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
             {
                 relevantDocuments = indexObject->getWords(term); 
                 //relevantDocuments = indexObject->getWords(term);////////////////
+                std::cout << " DISECT ANSWER TEST " << std::endl;
             }
             else
             {
                 std::map<std::string, int> docs = indexObject->getWords(term);
                 //std::vector<std::pair<std::string, int>> docs = indexObject->getWords(term);
                 relDocs = intersection(relevantDocuments, docs);
+                std::cout << "DISECT ANSWER TEST2 "  << std::endl;
             }
         }
     }
+    
+
+// //-------------------------------------------Ria added this 
+//     std::cout << "Relevant Documents:" << std::endl;
+//     for (const auto& doc : relDocs) {
+//         std::cout << doc << std::endl;}
+//         //-------------------------------------------
     return relDocs;
+    
 }
 
 std::vector<std::string> QueryProcessor::intersection(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and "B"
@@ -93,6 +141,7 @@ std::vector<std::string> QueryProcessor::intersection(std::map<std::string, int>
     //         }
     //     }
     // }
+    std::cout << " INTERSECTION TEST " << std::endl;
     return Relevency(finalVector);
 }
 
@@ -123,6 +172,7 @@ std::vector<std::string> QueryProcessor::complement(std::map<std::string, int> r
     //         finalVector.push_back(docs1[i]);
     //     }
     // }
+    std::cout << " Complement TEST " << std::endl;
     return Relevency(finalVector);
 }
 
@@ -144,6 +194,8 @@ std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> fi
     // }
     //int size = finalVector.size();
     //quickSort(finalVector, 0, size);
+    std::cout << finalVector.size() << " -THIS IS THE SIZE OF THE FINAL VECTOR" << std::endl;
+    //finalVector.push_back("hello");
     if (finalVector.size() <= 15) 
     {
         for (const auto &itr : finalVector) 
@@ -168,9 +220,11 @@ std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> fi
                 break;
         }
     }
+    std::cout << " RELEVENCY TEST " << std::endl;
     return printVector;
 }
 
+    
 // void QueryProcessor::quickSort(std::map<std::string, int> &vec, int low, int high)
 // {
 //     if (low < high)
