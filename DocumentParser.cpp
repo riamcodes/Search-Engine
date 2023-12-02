@@ -160,6 +160,8 @@ if (d.HasMember("title") && d["title"].IsString()) {
 
 
 
+
+
 if (d.HasMember("entities") && d["entities"].IsObject()) {
     const rapidjson::Value& entities = d["entities"];
     if (entities.HasMember("persons") && entities["persons"].IsArray()) {
@@ -168,7 +170,11 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
             if (personsArray[i].IsObject()) {
                 const rapidjson::Value& personObject = personsArray[i];
                 if (personObject.HasMember("name") && personObject["name"].IsString()) {
-                    docPersons = personObject["name"].GetString();
+                    std::string allPeople;
+                    allPeople = personObject["name"].GetString();
+                     istringstream iss5(allPeople);
+        
+                 while (iss5 >> docPersons) {
                    //std::cout << "Person: " << docPersons << std::endl;
                    
                    ih->addPeople(docPersons,jsonContent);
@@ -177,8 +183,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
         }
     }
 }
-
-
+}
 if (d.HasMember("entities") && d["entities"].IsObject()) {
     const rapidjson::Value& entities = d["entities"];
     if (entities.HasMember("organizations") && entities["organizations"].IsArray()) {
@@ -213,7 +218,9 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
         }), word.end());
 
             transform(word.begin(), word.end(), word.begin(), ::tolower); 
+             Porter2Stemmer::trim(word);
             Porter2Stemmer::stem(word);
+            
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
             //std::cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 

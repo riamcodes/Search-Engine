@@ -3,7 +3,7 @@ std::map<std::string, int> IndexHandler::getWords(std::string word)
 {
     return words.contains(word);
 }
-int IndexHandler ::getWordCount(std::string title)
+int IndexHandler::getWordCount(std::string title)
 {
     return wordCount[title];
 }
@@ -19,6 +19,10 @@ std::string IndexHandler::getFilePath(std::string title)
 {
     return docs[title];
 }
+// std::string IndexHandler::getTitle(std::string filePath)
+// {
+//     return docs[filePath];
+// }
 void IndexHandler::addWordCount(std::string title, int count)
 {
     wordCount[title] = count;

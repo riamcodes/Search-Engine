@@ -11,49 +11,22 @@ void QueryProcessor::setIndexHandler(IndexHandler *i) // Sets the Index Handler 
 }
 
 std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
-{
-    // //size_t start = 0;
-    // storage.clear();
-    // std::string temp;
-    // std::stringstream ss(answer);
-    // while (getline(ss, temp, ' ')) {
-    //     storage.push_back(temp);
-    // std::cout << " Parsing Answer TEST " << std::endl;
-    // }
-    // return disectAnswer();
+ {
+    //size_t start = 0;
     storage.clear();
-    std::istringstream ss(answer);
-    std::string token;
-    std::string currentTerm;
-
-    while (ss >> token) {
-        if (token.substr(0, 7) == "PERSON:") {
-            // Handle special case for PERSON: (captures full name)
-            if (!currentTerm.empty()) {
-                storage.push_back(currentTerm);
-            }
-            currentTerm = token;  // Start capturing the full name
-        } else if (!currentTerm.empty() && currentTerm.substr(0, 7) == "PERSON:") {
-            // Continue capturing the full name
-            currentTerm += " " + token;
-        } else {
-            // For regular tokens or when a new token starts after capturing a full name
-            if (!currentTerm.empty()) {
-                storage.push_back(currentTerm);
-                currentTerm.clear();
-            }
-            storage.push_back(token);
-        }
+    std::string temp;
+    std::stringstream ss(answer);
+    while (getline(ss, temp, ' ')) {
+        storage.push_back(temp);
+    std::cout << " Parsing Answer TEST " << std::endl;
     }
-
-    // Push the last term if exists
-    if (!currentTerm.empty()) {
-        storage.push_back(currentTerm);
-    }
-std::cout << " Parsing Answer TEST " << std::endl;
     return disectAnswer();
+    
+    }
+
+
    
-}
+
 
 std::vector<std::string> QueryProcessor::disectAnswer() // This function disects the parsed answer
 {
@@ -70,10 +43,11 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         else if (storage[i].length() > 7 && storage[i].substr(0, 7) == "PERSON:")
         {
             std::string term = storage[i].substr(7, storage[i].length() - 7);
-           // Porter2Stemmer::stem(term);
+           // cstem(term);
            std::cout << "stemming shouldnt happen " << std::endl;
            
            // std::cout << term << std::endl;
+            //relevantDocuments = indexObject->getPeople(term);
             std::map<std::string, int> docs = indexObject->getPeople(term);
             std::cout << "term =" << term << std::endl;
             // std::vector<std::pair<std::string, int>> docs = indexObject->getPeople(term); // was DSDocument
@@ -84,6 +58,7 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         else if (storage[i].substr(0, 1) == "-")
         {
             std::string term = storage[i].substr(1, storage[i].length() - 1);
+            Porter2Stemmer::trim(term);
             Porter2Stemmer::stem(term);
             std::map<std::string, int> docs = indexObject->getWords(term);
             // std::vector<std::pair<std::string, int>> docs = indexObject->getWords(term); // was DSDocument
@@ -92,6 +67,8 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
         else
         {
             std::string term = storage[i];
+            Porter2Stemmer::trim(term);
+            Porter2Stemmer::stem(term);
             if (i == 0)
             {
                 relevantDocuments = indexObject->getWords(term); 
@@ -200,7 +177,9 @@ std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> fi
     {
         for (const auto &itr : finalVector) 
         {
-            printVector.push_back(itr.first);
+            //std::string vectorContent = indexObject->getTitle(itr.first);
+           // printVector.push_back(vectorContent);
+           printVector.push_back(itr.first);
         }
         // for (int j = 0; j <= finalVector.size(); j++)
         // {

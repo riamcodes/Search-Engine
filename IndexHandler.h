@@ -35,6 +35,7 @@ std::map<std::string, int> getWords(std::string);
 std::map<std::string, int> getPeople(std::string);
 std::map<std::string, int> getOrgs(std::string);
 std::string getFilePath(std::string);
+std::string getTitle(std::string);
 
 int getWordCount(std::string);
 void addWords(std::string, std::string);
