@@ -52,7 +52,7 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
 
     SECTION("getWordCount Test")
     {
-        REQUIRE(ih.getWordCount("German firms doing business in UK gloomy about Brexit - survey") == 251);
+        REQUIRE(ih.getWordCount("../sample_data/coll_1/news_0064567.json") == 251);
     }
 
     SECTION("getOrgs Test")
@@ -65,6 +65,9 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(result2.size() == 0);
         map<string, int> result3 = ih.getOrgs("Reuters");
         REQUIRE(result3.size() == 0);
+        map<string, int> result4 = ih.getOrgs("schweitzer");
+        REQUIRE(result4.size() == 1);
+        REQUIRE(result4["../sample_data/coll_1/news_0064567.json"] == 5);
     }
 
     SECTION("Persistance tests")
@@ -77,6 +80,7 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
 
         map<string, int> result = index.getWords("plan");
         REQUIRE(result.size() == 1);
+        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2); // should be 2
         REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2);
         map<string, int> result1 = index.getWords("german");
         REQUIRE(result1.size() == 1);
@@ -91,7 +95,6 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(result5.size() == 0);
         map<string, int> result6 = index.getWords("orange");
         REQUIRE(result6.size() == 0);
-
         map<string, int> result10 = index.getPeople("schweitzer");
         REQUIRE(result10.size() == 1);
         map<string, int> result11 = index.getPeople("adam");
@@ -101,7 +104,7 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         map<string, int> result13 = index.getPeople("sarah");
         REQUIRE(result13.size() == 0);
 
-        REQUIRE(index.getWordCount("German firms doing business in UK gloomy about Brexit - survey") == 251);
+        REQUIRE(index.getWordCount("../sample_data/coll_1/news_0064567.json") == 251);
 
         map<string, int> result14 = index.getOrgs("cnn");
         REQUIRE(result14.size() == 0);
