@@ -22,7 +22,8 @@ private:
     std::map<std::string, int> relDocs;
     std::map<std::string, int> sendTo;
    
-    IndexHandler *indexObject = new IndexHandler();
+    IndexHandler indexObject;
+    //  = new IndexHandler()
 
 public:
     QueryProcessor(); 
@@ -33,7 +34,7 @@ public:
     std::map<std::string, int> disectAnswer();
     std::map<std::string, int> intersection(std::map<std::string, int>, std::map<std::string, int>); 
     std::map<std::string, int> complement(std::map<std::string, int>, std::map<std::string, int>); 
-    void setIndexHandler(IndexHandler* i);
+    void setIndexHandler(IndexHandler i);
     std::vector<std::string> Relevancy(std::map<std::string, int>);
     void quickSort(std::map<std::string, int>&, int, int);
     int partition(std::map<std::string, int>, int, int);
