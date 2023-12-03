@@ -86,7 +86,7 @@ std::cout << qp.printVector.empty();
 //--------------------------------------------------------------------------------------------------------------------------------
  //the next stuff doesnt work 
 
-// while (true)
+// while (true);;
 //     {
 //         std::cout << "Hello! Welcome to our search engine" << std::endl;
 //         std::cout << "Please enter a number 1-6 of the options below to continue" << std::endl;
