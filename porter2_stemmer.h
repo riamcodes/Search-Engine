@@ -85,5 +85,5 @@ bool isValidLIEnding(char ch);
 bool containsVowel(const std::string& word, size_t start, size_t end);
 }
 }
-//
+////
 #endif

@@ -151,3 +151,4 @@ int IndexHandler::returnSize()
 {
     return words.getSize();
 }
+//

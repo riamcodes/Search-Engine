@@ -99,7 +99,7 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(result6.size() == 0);
 
         // map<string, int> result7 = index.getPeople("eric schweitzer"); ////////////make parser able to connect two names
-        // REQUIRE(result7.size() == 1);
+        // REQUIRE(result7.size() == 1);//
         // map<string, int> result8 = index.getPeople("carolyn julie fairbairn");
         // REQUIRE(result8.size() == 1);
         // map<string, int> result9 = index.getPeople("joachim lang");

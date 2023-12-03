@@ -14,7 +14,7 @@ private:
     IndexHandler ih;
     QueryProcessor qp;
     DocumentParser dp;
-    // int numberOfArticles; // This integer keeps track of the total number of articles in the current index
+    // int numberOfArticles; // This integer keeps track of the total number of articles in the current index//
     // int totalNodes; // This integer keeps track of the total number of nodes (unique words) in the AVL tree
 public:
     void initialQuestion(); // Asks the initial question //

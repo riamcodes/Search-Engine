@@ -111,7 +111,7 @@ void UserInterface::initialQuestion()
 // void UserInterface::initialQuestion()
 // {
     // do we actually need these?
-    // ih = new IndexHandler();
+    // ih = new IndexHandler();//
     // qp = new QueryProcessor();
     // dp = new DocumentParser();
     // while (true)

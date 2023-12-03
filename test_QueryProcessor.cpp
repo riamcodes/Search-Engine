@@ -13,7 +13,7 @@ TEST_CASE("query processor", "[QueryProcessor.h]")
     IndexHandler indexObject;
     DocumentParser documentObject;
    // documentObject.setIndex(indexObject);
-    //documentObject.();
+    //documentObject.();//
     QueryProcessor queryObject;
     queryObject.setIndexHandler(indexObject);
     std::map<std::string, int> results;
