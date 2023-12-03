@@ -53,6 +53,7 @@ std::map<std::string, int> QueryProcessor::disectAnswer()
             if (i == 0)
             {
                 relevantDocuments = indexObject.getWords(term);
+                sendTo = relevantDocuments;
             }
             else
             {
