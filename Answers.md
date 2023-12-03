@@ -4,12 +4,12 @@
 
 Names of all team members:
 
+Grace Schultz, Ria Mukherji, Anekah
 
 
+Used free extension: [ ] 24 hrs or [x] 48 hrs
 
-Used free extension: [ ] 24 hrs or [ ] 48 hrs
-
-[X] Early submission (48 hrs)
+[] Early submission (48 hrs)
 
 [ ] Bonus work. Describe: ...
 
@@ -33,9 +33,13 @@ Weekly milestones/tasks. Set out a plan at the beginning and then record when yo
 Task:UML, Planned completion: Nov 3, Actual Completion: Nov 2,                                   Time spent in hours by Grace .5, Anekah .5, Ria .5
 Task: AVL Tree and Test Cases,  Planned completion: Nov 3, Actual Completion: Nov 3              Time spent in hours by Grace 8 Anekah 1, Ria 0.083
 Task: Query Processor and Test Cases, Planned completion: Nov 21, Actual completion: Dec 2nd,    Time spent in hours by Grace 20 Anekah 4, Ria 1
-Task: Doc Parser, Planned completion: Nov 21, Actual completion: Dec 2nd,                        Time spent in hours by Grace 1, Anekah 8, Ria 20
-Task: Index Handler and Testing, Planned Completion: Nov 21, Actual completion: Dec 2nd          Time spent in hours by Grace 4, Anekah 20, Ria 4
+Task: Doc Parser and Test Cases, Planned completion: Nov 21, Actual completion: Dec 2nd,         Time spent in hours by Grace 1, Anekah 8, Ria 20
+Task: Index Handler and Test Cases, Planned Completion: Nov 21, Actual completion: Dec 2nd       Time spent in hours by Grace 4, Anekah 20, Ria 4
 Task: User Interface, Planned completion: Nov 27, Actual completion: December 2nd                Time spent in hours by Grace 15, Anekah 8, Ria 15
+Task: Search Engine, Planned completion: Nov 27, Actual completion: December 3rd                 Time spent in hours by Grace 1, Anekah 5, Ria 5
+Task: Hash and Test Cases, Planned completion: Nov 21, Actual completion: Nov 21                 Time spent in hours by Grace 15, Anekah 10, Ria 1
+Task: Documentation, Planned completion: Nov 30, Actual completion: December 3rd                 Time spent in hours by Grace 3, Anekah 3, Ria 3
+Task: Overall project integration, Planned completion: Nov 30, Actual completion: December 3rd   Time spent in hours by Grace 20, Anekah 20, Ria 20
 
 ### High-level Design of Solution
 
@@ -58,4 +62,4 @@ Explanation of what data structures are used where. For each, state
 ### Bonus Work
 Did you attempt any bonuses? If so, please give a brief description of what you did.
 
-   > Your answer
+   > Yes, we implemented a DSHash class that was used to store the people and organizations.
