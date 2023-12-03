@@ -23,7 +23,7 @@ void UserInterface::initialQuestion()
         if (!(answer == "1" || answer == "2" || answer == "3" || answer == "4" || answer == "5" || answer == "6"))
         {
             std::cout << "Error! This is an invalid answer. Please select numbers 1 through 6." << std::endl;
-            std::cin >> answer;
+            std::getline(std::cin,answer);
         }
         else if (answer == "1") // Populates with documents
         {
@@ -31,7 +31,7 @@ void UserInterface::initialQuestion()
             std::string answer2;
             std::getline(std::cin, answer2);
             auto startTrain = std::chrono::high_resolution_clock::now();
-            dp->traverseSubdirectory(answer2);
+            dp.traverseSubdirectory(answer2);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -56,11 +56,11 @@ void UserInterface::initialQuestion()
             std::string answer3;
             std::getline(std::cin, answer3);
             auto startTrain = std::chrono::high_resolution_clock::now();
-            std::vector<std::string> final = qp->parsingAnswer(answer3);
+            std::map<std::string, int> final = qp.parsingAnswer(answer3);
             std::string yesOrNo;
             std::string fileName;
             std::cout << "Would you like to see the contents of a file?" << std::endl;
-            std::cin >> yesOrNo;
+            std::getline(std::cin, yesOrNo);
             for (size_t i = 0; i < yesOrNo.length(); i++)
             {
                 tolower(yesOrNo.at(i));
@@ -70,7 +70,7 @@ void UserInterface::initialQuestion()
                 std::cout << "Please enter in the title of the document that you would like to see." << std::endl;
                 std::string titleDocument;
                 std::getline(std::cin, titleDocument);
-                dp->parseDocument(ih->getFilePath(titleDocument));
+                dp.parseDocument(ih->getFilePath(titleDocument));
             }
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
