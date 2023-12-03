@@ -30,6 +30,12 @@ Weekly milestones/tasks. Set out a plan at the beginning and then record when yo
 | ----------- | :-----------------:| :---------------: | :--------------------: | :--------------------: |
 | x           | Nov 3              | Nov 6             | 8.5                    | 0                      |
 
+Task:UML, Planned completion: Nov 3, Actual Completion: Nov 2,                                   Time spent in hours by Grace .5, Anekah .5, Ria .5
+Task: AVL Tree and Test Cases,  Planned completion: Nov 3, Actual Completion: Nov 3              Time spent in hours by Grace 8 Anekah 1, Ria 0.083
+Task: Query Processor and Test Cases, Planned completion: Nov 21, Actual completion: Dec 2nd,    Time spent in hours by Grace 20 Anekah 4, Ria 1
+Task: Doc Parser, Planned completion: Nov 21, Actual completion: Dec 2nd,                        Time spent in hours by Grace 1, Anekah 8, Ria 20
+Task: Index Handler and Testing, Planned Completion: Nov 21, Actual completion: Dec 2nd          Time spent in hours by Grace 4, Anekah 20, Ria 4
+Task: User Interface, Planned completion: Nov 27, Actual completion: December 2nd                Time spent in hours by Grace 15, Anekah 8, Ria 15
 
 ### High-level Design of Solution
 
