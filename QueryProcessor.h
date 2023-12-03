@@ -19,7 +19,8 @@ private:
     std::vector<std::string> storage;
     //std::vector<std::pair<std::string, int>> relevantDocuments; 
     std::map<std::string, int> relevantDocuments;
-    std::vector<std::string> relDocs;
+    std::map<std::string, int> relDocs;
+    std::map<std::string, int> sendTo;
    
     IndexHandler *indexObject = new IndexHandler();
 
@@ -28,13 +29,12 @@ public:
     ///moved just to see if works
      std::vector<std::string> printVector;
 ////
-    std::vector<std::string> parsingAnswer(std::string); 
-    std::vector<std::string> disectAnswer();
-    std::vector<std::string> relevancy(); 
-    std::vector<std::string> intersection(std::map<std::string, int>, std::map<std::string, int>); 
-    std::vector<std::string> complement(std::map<std::string, int>, std::map<std::string, int>); 
+    std::map<std::string, int> parsingAnswer(std::string); 
+    std::map<std::string, int> disectAnswer();
+    std::map<std::string, int> intersection(std::map<std::string, int>, std::map<std::string, int>); 
+    std::map<std::string, int> complement(std::map<std::string, int>, std::map<std::string, int>); 
     void setIndexHandler(IndexHandler* i);
-    std::vector<std::string> Relevency(std::map<std::string, int>);
+    std::vector<std::string> Relevancy(std::map<std::string, int>);
     void quickSort(std::map<std::string, int>&, int, int);
     int partition(std::map<std::string, int>, int, int);
 };

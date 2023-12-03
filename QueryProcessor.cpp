@@ -10,7 +10,7 @@ void QueryProcessor::setIndexHandler(IndexHandler *i) // Sets the Index Handler 
     indexObject = i;
 }
 
-std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
+std::map<std::string, int> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
  {
     //size_t start = 0;
     storage.clear();
@@ -28,7 +28,7 @@ std::vector<std::string> QueryProcessor::parsingAnswer(std::string answer) // Pa
    
 
 
-std::vector<std::string> QueryProcessor::disectAnswer() // This function disects the parsed answer
+std::map<std::string, int> QueryProcessor::disectAnswer() // This function disects the parsed answer
 {
     for (size_t i = 0; i < storage.size(); i++)
     {
@@ -91,11 +91,12 @@ std::vector<std::string> QueryProcessor::disectAnswer() // This function disects
 //     for (const auto& doc : relDocs) {
 //         std::cout << doc << std::endl;}
 //         //-------------------------------------------
+    Relevancy(sendTo);
     return relDocs;
     
 }
 
-std::vector<std::string> QueryProcessor::intersection(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and "B"
+std::map<std::string, int> QueryProcessor::intersection(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and "B"
 {
     // std::map<std::string, int> docs1;
     // std::map<std::string, int> docs2;
@@ -119,10 +120,11 @@ std::vector<std::string> QueryProcessor::intersection(std::map<std::string, int>
     //     }
     // }
     std::cout << " INTERSECTION TEST " << std::endl;
-    return Relevency(finalVector);
+    sendTo = finalVector;
+    return finalVector;
 }
 
-std::vector<std::string> QueryProcessor::complement(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and not "B"
+std::map<std::string, int> QueryProcessor::complement(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and not "B"
 {
     // std::map<std::string, int> docs1;
     // std::map<std::string, int> docs2;
@@ -150,17 +152,18 @@ std::vector<std::string> QueryProcessor::complement(std::map<std::string, int> r
     //     }
     // }
     std::cout << " Complement TEST " << std::endl;
-    return Relevency(finalVector);
+    sendTo = finalVector;
+    return finalVector;
 }
 
-std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> finalVector) // This finds the relevency of the document
+std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> sendTo) // This finds the relevency of the document
 {
     //int n = indexObject->getDocSize();
-    for (auto &itr : finalVector)
+    for (auto &itr : sendTo)
     {
         double wordCount = indexObject->getWordCount(itr.first);
         double tf = (double)(itr.second / wordCount);
-        double idf = log2((double)(indexObject->getDocSize() / finalVector.size()));
+        double idf = log2((double)(indexObject->getDocSize() / sendTo.size()));
         itr.second = tf * idf;
     }
     // for (int i = 0; i < finalVector.size(); i++)
@@ -171,11 +174,11 @@ std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> fi
     // }
     //int size = finalVector.size();
     //quickSort(finalVector, 0, size);
-    std::cout << finalVector.size() << " -THIS IS THE SIZE OF THE FINAL VECTOR" << std::endl;
+    std::cout << sendTo.size() << " -THIS IS THE SIZE OF THE FINAL VECTOR" << std::endl;
     //finalVector.push_back("hello");
-    if (finalVector.size() <= 15) 
+    if (sendTo.size() <= 15) 
     {
-        for (const auto &itr : finalVector) 
+        for (const auto &itr : sendTo) 
         {
             //std::string vectorContent = indexObject->getTitle(itr.first);
            // printVector.push_back(vectorContent);
@@ -189,7 +192,7 @@ std::vector<std::string> QueryProcessor::Relevency(std::map<std::string, int> fi
     else 
     {
         int index = 0;
-        for (const auto &itr : finalVector)
+        for (const auto &itr : sendTo)
         {
             if(index < 15){
                 printVector.push_back(itr.first);

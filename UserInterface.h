@@ -12,8 +12,8 @@ class UserInterface
 private:
     std::chrono::duration<double> elapsedTrain;
     IndexHandler *ih = new IndexHandler();
-    QueryProcessor *qp = new QueryProcessor();
-    DocumentParser *dp = new DocumentParser();
+    QueryProcessor qp;
+    DocumentParser dp;
     // int numberOfArticles; // This integer keeps track of the total number of articles in the current index
     // int totalNodes; // This integer keeps track of the total number of nodes (unique words) in the AVL tree
 public:
