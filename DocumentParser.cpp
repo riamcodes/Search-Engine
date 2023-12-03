@@ -93,7 +93,49 @@ set<string> stopWords = {     "able", "about", "above", "abroad", "according", "
  }
 
 
+void DocumentParser::printInfo(const string&jsonContent)
+    {
+        std::string title;
+        std::string publication;
+        std::string datePublished;
+        std::string finalInfoString;
 
+        ifstream ifs(jsonContent);
+    if (!ifs.is_open()) {
+        cerr << "Could not open file for reading: " << jsonContent << endl;
+        return;
+    }
+    IStreamWrapper isw(ifs);
+    Document d;
+    d.ParseStream(isw);
+    if (d.HasParseError()) {
+        cerr << "JSON parse error: " << d.GetParseError() << endl;
+        return;
+    }
+   d.ParseStream(isw);
+
+//Article Title, publication, and date published
+//article title 
+if (d.HasMember("title") && d["title"].IsString()) {
+     title = d["title"].GetString();
+}
+// publication
+if (d.HasMember("thread") && d["thread"].IsObject()) {
+    if (d["thread"].HasMember("site") && d["thread"]["site"].IsString()) {
+        publication = d["thread"]["site"].GetString();
+    }
+}
+// date published
+if (d.HasMember("published") && d["published"].IsString()) {
+     datePublished = d["published"].GetString();
+     datePublished = datePublished.substr(0,10);
+
+} 
+
+finalInfoString = "Title: " + title + ", Publication: " + publication + ", Date Published: " + datePublished;
+std::cout << finalInfoString << std::endl;
+
+    }
 
 void DocumentParser::parseDocument(const string& jsonContent) {
    
