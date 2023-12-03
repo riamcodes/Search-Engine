@@ -60,7 +60,7 @@ void UserInterface::initialQuestion()
             auto startTrain = std::chrono::high_resolution_clock::now();
 
             std::map<std::string, int> relevantDocs = qp.parsingAnswer(answer3);
-
+            if (qp.printVector.size() > 1){
             int count = 1;
 
             std::cout << "Here are the most relevant documents" << std::endl;
@@ -91,6 +91,7 @@ void UserInterface::initialQuestion()
             qp.printVector.clear();
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
+        }
         }
         else if (answer == "5")
         {
