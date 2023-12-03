@@ -74,15 +74,8 @@ void UserInterface::initialQuestion()
                 std::cout << "Please enter in the number of the corresponding document that you would like to see." << std::endl;
                 std::string number;
                 std::getline(std::cin, number);
-                for (size_t i = 0; i < qp.printVector.size(); i++)
-                {
-                    if (qp.printVector[i -1] = i)
-                    {
-
-                    }
-                }
-                //dp.parseDocument();
-                //dp.parseDocument(ih->getFilePath(titleDocument)); // NEED TO CHANGE LOGIC
+                int num = stoi(number);
+                ih->getFilePath(qp.printVector[num - 1]);
             }
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;

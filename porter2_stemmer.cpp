@@ -461,7 +461,7 @@ bool Porter2Stemmer::internal::special(std::string& word)
            {"only", "onli"},
            {"singly", "singl"}};
 
-    // special cases
+    // special cases//
     auto ex = exceptions.find(word);
     if (ex != exceptions.end())
     {

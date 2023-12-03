@@ -12,7 +12,7 @@
 // This class should contain a lot of setter/getter functions for the avl and hash index
 // When we want to add or get a query then we will call these functions
 // We also need to store all of the documents
-// Two ways to do this
+// Two ways to do this//
 // These two options also depend on the document parser, so communicate on this
 // 1.) Store all needed data in a vector for quick and easy access (def an easier option to code)(internal storage)
 // 2.) Store file path to save storage (external storage)

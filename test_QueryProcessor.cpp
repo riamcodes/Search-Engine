@@ -12,7 +12,7 @@ TEST_CASE("query processor", "[QueryProcessor.h]")
 {
     IndexHandler indexObject;
     DocumentParser documentObject;
-    documentObject.setIndex(indexObject);
+   // documentObject.setIndex(indexObject);
     //documentObject.();
     QueryProcessor queryObject;
     queryObject.setIndexHandler(indexObject);

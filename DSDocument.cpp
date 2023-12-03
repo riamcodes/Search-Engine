@@ -9,4 +9,4 @@ DSDocument::DSDocument(std::string u, std::string t, std::string p, int d, int w
     totalWordCount = w;
     rawText = r;
     relevancy = 0;
-}
+}//

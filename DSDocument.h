@@ -21,3 +21,4 @@ class DSDocument
     DSDocument(std::string, int);
 };
 #endif
+//
