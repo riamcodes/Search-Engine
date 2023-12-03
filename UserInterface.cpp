@@ -2,13 +2,9 @@
 
 void UserInterface::initialQuestion()
 {
-    // do we actually need these?
-    // ih = new IndexHandler();
-    // qp = new QueryProcessor();
-    // dp = new DocumentParser();
+    std::cout << "Hello! Welcome to our search engine" << std::endl;
     while (true)
     {
-        std::cout << "Hello! Welcome to our search engine" << std::endl;
         std::cout << "Please enter a number 1-6 of the options below to continue" << std::endl;
         std::cout << "----------------------------------------------------------" << std::endl;
         std::cout << "1) Create an index from a directory with documents" << std::endl;
@@ -23,9 +19,9 @@ void UserInterface::initialQuestion()
         if (!(answer == "1" || answer == "2" || answer == "3" || answer == "4" || answer == "5" || answer == "6"))
         {
             std::cout << "Error! This is an invalid answer. Please select numbers 1 through 6." << std::endl;
-            std::getline(std::cin,answer);
+            std::getline(std::cin, answer);
         }
-        else if (answer == "1") // Populates with documents
+        else if (answer == "1")
         {
             std::cout << "Please enter a directory filepath" << std::endl;
             std::string answer2;
@@ -35,31 +31,39 @@ void UserInterface::initialQuestion()
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
-        else if (answer == "2") // Create Persistence
+        else if (answer == "2")
         {
+            std::cout << "Check persistence.txt to see the persistence that was just created" << std::endl;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            //  ih = dp.getIndex();
-            ih->createPersistence();
+            ih->createPersistence(); // CHANGE TO OBJECT
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
-        else if (answer == "3") // Read Persistence
+        else if (answer == "3")
         {
+            std::cout << "Okay, lets read the persistence" << std::endl;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih->readPersistence();
+            ih->readPersistence(); // CHANGE TO OBJECT
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
-        else if (answer == "4") // Enter a query
+        else if (answer == "4")
         {
             std::cout << "Please enter a query" << std::endl;
             std::string answer3;
             std::getline(std::cin, answer3);
             auto startTrain = std::chrono::high_resolution_clock::now();
             std::map<std::string, int> final = qp.parsingAnswer(answer3);
+            std::cout << "Here are the most relevant documents" << std::endl;
+            for (const auto &item : qp.printVector)
+            {
+                for (size_t i = 0; i < qp.printVector.size(); i++)
+                {
+                    std::cout << i << ") " << item << std::endl;
+                }
+            }
             std::string yesOrNo;
-            std::string fileName;
-            std::cout << "Would you like to see the contents of a file?" << std::endl;
+            std::cout << "Would you like to see the contents of a file listed above?" << std::endl;
             std::getline(std::cin, yesOrNo);
             for (size_t i = 0; i < yesOrNo.length(); i++)
             {
@@ -67,22 +71,22 @@ void UserInterface::initialQuestion()
             }
             if (yesOrNo == "yes")
             {
-                std::cout << "Please enter in the title of the document that you would like to see." << std::endl;
-                std::string titleDocument;
-                std::getline(std::cin, titleDocument);
-                dp.parseDocument(ih->getFilePath(titleDocument));
+                std::cout << "Please enter in the number of the corresponding document that you would like to see." << std::endl;
+                std::string number;
+                std::getline(std::cin, number);
+                //dp.parseDocument();
+                //dp.parseDocument(ih->getFilePath(titleDocument)); // NEED TO CHANGE LOGIC
             }
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
-        else if (answer == "5") // Statistics
+        else if (answer == "5")
         {
             std::cout << "Here are some of our runtime statistics:" << std::endl;
             std::cout << "Runtime: " << elapsedTrain.count() << " seconds." << std::endl;
-            // std::cout << "Total number of individual articles in the current index: " << # << std::endl;
+            //std::cout << "Total number of individual articles in the current index: " << ih->returnNumArticles() << std::endl;
             std::cout << "Total articles: " << ih->getDocSize();
-            // std::cout << "Total number of unique words indexed: " << (number of nodes in AVLTree) << std::endl;
-
+            //std::cout << "Total number of unique words indexed: " << ih->returnSize() << std::endl;
         }
         else if (answer == "6")
         {
@@ -91,6 +95,82 @@ void UserInterface::initialQuestion()
         }
     }
 }
+
+// void UserInterface::initialQuestion()
+// {
+    // do we actually need these?
+    // ih = new IndexHandler();
+    // qp = new QueryProcessor();
+    // dp = new DocumentParser();
+    // while (true)
+    // {
+    //     std::cout << "Hello! Welcome to our search engine" << std::endl;
+
+    //     else if (answer == "1") // Populates with documents
+    //     {
+    //         std::cout << "Please enter a directory filepath" << std::endl;
+    //         std::string answer2;
+    //         std::getline(std::cin, answer2);
+    //         auto startTrain = std::chrono::high_resolution_clock::now();
+    //         dp.traverseSubdirectory(answer2);
+    //         auto finishTrain = std::chrono::high_resolution_clock::now();
+    //         elapsedTrain = finishTrain - startTrain;
+    //     }
+    //     else if (answer == "2") // Create Persistence
+    //     {
+    //         auto startTrain = std::chrono::high_resolution_clock::now();
+    //         //  ih = dp.getIndex();
+    //         ih->createPersistence();
+    //         auto finishTrain = std::chrono::high_resolution_clock::now();
+    //         elapsedTrain = finishTrain - startTrain;
+    //     }
+    // else if (answer == "3") // Read Persistence
+    // {
+    //     auto startTrain = std::chrono::high_resolution_clock::now();
+    //     ih->readPersistence();
+    //     auto finishTrain = std::chrono::high_resolution_clock::now();
+    //     elapsedTrain = finishTrain - startTrain;
+    // }
+    // else if (answer == "4") // Enter a query
+    // {
+    //     std::cout << "Please enter a query" << std::endl;
+    //     std::string answer3;
+    //     std::getline(std::cin, answer3);
+    //     auto startTrain = std::chrono::high_resolution_clock::now();
+    //     std::map<std::string, int> final = qp.parsingAnswer(answer3);
+    //     std::string yesOrNo;
+    //     std::string fileName;
+    //     std::cout << "Would you like to see the contents of a file?" << std::endl;
+    //     std::getline(std::cin, yesOrNo);
+    //     for (size_t i = 0; i < yesOrNo.length(); i++)
+    //     {
+    //         tolower(yesOrNo.at(i));
+    //     }
+    //     if (yesOrNo == "yes")
+    //     {
+    //         std::cout << "Please enter in the title of the document that you would like to see." << std::endl;
+    //         std::string titleDocument;
+    //         std::getline(std::cin, titleDocument);
+    //         dp.parseDocument(ih->getFilePath(titleDocument));
+    //     }
+    //     auto finishTrain = std::chrono::high_resolution_clock::now();
+    //     elapsedTrain = finishTrain - startTrain;
+    // }
+//     else if (answer == "5") // Statistics
+//     {
+//         std::cout << "Here are some of our runtime statistics:" << std::endl;
+//         std::cout << "Runtime: " << elapsedTrain.count() << " seconds." << std::endl;
+//         // std::cout << "Total number of individual articles in the current index: " << # << std::endl;
+//         std::cout << "Total articles: " << ih->getDocSize();
+//         // std::cout << "Total number of unique words indexed: " << (number of nodes in AVLTree) << std::endl;
+//     }
+//     else if (answer == "6")
+//     {
+//         std::cout << "Thank you for using our search engine." << std::endl;
+//         break;
+//     }
+// }
+// }
 
 // UserInterface::UserInterface() // default constructor
 // {

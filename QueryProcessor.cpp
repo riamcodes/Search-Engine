@@ -5,7 +5,7 @@ QueryProcessor::QueryProcessor() // Default Constructor
   
 }
 
-void QueryProcessor::setIndexHandler(IndexHandler *i) // Sets the Index Handler Object
+void QueryProcessor::setIndexHandler(IndexHandler i) // Sets the Index Handler Object
 {
     indexObject = i;
 }
@@ -36,7 +36,7 @@ std::map<std::string, int> QueryProcessor::disectAnswer() // This function disec
         {
             std::string term = storage[i].substr(4, storage[i].length() - 4);
             //Porter2Stemmer::stem(term);
-            std::map<std::string, int> docs = indexObject->getOrgs(term);
+            std::map<std::string, int> docs = indexObject.getOrgs(term);
             // std::vector<std::pair<std::string, int>> docs = indexObject->getOrgs(term); // was DSDocument
             relDocs = intersection(relevantDocuments, docs);
         }
@@ -48,7 +48,7 @@ std::map<std::string, int> QueryProcessor::disectAnswer() // This function disec
            
            // std::cout << term << std::endl;
             //relevantDocuments = indexObject->getPeople(term);
-            std::map<std::string, int> docs = indexObject->getPeople(term);
+            std::map<std::string, int> docs = indexObject.getPeople(term);
             std::cout << "term =" << term << std::endl;
             // std::vector<std::pair<std::string, int>> docs = indexObject->getPeople(term); // was DSDocument
             if (term == "bud conlin"){std::cout << "TEST bud conlin FOUND YAY" << std::endl;}
@@ -60,7 +60,7 @@ std::map<std::string, int> QueryProcessor::disectAnswer() // This function disec
             std::string term = storage[i].substr(1, storage[i].length() - 1);
             Porter2Stemmer::trim(term);
             Porter2Stemmer::stem(term);
-            std::map<std::string, int> docs = indexObject->getWords(term);
+            std::map<std::string, int> docs = indexObject.getWords(term);
             // std::vector<std::pair<std::string, int>> docs = indexObject->getWords(term); // was DSDocument
             relDocs = complement(relevantDocuments, docs);
         }
@@ -71,13 +71,13 @@ std::map<std::string, int> QueryProcessor::disectAnswer() // This function disec
             Porter2Stemmer::stem(term);
             if (i == 0)
             {
-                relevantDocuments = indexObject->getWords(term); 
+                relevantDocuments = indexObject.getWords(term); 
                 //relevantDocuments = indexObject->getWords(term);////////////////
                 std::cout << " DISECT ANSWER TEST " << std::endl;
             }
             else
             {
-                std::map<std::string, int> docs = indexObject->getWords(term);
+                std::map<std::string, int> docs = indexObject.getWords(term);
                 //std::vector<std::pair<std::string, int>> docs = indexObject->getWords(term);
                 relDocs = intersection(relevantDocuments, docs);
                 std::cout << "DISECT ANSWER TEST2 "  << std::endl;
@@ -161,9 +161,9 @@ std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> se
     //int n = indexObject->getDocSize();
     for (auto &itr : sendTo)
     {
-        double wordCount = indexObject->getWordCount(itr.first);
+        double wordCount = indexObject.getWordCount(itr.first);
         double tf = (double)(itr.second / wordCount);
-        double idf = log2((double)(indexObject->getDocSize() / sendTo.size()));
+        double idf = log2((double)(indexObject.getDocSize() / sendTo.size()));
         itr.second = tf * idf;
     }
     // for (int i = 0; i < finalVector.size(); i++)
