@@ -13,7 +13,7 @@ class SearchEngine{
     UserInterface ui;
     QueryProcessor qp;
     public:
-    void input();
+    void input(int, char**);
 };
 #endif
 ////
