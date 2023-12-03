@@ -87,12 +87,11 @@ set<string> stopWords = {     "able", "about", "above", "abroad", "according", "
  void DocumentParser::setIndex(IndexHandler index){
     ih = index;
  }
-
  IndexHandler DocumentParser ::getIndex(){
     return ih;
  }
 
-
+//
 void DocumentParser::printInfo(const string&jsonContent)
     {
         std::string title;
@@ -113,7 +112,7 @@ void DocumentParser::printInfo(const string&jsonContent)
         return;
     }
    d.ParseStream(isw);
-//
+
 //Article Title, publication, and date published
 //article title 
 if (d.HasMember("title") && d["title"].IsString()) {

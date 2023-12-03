@@ -8,5 +8,5 @@ int main()
     se.input();
     //index directory
     //query question
-    //ui//
+    //ui////
 }

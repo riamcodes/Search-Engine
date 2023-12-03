@@ -28,6 +28,7 @@ void UserInterface::initialQuestion()
             std::getline(std::cin, answer2);
             auto startTrain = std::chrono::high_resolution_clock::now();
             dp.traverseSubdirectory(answer2);
+            ih = dp.getIndex();
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -35,6 +36,7 @@ void UserInterface::initialQuestion()
         {
             std::cout << "Check persistence.txt to see the persistence that was just created" << std::endl;
             auto startTrain = std::chrono::high_resolution_clock::now();
+            ih = dp.getIndex();
             ih.createPersistence(); // CHANGE TO OBJECT
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
@@ -43,25 +45,33 @@ void UserInterface::initialQuestion()
         {
             std::cout << "Okay, lets read the persistence" << std::endl;
             auto startTrain = std::chrono::high_resolution_clock::now();
-            ih2.readPersistence(); // CHANGE TO OBJECT
+            ih.readPersistence(); // CHANGE TO OBJECT
+            dp.setIndex(ih);
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
         else if (answer == "4")
         {
+            qp.setIndexHandler(ih);
             std::cout << "Please enter a query" << std::endl;
             std::string answer3;
             std::getline(std::cin, answer3);
+
             auto startTrain = std::chrono::high_resolution_clock::now();
-            std::map<std::string, int> final = qp.parsingAnswer(answer3);
+
+            std::map<std::string, int> relevantDocs = qp.parsingAnswer(answer3);
+
+            int count = 1;
+
             std::cout << "Here are the most relevant documents" << std::endl;
             for (const auto &item : qp.printVector)
-            {
-                for (size_t i = 0; i < qp.printVector.size(); i++)
-                {
-                    std::cout << i << item << std::endl;
-                }
+            { 
+                std::cout << count << ". ";
+                dp.printInfo(item);
+                std::cout << std::endl;
+                ++count;
             }
+
             std::string yesOrNo;
             std::cout << "Would you like to see the contents of a file listed above?" << std::endl;
             std::getline(std::cin, yesOrNo);
@@ -75,8 +85,10 @@ void UserInterface::initialQuestion()
                 std::string number;
                 std::getline(std::cin, number);
                 int num = stoi(number);
-                ih.getFilePath(qp.printVector[num - 1]);
+                dp.printDocument(qp.printVector[num-1]);
+
             }
+            qp.printVector.clear();
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain;
         }
@@ -85,8 +97,8 @@ void UserInterface::initialQuestion()
             std::cout << "Here are some of our runtime statistics:" << std::endl;
             std::cout << "Runtime: " << elapsedTrain.count() << " seconds." << std::endl;
             //std::cout << "Total number of individual articles in the current index: " << ih.returnNumArticles() << std::endl;
-            std::cout << "Total articles: " << ih.getDocSize();
-            //std::cout << "Total number of unique words indexed: " << ih.returnSize() << std::endl;
+            std::cout << "Total articles: " << ih.getDocSize() <<std::endl;
+            std::cout << "Total number of unique words indexed: " << ih.returnSize() << std::endl;
         }
         else if (answer == "6")
         {
@@ -99,7 +111,7 @@ void UserInterface::initialQuestion()
 // void UserInterface::initialQuestion()
 // {
     // do we actually need these?
-    // ih = new IndexHandler();
+    // ih = new IndexHandler();//
     // qp = new QueryProcessor();
     // dp = new DocumentParser();
     // while (true)

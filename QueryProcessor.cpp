@@ -18,7 +18,7 @@ std::map<std::string, int> QueryProcessor::parsingAnswer(std::string answer) // 
     std::stringstream ss(answer);
     while (getline(ss, temp, ' ')) {
         storage.push_back(temp);
-    std::cout << " Parsing Answer TEST " << std::endl;
+    
     }
     return disectAnswer();
     
@@ -44,15 +44,14 @@ std::map<std::string, int> QueryProcessor::disectAnswer() // This function disec
         {
             std::string term = storage[i].substr(7, storage[i].length() - 7);
            // cstem(term);
-           std::cout << "stemming shouldnt happen " << std::endl;
+          //
            
            // std::cout << term << std::endl;
             //relevantDocuments = indexObject->getPeople(term);
             std::map<std::string, int> docs = indexObject.getPeople(term);
-            std::cout << "term =" << term << std::endl;
+           
             // std::vector<std::pair<std::string, int>> docs = indexObject->getPeople(term); // was DSDocument
-            if (term == "bud conlin"){std::cout << "TEST bud conlin FOUND YAY" << std::endl;}
-            if (term != "bud conlin"){std::cout << "TEST bud conlin NOT FOUND" << std::endl;}
+          
             relDocs = intersection(relevantDocuments, docs);
         }
         else if (storage[i].substr(0, 1) == "-")
@@ -73,14 +72,14 @@ std::map<std::string, int> QueryProcessor::disectAnswer() // This function disec
             {
                 relevantDocuments = indexObject.getWords(term); 
                 //relevantDocuments = indexObject->getWords(term);////////////////
-                std::cout << " DISECT ANSWER TEST " << std::endl;
+               
             }
             else
             {
                 std::map<std::string, int> docs = indexObject.getWords(term);
                 //std::vector<std::pair<std::string, int>> docs = indexObject->getWords(term);
                 relDocs = intersection(relevantDocuments, docs);
-                std::cout << "DISECT ANSWER TEST2 "  << std::endl;
+               
             }
         }
     }
@@ -119,7 +118,6 @@ std::map<std::string, int> QueryProcessor::intersection(std::map<std::string, in
     //         }
     //     }
     // }
-    std::cout << " INTERSECTION TEST " << std::endl;
     sendTo = finalVector;
     return finalVector;
 }
@@ -151,7 +149,7 @@ std::map<std::string, int> QueryProcessor::complement(std::map<std::string, int>
     //         finalVector.push_back(docs1[i]);
     //     }
     // }
-    std::cout << " Complement TEST " << std::endl;
+   
     sendTo = finalVector;
     return finalVector;
 }
@@ -174,7 +172,6 @@ std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> se
     // }
     //int size = finalVector.size();
     //quickSort(finalVector, 0, size);
-    std::cout << sendTo.size() << " -THIS IS THE SIZE OF THE FINAL VECTOR" << std::endl;
     //finalVector.push_back("hello");
     if (sendTo.size() <= 15) 
     {
@@ -202,7 +199,7 @@ std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> se
                 break;
         }
     }
-    std::cout << " RELEVENCY TEST " << std::endl;
+   
     return printVector;
 }
 

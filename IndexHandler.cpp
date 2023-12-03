@@ -64,7 +64,7 @@ void IndexHandler::createPersistence()
     output << "//docs" << std::endl;
     for (const auto &itr : docs)
     {
-        output << itr.first << "|" << itr.second << "," << std::endl;
+        output << itr.first << "|" << itr.second << "$" << std::endl;
     }
 
     output << "//wordCount" << std::endl;
@@ -83,8 +83,8 @@ void IndexHandler::readPersistence()
     std::string freq;
     std::string title;
     std::string count;
+    std::string path;
     bool goIn = false;
-    bool goIn2 = false;
     if (!input.is_open())
     {
         std::cerr << "Error! File could not be opened!" << std::endl;
@@ -95,11 +95,10 @@ void IndexHandler::readPersistence()
         int index = 0;
         for (size_t i = 0; i < buffer.length(); i++)
         {
+            goIn = false;
             if (buffer[i] == '/' && buffer[i + 1] == '/')
             {
                 answer = buffer.substr(2, buffer.length() - 1);
-                goIn = false;
-                goIn2 = false;
                 break;
             }
             else if (buffer[i] == ':')
@@ -111,7 +110,6 @@ void IndexHandler::readPersistence()
             {
                 id = buffer.substr(index, i - index);
                 index = i + 1;
-                goIn2 = true;
             }
             else if (buffer[i] == ';')
             {
@@ -123,6 +121,11 @@ void IndexHandler::readPersistence()
             {
                 title = buffer.substr(index, i - index);
                 index = i + 1;
+            }
+            else if (buffer[i] == '$')
+            {
+                path = buffer.substr(index, i - index);
+                goIn = true;
             }
             else if (buffer[i] == '*')
             {
@@ -137,8 +140,8 @@ void IndexHandler::readPersistence()
             people.insert(node, id, stoi(freq));
         else if (answer == "orgs" && goIn)
             orgs.insert(node, id, stoi(freq));
-        else if (answer == "docs" && goIn2)
-            docs[title] = id;
+        else if (answer == "docs" && goIn)
+            docs[title] = path;
         else if (answer == "wordCount" && goIn)
             wordCount[title] = stoi(count);
     }
@@ -148,3 +151,4 @@ int IndexHandler::returnSize()
 {
     return words.getSize();
 }
+//

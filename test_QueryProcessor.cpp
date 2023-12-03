@@ -10,10 +10,6 @@
 
 TEST_CASE("query processor", "[QueryProcessor.h]")
 {
-    QueryProcessor qp;
-    IndexHandler ih;
-    DocumentParser dp;
-
     dp.parseDocument("/users7/cse/gschultz/assignment-4-search-engine-exit-code-0/sample_data/coll_1/news_0064567.json");
     ih = dp.getIndex();
     ih.createPersistence();

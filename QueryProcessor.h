@@ -29,7 +29,7 @@ public:
     QueryProcessor(); 
     ///moved just to see if works
      std::vector<std::string> printVector;
-//////
+////////
     std::map<std::string, int> parsingAnswer(std::string); 
     std::map<std::string, int> disectAnswer();
     std::map<std::string, int> intersection(std::map<std::string, int>, std::map<std::string, int>); 
