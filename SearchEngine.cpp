@@ -46,7 +46,8 @@ std::cout << qp.printVector.empty();
 // }
  std::cout << "Contents of printVector:" << std::endl;
             for (const auto& item : qp.printVector) {
-                std::cout << item << std::endl;
+                 dp.printInfo(item); 
+                 std::cout << std::endl;
             }
 }
 //---------------------------------------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ void QueryProcessor::setIndexHandler(IndexHandler i) // Sets the Index Handler O
 {
     indexObject = i;
 }
-
+//
 std::map<std::string, int> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
  {
     //size_t start = 0;

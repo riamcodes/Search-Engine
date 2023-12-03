@@ -105,3 +105,4 @@ TEST_CASE("get size", "[DSHash]")
     test2.clear();
     REQUIRE(test2.getSize() == 0);
 }
+//

@@ -113,7 +113,7 @@ void DocumentParser::printInfo(const string&jsonContent)
         return;
     }
    d.ParseStream(isw);
-
+//
 //Article Title, publication, and date published
 //article title 
 if (d.HasMember("title") && d["title"].IsString()) {
