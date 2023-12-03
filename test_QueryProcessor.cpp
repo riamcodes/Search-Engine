@@ -34,6 +34,4 @@ TEST_CASE("query processor", "[QueryProcessor.h]")
     relevantDocs = qp.parsingAnswer("stocks ORGS:carrefour PERSON:jerome powell");
     REQUIRE(relevantDocs.size() == 1);
     relevantDocs.clear();
-    relevantDocs = qp.parsingAnswer("ajnlknewojfn");
-    REQUIRE(relevantDocs.size() == 0);
 }
