@@ -14,7 +14,10 @@ TEST_CASE("query processor", "[QueryProcessor.h]")
     IndexHandler ih;
     QueryProcessor qp;
 
-    dp.parseDocument("/users7/cse/gschultz/assignment-4-search-engine-exit-code-0/sample_data/coll_1/news_0064567.json");
+    dp.parseDocument("../sample_data/coll_1/news_0064567.json");
+    dp.parseDocument("../sample_data/coll_1/news_0064568.json");
+    dp.parseDocument("../sample_data/coll_1/news_0064569.json");
+    dp.parseDocument("../sample_data/coll_2/news_0064571.json");
 
     ih = dp.getIndex();
     ih.createPersistence();
@@ -23,9 +26,14 @@ TEST_CASE("query processor", "[QueryProcessor.h]")
     qp.setIndexHandler(ih);
 
     std::map<std::string, int> relevantDocs = qp.parsingAnswer("common PERSON:schweitzer");
-
     REQUIRE(relevantDocs.size() == 1);
-
-    std::cout << "Is printVector empty 1 means yes 0 means no " << std::endl;
-    std::cout << qp.printVector.empty();
+    relevantDocs.clear();
+    relevantDocs = qp.parsingAnswer("PERIOD PERSON:strax PERSON:ab");
+    REQUIRE(relevantDocs.size() == 1);
+    relevantDocs.clear();
+    relevantDocs = qp.parsingAnswer("stocks ORGS:carrefour PERSON:jerome powell");
+    REQUIRE(relevantDocs.size() == 1);
+    relevantDocs.clear();
+    relevantDocs = qp.parsingAnswer("ajnlknewojfn");
+    REQUIRE(relevantDocs.size() == 0);
 }
