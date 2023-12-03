@@ -15,7 +15,7 @@ void SearchEngine::input(int num, char **answer)
   else if (strcmp(answer[1], "query") == 0)
   {
     std::cout << "Reading persistence" << std::endl;
-    ih.readPersistence(); // CHANGE TO OBJECT
+    ih.readPersistence(); // CHANGE TO OBJECT/
     dp.setIndex(ih);
     qp.setIndexHandler(ih);
     std::string answer2 = answer[2];

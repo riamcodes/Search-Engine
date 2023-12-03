@@ -1,5 +1,5 @@
 #include "IndexHandler.h"
-std::map<std::string, int> IndexHandler::getWords(std::string word)
+std::map<std::string, int> IndexHandler::getWords(std::string word)//
 {
     return words.contains(word);
 }

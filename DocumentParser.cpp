@@ -268,7 +268,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
            ih.addWords(word,jsonContent);
             wordCount++;
               ih.addWordCount(jsonContent, wordCount);
-          //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
+          //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS /
              }
         }
     } else {

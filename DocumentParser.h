@@ -43,7 +43,7 @@ public:
     void setIndex(IndexHandler ih);
     IndexHandler getIndex();
 
-    ////
+    /////
     void traverseSubdirectory(const std::string &directoryPath);
 //
     //prints the information for viewers to select using the filepath as a param

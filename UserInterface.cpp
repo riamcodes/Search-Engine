@@ -97,7 +97,7 @@ void UserInterface::initialQuestion()
         {
             std::cout << "Here are some of our runtime statistics:" << std::endl;
             std::cout << "Runtime: " << elapsedTrain.count() << " seconds." << std::endl;
-            //std::cout << "Total number of individual articles in the current index: " << ih.returnNumArticles() << std::endl;
+            //std::cout << "Total number of individual articles in the current index: " << ih.returnNumArticles() << std::endl;/
             std::cout << "Total articles: " << ih.getDocSize() <<std::endl;
             std::cout << "Total number of unique words indexed: " << ih.returnSize() << std::endl;
         }

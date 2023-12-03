@@ -164,7 +164,7 @@ std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> se
         double idf = log2((double)(indexObject.getDocSize() / sendTo.size()));
         itr.second = tf * idf;
     }
-    // for (int i = 0; i < finalVector.size(); i++)
+    // for (int i = 0; i < finalVector.size(); i++)/
     // {
     //     double tf = (double)(finalVector[i].second / finalVector[i].first.totalWordCount);//////////////
     //     double idf = log2((double)(indexObject->getDocSize() / finalVector.size())); /////////////////

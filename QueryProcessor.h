@@ -23,7 +23,7 @@ private:
     std::map<std::string, int> sendTo;
    
     IndexHandler indexObject;
-    //  = new IndexHandler()
+    //  = new IndexHandler()/
 
 public:
     QueryProcessor(); 
