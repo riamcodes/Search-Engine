@@ -44,5 +44,8 @@ public:
 
     //
     void traverseSubdirectory(const std::string &directoryPath);
+
+    //prints the information for viewers to select using the filepath as a param
+    void printInfo(const std:: string&jsonContent);
 };
 #endif
