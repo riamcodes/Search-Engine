@@ -15,10 +15,6 @@ std::map<std::string, int> IndexHandler::getOrgs(std::string org)
 {
     return orgs.find(org);
 }
-std::string IndexHandler::getFilePath(std::string title)
-{
-    return docs[title];
-}
 void IndexHandler::addWordCount(std::string title, int count)
 {
     wordCount[title] = count;
@@ -35,9 +31,9 @@ void IndexHandler::addOrgs(std::string org, std::string filepath)
 {
     orgs.insert(org, filepath);
 }
-void IndexHandler::addDocument(std::string filepath, std::string title)
+void IndexHandler::addDocument(std::string filepath)
 {
-    docs[title] = filepath;
+    docs.push_back(filepath);
 }
 int IndexHandler::getDocSize()
 {
@@ -64,7 +60,7 @@ void IndexHandler::createPersistence()
     output << "//docs" << std::endl;
     for (const auto &itr : docs)
     {
-        output << itr.first << "|" << itr.second << "$" << std::endl;
+        output << itr << "$" << std::endl;
     }
 
     output << "//wordCount" << std::endl;
@@ -84,7 +80,6 @@ void IndexHandler::readPersistence()
     std::string title;
     std::string count;
     std::string path;
-    bool goIn = false;
     if (!input.is_open())
     {
         std::cerr << "Error! File could not be opened!" << std::endl;
@@ -95,10 +90,9 @@ void IndexHandler::readPersistence()
         int index = 0;
         for (size_t i = 0; i < buffer.length(); i++)
         {
-            goIn = false;
             if (buffer[i] == '/' && buffer[i + 1] == '/')
             {
-                answer = buffer.substr(2, buffer.length() - 1);
+                answer = buffer.substr(2, buffer.length());
                 break;
             }
             else if (buffer[i] == ':')
@@ -115,7 +109,13 @@ void IndexHandler::readPersistence()
             {
                 freq = buffer.substr(index, i - index);
                 index = i + 1;
-                goIn = true;
+                int num = stoi(freq);
+                if (answer == "words")
+                    words.insert(node, id, num);
+                else if (answer == "people")
+                    people.insert(node, id, num);
+                else if (answer == "orgs")
+                    orgs.insert(node, id, num);
             }
             else if (buffer[i] == '|')
             {
@@ -125,25 +125,16 @@ void IndexHandler::readPersistence()
             else if (buffer[i] == '$')
             {
                 path = buffer.substr(index, i - index);
-                goIn = true;
+                docs.push_back(path);
             }
             else if (buffer[i] == '*')
             {
                 count = buffer.substr(index, i - index);
                 index = i + 1;
-                goIn = true;
+                int num2 = stoi(count);
+                wordCount[title] = num2;
             }
         }
-        if (answer == "words" && goIn)
-            words.insert(node, id, stoi(freq));
-        else if (answer == "people" && goIn)
-            people.insert(node, id, stoi(freq));
-        else if (answer == "orgs" && goIn)
-            orgs.insert(node, id, stoi(freq));
-        else if (answer == "docs" && goIn)
-            docs[title] = path;
-        else if (answer == "wordCount" && goIn)
-            wordCount[title] = stoi(count);
     }
     input.close();
 }
