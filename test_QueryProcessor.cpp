@@ -14,9 +14,9 @@ int main()
     QueryProcessor qp;
     DocumentParser dp;
 
-    dp.parseDocument("../sample_data/coll_1/news_0064567.json");
-    dp.parseDocument("../sample_data/coll_1/news_0064569.json");
-    dp.parseDocument("../sample_data/coll_2/news_0064571.json");
+    dp.parseDocument("./sample_data");
+    // dp.parseDocument("../sample_data/coll_1/news_0064569.json");
+    // dp.parseDocument("../sample_data/coll_2/news_0064571.json");
     IndexHandler ih = dp.getIndex();
     qp.setIndexHandler(&ih);
     std::cout << "made it to here" << std::endl;
