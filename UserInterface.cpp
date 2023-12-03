@@ -59,7 +59,7 @@ void UserInterface::initialQuestion()
             {
                 for (size_t i = 0; i < qp.printVector.size(); i++)
                 {
-                    std::cout << i << ") " << item << std::endl;
+                    std::cout << i << item << std::endl;
                 }
             }
             std::string yesOrNo;
@@ -74,6 +74,13 @@ void UserInterface::initialQuestion()
                 std::cout << "Please enter in the number of the corresponding document that you would like to see." << std::endl;
                 std::string number;
                 std::getline(std::cin, number);
+                for (size_t i = 0; i < qp.printVector.size(); i++)
+                {
+                    if (qp.printVector[i -1] = i)
+                    {
+
+                    }
+                }
                 //dp.parseDocument();
                 //dp.parseDocument(ih->getFilePath(titleDocument)); // NEED TO CHANGE LOGIC
             }

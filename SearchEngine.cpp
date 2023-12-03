@@ -25,7 +25,7 @@ dp.traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-c
  ih.readPersistence();
 // // After creating the index
 ih = dp.getIndex();
-qp.setIndexHandler(&ih);  // Assuming such a method exists
+qp.setIndexHandler(ih);  // Assuming such a method exists
 
 while(true){
 // Process the query
