@@ -5,15 +5,15 @@
 #include "UserInterface.h"
 #include "QueryProcessor.h"
 
-
-class SearchEngine{
-    private:
+class SearchEngine
+{
+private:
     IndexHandler ih;
     DocumentParser dp;
     UserInterface ui;
     QueryProcessor qp;
-    public:
-    void input(int, char**);
+
+public:
+    void input(int, char **);
 };
 #endif
-/////
