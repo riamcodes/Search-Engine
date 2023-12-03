@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <map>
-/////
+
 template <typename Comparable, typename Value>
 class DSAvlTree
 {
@@ -75,7 +75,8 @@ public:
         insert(x, v, root);
     }
 
-    void insert(const Comparable &x, const Value &v, const int &a){
+    void insert(const Comparable &x, const Value &v, const int &a)
+    {
         insert(x, v, a, root);
     }
 
@@ -88,11 +89,6 @@ public:
     {
         return size;
     }
-
-    // void prettyPrintTree() const // prints the tree
-    // {
-    //     prettyPrintTree("", root, false);
-    // }
 
     void printTree(std::ostream &out) // prints the tree for persistance
     {
@@ -125,25 +121,13 @@ private:
             {
                 t->mapVals[v] += 1;
             }
-            return; // COME BACK
-            // THIS PROCESS SHOULD GO IN INDEX HANDLER
-            // tempMap = t->value;
-            // if (tempMap.find(v == tempMap.end()))
-            // {
-            //     // increment frequency
-            // }
-            // else
-            // {
-            //     // create and set frequency to 1
-            // }
-            // t->value = tempMap;
-            // delete tempMap;
+            return;
         }
         balance(t);
     }
-    
 
-    void insert(const Comparable &x, const Value &v, const int &a, DSAvlNode *&t){
+    void insert(const Comparable &x, const Value &v, const int &a, DSAvlNode *&t)
+    {
         if (t == nullptr)
         {
             t = new DSAvlNode{x, v, nullptr, nullptr, 0};
@@ -193,36 +177,23 @@ private:
             {
                 DSAvlNode *tCopy = t;
                 t->key = deleteLeftMostIn(tCopy->right);
-                // Update the key of the current node with the new key
-
-                // t->height = std::max(height(t->left), height(t->right)) + 1;
             }
             else if (t->left != nullptr)
             {
                 DSAvlNode *tCopy = t;
                 t = t->left;
                 delete tCopy;
-                // if (t != nullptr)
-                // {
-                //     t->height = std::max(height(t->left), height(t->right)) + 1;
-                // }
-                // else
-                // {
-                //     return;
-                // }
             }
             else
             {
                 delete t;
                 t = nullptr;
                 size--;
-                // delete t;
                 return;
             }
         }
         balance(t);
         t->height = std::max(height(t->left), height(t->right)) + 1;
-        // size--;
     }
 
     Comparable deleteLeftMostIn(DSAvlNode *&t) // delete left most node in the passed subtree, and returns the key in that node
@@ -278,11 +249,6 @@ private:
             delete t;
             t = nullptr;
         }
-        // makeEmpty(t->left);
-        // makeEmpty(t->right);
-        // delete t;
-        // t = nullptr;
-        // size = 0;
     }
 
     DSAvlNode *clone(DSAvlNode *t) const // clones the subtree
@@ -291,12 +257,11 @@ private:
         {
             return nullptr;
         }
-        DSAvlNode* newNode = new DSAvlNode(*t);
+        DSAvlNode *newNode = new DSAvlNode(*t);
         newNode->left = clone(t->left);
         newNode->right = clone(t->right);
         newNode->height = t->height;
         return newNode;
-        //return new DSAvlNode{t->key, clone(t->left), clone(t->right), t->height};
     }
 
     // Balancing: DSAVL Rotations
@@ -365,7 +330,7 @@ private:
     {
         if (t != nullptr)
         {
-            out << t->key << ":" ;
+            out << t->key << ":";
             for (const auto &itr : t->mapVals)
             {
                 out << itr.first << "," << itr.second << ";";
@@ -375,21 +340,6 @@ private:
             printTree(out, t->right);
         }
     }
-    // void prettyPrintTree(const std::string &prefix, const DSAvlNode *node, bool isRight) const
-    // {
-    //     if (node == nullptr)
-    //     {
-    //         return;
-    //     }
-
-    //     std::cout << prefix;
-    //     std::cout << (isRight ? "├──" : "└──");
-    //     // print the value of the node
-    //     std::cout << node->key << std::endl;
-    //     // enter the next tree level - left and right branch
-    //     prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->right, true);
-    //     prettyPrintTree(prefix + (isRight ? "│   " : "    "), node->left, false);
-    // }
 
     /**
      * Rotate binary tree node with left child.
@@ -398,22 +348,12 @@ private:
      */
     void rotateWithLeftChild(DSAvlNode *&k2)
     {
-#ifdef DEBUG
-        //std::cout << "need to rotateWithLeftChild for node " << k2->key << std::endl;
-        // std::cout << "Before:" << std::endl;
-        // prettyPrintTree();
-#endif
-
         DSAvlNode *k1 = k2->left;
         k2->left = k1->right;
         k1->right = k2;
         k2->height = max(height(k2->left), height(k2->right)) + 1;
         k1->height = max(height(k1->left), k2->height) + 1;
         k2 = k1;
-#ifdef DEBUG
-        // std::cout << "After:" << std::endl;
-        // prettyPrintTree();
-#endif
     }
 
     /**
@@ -423,23 +363,12 @@ private:
      */
     void rotateWithRightChild(DSAvlNode *&k1)
     {
-#ifdef DEBUG
-        //std::cout << "need to rotateWithRightChild for node " << k1->key << std::endl;
-        //std::cout << "Before:" << std::endl;
-        // prettyPrintTree();
-
-#endif
-
         DSAvlNode *k2 = k1->right;
         k1->right = k2->left;
         k2->left = k1;
         k1->height = max(height(k1->left), height(k1->right)) + 1;
         k2->height = max(height(k2->right), k1->height) + 1;
         k1 = k2;
-#ifdef DEBUG
-        //std::cout << "After:" << std::endl;
-        // prettyPrintTree();
-#endif
     }
 
     /**
@@ -450,9 +379,6 @@ private:
      */
     void doubleWithLeftChild(DSAvlNode *&k3)
     {
-#ifdef DEBUG
-        //std::cout << "doubleWithLeftChild" << std::endl;
-#endif
         rotateWithRightChild(k3->left);
         rotateWithLeftChild(k3);
     }
@@ -465,12 +391,8 @@ private:
      */
     void doubleWithRightChild(DSAvlNode *&k1)
     {
-#ifdef DEBUG
-        //std::cout << "doubleWithRightChild" << std::endl;
-#endif
         rotateWithLeftChild(k1->right);
         rotateWithRightChild(k1);
     }
 };
-
 #endif

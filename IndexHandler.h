@@ -7,7 +7,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
-///
+
 class IndexHandler
 {
 private:
@@ -21,7 +21,6 @@ public:
     std::map<std::string, int> getWords(std::string);
     std::map<std::string, int> getPeople(std::string);
     std::map<std::string, int> getOrgs(std::string);
-
     int getWordCount(std::string);
     void addWords(std::string, std::string);
     void addPeople(std::string, std::string);
