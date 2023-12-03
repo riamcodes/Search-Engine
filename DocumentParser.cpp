@@ -169,7 +169,7 @@ void DocumentParser::parseDocument(const string& jsonContent) {
 
 if (d.HasMember("title") && d["title"].IsString()) {
      title = d["title"].GetString();
-   ih.addDocument(jsonContent, title); // filepath to jsons
+   ih.addDocument(jsonContent); // filepath to jsons
 }
 
 
@@ -267,7 +267,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
             //std::cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
            ih.addWords(word,jsonContent);
             wordCount++;
-              ih.addWordCount(title, wordCount);
+              ih.addWordCount(jsonContent, wordCount);
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
              }
         }

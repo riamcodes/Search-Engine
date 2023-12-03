@@ -9,10 +9,12 @@ void SearchEngine::input(int num, char **answer)
   {
     dp.traverseSubdirectory(answer[2]);
     ih = dp.getIndex();
+    std::cout << "Creating persistence, this may take a minute!" << std::endl;
     ih.createPersistence(); // CHANGE TO OBJECT
   }
   else if (strcmp(answer[1], "query") == 0)
   {
+    std::cout << "Reading persistence" << std::endl;
     ih.readPersistence(); // CHANGE TO OBJECT
     dp.setIndex(ih);
     qp.setIndexHandler(ih);

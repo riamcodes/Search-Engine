@@ -125,7 +125,6 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         REQUIRE(result17.size() == 0);
 
         REQUIRE(index.getDocSize() == 1);
-        REQUIRE(index.getFilePath("German firms doing business in UK gloomy about Brexit - survey") == "../sample_data/coll_1/news_0064567.json");
     }
 
     SECTION("Multiple Doc Testing")
