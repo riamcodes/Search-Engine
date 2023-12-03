@@ -10,6 +10,7 @@ class DocumentParser
 {
 private:
     IndexHandler ih;
+    std::vector<std::string> titles;
 
     // Might need to change this but currently declared as a nested map
     // the first part is a string which represents the keyword we are looking for in a document or query - For example if we were trying to find the word apple and all related documents the string would be apple
@@ -47,5 +48,10 @@ public:
 //
     //prints the information for viewers to select using the filepath as a param
     void printInfo(const std:: string&jsonContent);
+    std::string getTitle(int num){
+        return titles[num];
+    }
+
+    // void printTitle(const std::string&jsonContent)
 };
 #endif

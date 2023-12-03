@@ -6,50 +6,50 @@
 
 void SearchEngine::input(){
    
-  //  UserInterface ui;
-  //  ui.initialQuestion();
+   UserInterface ui;
+   ui.initialQuestion();
 //    std::chrono::duration<double> elapsedTrain;
+//------------------------------------------------------------------------
+// QueryProcessor qp;
+//     //THESE NEXT 4 COMMANDS  WORK AND POPULATE CORRECTLY 
+// std::cout << "HIIIIIIIIIII";
+// DocumentParser dp;
+// // //---------------------------------------------------------------------------------------------------------------------------------------------------
+// dp.traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000");//////////////////
+//       //  dp.parseDocument("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000/2018_03_112b52537b67659ad3609a234388c50a/news_0022791.json");
+//       //  dp.parseDocument("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000/2018_03_112b52537b67659ad3609a234388c50a/news_0022810.json");
+//      ih = dp.getIndex();//////////
+//      ih.createPersistence();/////////////////
 
-QueryProcessor qp;
-    //THESE NEXT 4 COMMANDS  WORK AND POPULATE CORRECTLY 
-std::cout << "HIIIIIIIIIII";
-DocumentParser dp;
-// //---------------------------------------------------------------------------------------------------------------------------------------------------
-dp.traverseSubdirectory("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000");//////////////////
-      //  dp.parseDocument("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000/2018_03_112b52537b67659ad3609a234388c50a/news_0022791.json");
-      //  dp.parseDocument("/users7/cse/rmukherji/assignment-4-search-engine-exit-code-0/kaggleSample6000/2018_03_112b52537b67659ad3609a234388c50a/news_0022810.json");
-     ih = dp.getIndex();//////////
-     ih.createPersistence();/////////////////
+// // // ///////read persistence
+//  ih.readPersistence();
+// // // After creating the index
+// ih = dp.getIndex();
+// qp.setIndexHandler(ih);  // Assuming such a method exists
 
-// // ///////read persistence
- ih.readPersistence();
-// // After creating the index
-ih = dp.getIndex();
-qp.setIndexHandler(ih);  // Assuming such a method exists
+// while(true){
+// // Process the query
+// std::cout << "Please enter a query" << std::endl;
+// std::string answer3;
+// std::getline(std::cin, answer3);
 
-while(true){
-// Process the query
-std::cout << "Please enter a query" << std::endl;
-std::string answer3;
-std::getline(std::cin, answer3);
+// // Get the relevant documents
+// std::map<std::string, int> relevantDocs = qp.parsingAnswer(answer3);
 
-// Get the relevant documents
-std::map<std::string, int> relevantDocs = qp.parsingAnswer(answer3);
+// std::cout << "Is printVector empty 1 means yes 0 means no " << std::endl;
+// std::cout << qp.printVector.empty();
 
-std::cout << "Is printVector empty 1 means yes 0 means no " << std::endl;
-std::cout << qp.printVector.empty();
-
-// Print the relevant documents
-// std::cout << "Top Relevant Documents:" << std::endl;
-// for (const std::string& doc : printVector) {
-//     std::cout << doc << std::endl;
+// // Print the relevant documents
+// // std::cout << "Top Relevant Documents:" << std::endl;
+// // for (const std::string& doc : printVector) {
+// //     std::cout << doc << std::endl;
+// // }
+//  std::cout << "Contents of printVector:" << std::endl;
+//             for (const auto& item : qp.printVector) {
+//                  dp.printInfo(item); 
+//                  std::cout << std::endl;
+//             }
 // }
- std::cout << "Contents of printVector:" << std::endl;
-            for (const auto& item : qp.printVector) {
-                 dp.printInfo(item); 
-                 std::cout << std::endl;
-            }
-}
 //---------------------------------------------------------------------------------------------------------------
 // std::cout << "Please enter a query" << std::endl;
 //             std::string answer3;
