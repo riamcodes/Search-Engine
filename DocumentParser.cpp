@@ -84,12 +84,12 @@ set<string> stopWords = {     "able", "about", "above", "abroad", "according", "
     "won't", "would", "wouldn't", "yes", "yet", "you", "you'd", "you'll", "your", "you're",
     "yours", "yourself", "yourselves", "you've", "zero"};
 
- void DocumentParser::setIndex(IndexHandler* index){
+ void DocumentParser::setIndex(IndexHandler index){
     ih = index;
  }
 
  IndexHandler DocumentParser ::getIndex(){
-    return *ih;
+    return ih;
  }
 
 
@@ -165,12 +165,12 @@ void DocumentParser::parseDocument(const string& jsonContent) {
    
 // if (d.HasMember("uuid") && d["uuid"].IsString()) {
 //      docID = d["uuid"].GetString();
-//   // ih->addDocument(jsonContent); // filepath to jsons
+//   // ih.addDocument(jsonContent); // filepath to jsons
 // }
 
 if (d.HasMember("title") && d["title"].IsString()) {
      title = d["title"].GetString();
-   ih->addDocument(jsonContent, title); // filepath to jsons
+   ih.addDocument(jsonContent, title); // filepath to jsons
 }
 
 
@@ -180,7 +180,7 @@ if (d.HasMember("title") && d["title"].IsString()) {
 //    //docPersons declared above
 //    while (iss2 >> docPersons){
 //    transform(docPersons.begin(), docPersons.end(), docPersons.begin(), ::tolower);
-//     ih->addPeople(docPersons,docID);
+//     ih.addPeople(docPersons,docID);
 //    }
    
 // }
@@ -192,7 +192,7 @@ if (d.HasMember("title") && d["title"].IsString()) {
 //     //org declared aboce
 //     while (iss1 >> org){
 //         transform(org.begin(), org.end(), org.begin(), ::tolower);
-//          ih->addOrgs(org,docID);
+//          ih.addOrgs(org,docID);
 //     }
 //      //org = d["organizations"].GetString();
 //   //   void addOrgs(int, DSDocument); ask anekah how this works WARNING THIS IS USUALLY BLANK
@@ -219,7 +219,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
                  while (iss5 >> docPersons) {
                    //std::cout << "Person: " << docPersons << std::endl;
                    
-                   ih->addPeople(docPersons,jsonContent);
+                   ih.addPeople(docPersons,jsonContent);
                 }
             }
         }
@@ -237,7 +237,7 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
                     std::string org = personObject["name"].GetString();
                     //std::cout << "ORG:  " << org<< std::endl;
                    
-                   ih->addOrgs(docPersons,jsonContent);
+                   ih.addOrgs(docPersons,jsonContent);
                 }
             }
         }
@@ -266,9 +266,9 @@ if (d.HasMember("entities") && d["entities"].IsObject()) {
             //cout << docID<< endl; 
              if (stopWords.find(word) == stopWords.end()) {
             //std::cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
-           ih->addWords(word,jsonContent);
+           ih.addWords(word,jsonContent);
             wordCount++;
-              ih->addWordCount(title, wordCount);
+              ih.addWordCount(title, wordCount);
           //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
              }
         }
@@ -376,7 +376,7 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
     //org declared aboce
    // while (iss1 >> org){
      //   transform(org.begin(), org.end(), org.begin(), ::tolower);
-       //  ih->addOrgs(org,docID);
+       //  ih.addOrgs(org,docID);
        std::cout << "Organizations: " <<  allOrgs << endl;
     }
      //org = d["organizations"].GetString();
@@ -400,9 +400,9 @@ if (d.HasMember("organizations") && d["organizations"].IsString()) {
         //     //cout << docID<< endl; 
         //      if (stopWords.find(word) == stopWords.end()) {
         //  //   cout << word << endl;  // Print each word on a new line///////////////////////////////////////DONT PRINT RIGHT HERE 
-        //   //   ih->addWords(word,docID);
+        //   //   ih.addWords(word,docID);
         //     wordCount++;
-        //      // ih->addWordCount(title, wordCount);
+        //      // ih.addWordCount(title, wordCount);
         //   //  index.addWords(word, docID); ASK ANEKAH HOW THIS WORKS 
         //      }
         // }

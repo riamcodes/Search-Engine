@@ -9,7 +9,7 @@
 class DocumentParser
 {
 private:
-    IndexHandler* ih = new IndexHandler();
+    IndexHandler ih;
 
     // Might need to change this but currently declared as a nested map
     // the first part is a string which represents the keyword we are looking for in a document or query - For example if we were trying to find the word apple and all related documents the string would be apple
@@ -39,7 +39,7 @@ public:
 
     void printDocument(const std:: string&jsonContent);
 
-    void setIndex(IndexHandler *ih);
+    void setIndex(IndexHandler ih);
     IndexHandler getIndex();
 
     //
