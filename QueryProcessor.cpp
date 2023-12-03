@@ -44,7 +44,7 @@ std::map<std::string, int> QueryProcessor::disectAnswer() // This function disec
         {
             std::string term = storage[i].substr(7, storage[i].length() - 7);
            // cstem(term);
-          
+          //
            
            // std::cout << term << std::endl;
             //relevantDocuments = indexObject->getPeople(term);

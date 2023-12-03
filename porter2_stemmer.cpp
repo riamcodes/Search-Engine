@@ -469,7 +469,7 @@ bool Porter2Stemmer::internal::special(std::string& word)
         return true;
     }
 
-    // invariants
+    // invariants//
     return word == "sky" || word == "news" || word == "howe" || word == "atlas"
            || word == "cosmos" || word == "bias" || word == "andes";
 }
