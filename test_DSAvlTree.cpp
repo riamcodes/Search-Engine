@@ -86,7 +86,6 @@ TEST_CASE("insert", "[DSAvlTree]")
     std::map<int, int>::iterator it1 = results2.find(4);
     REQUIRE(it1 == results2.end());
     REQUIRE(results2[200] == 1);
-
 }
 
 TEST_CASE("remove", "[DSAvlTree]")
@@ -116,6 +115,7 @@ TEST_CASE("remove", "[DSAvlTree]")
     test2.remove(4);
     results2.erase(4);
 }
+
 TEST_CASE("Copy Constructor", "[DSAvlTree]")
 {
      DSAvlTree<std::string, std::string> test1;
@@ -158,4 +158,3 @@ TEST_CASE("Assignment Operator", "[DSAvlTree]")
     REQUIRE(original.contains("HELLO!").size() == 1);
     REQUIRE(copy.contains("HELLO!").size() == 0);
 }
-/////

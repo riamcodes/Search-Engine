@@ -14,7 +14,8 @@ private:
     IndexHandler ih;
     QueryProcessor qp;
     DocumentParser dp;
+    
 public:
-    void initialQuestion(); // Asks the initial question
+    void initialQuestion(); 
 };
 #endif
