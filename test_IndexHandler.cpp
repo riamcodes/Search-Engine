@@ -17,7 +17,7 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
     {
         map<string, int> result = ih.getWords("plan");
         REQUIRE(result.size() == 1);
-        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2); // should be 2
+        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2);
 
         map<string, int> result1 = ih.getWords("german");
         REQUIRE(result1.size() == 1);
@@ -81,6 +81,7 @@ TEST_CASE("IndexHandler Test", "[IndexHandler]")
         map<string, int> result = index.getWords("plan");
         REQUIRE(result.size() == 1);
         REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2); // should be 2
+        REQUIRE(result["../sample_data/coll_1/news_0064567.json"] == 2);
         map<string, int> result1 = index.getWords("german");
         REQUIRE(result1.size() == 1);
         REQUIRE(result1["../sample_data/coll_1/news_0064567.json"] == 4);
