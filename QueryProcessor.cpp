@@ -21,7 +21,7 @@ std::map<std::string, int> QueryProcessor::parsingAnswer(std::string answer) // 
     return disectAnswer();
 }
 
-std::map<std::string, int> QueryProcessor::disectAnswer() 
+std::map<std::string, int> QueryProcessor::disectAnswer()
 {
     for (size_t i = 0; i < storage.size(); i++)
     {
@@ -62,7 +62,7 @@ std::map<std::string, int> QueryProcessor::disectAnswer()
             }
         }
     }
-    Relevancy(sendTo);
+    // Relevancy(relDocs);
     return relDocs;
 }
 
@@ -73,7 +73,7 @@ std::map<std::string, int> QueryProcessor::intersection(std::map<std::string, in
     {
         if (docs.find(itr.first) != docs.end())
         {
-            finalVector[itr.first] = itr.second;
+            finalVector.emplace(itr.first, itr.second);
         }
     }
     sendTo = finalVector;
@@ -94,35 +94,67 @@ std::map<std::string, int> QueryProcessor::complement(std::map<std::string, int>
     return finalVector;
 }
 
-std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> sendTo) 
+void QueryProcessor::printRelevantDocs(std::map<std::string, int> prints)
 {
-    for (auto &itr : sendTo)
+    std::vector<std::pair<std::string, int>> vector(prints.begin(), prints.end());
+    DocumentParser dp1;
+
+    // Sort the vector according to the word count in descending order.
+    std::sort(vector.begin(), vector.end(),
+              [](const auto &lhs, const auto &rhs)
+              { return lhs.second > rhs.second; });
+    // for (const auto &item : vector)
+    //   for (int i = 0; i <= 15; i++)
+    //   {
+    int count = 0;
+    for (const auto &item : vector)
     {
-        double wordCount = indexObject.getWordCount(itr.first);
-        double tf = (double)(itr.second / wordCount);
-        double idf = log2((double)(indexObject.getDocSize() / sendTo.size()));
-        itr.second = tf * idf;
-    }
-    if (sendTo.size() <= 15)
-    {
-        for (const auto &itr : sendTo)
+        if (count > 15)
         {
-            printVector.push_back(itr.first);
+            break;
+        }
+        else
+        {
+            dp1.printInfo(item.first);
+            count++;
         }
     }
-    else
-    {
-        int index = 0;
-        for (const auto &itr : sendTo)
-        {
-            if (index < 15)
-            {
-                printVector.push_back(itr.first);
-                ++index;
-            }
-            else
-                break;
-        }
-    }
-    return printVector;
 }
+
+// Print out the vector.
+//     for (const auto &item : vector)
+//         std::cout << item.first << ": " << item.second << std::endl;
+// }
+// std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> sendTo)
+// {
+//     for (auto &itr : sendTo)
+//     {
+//         double wordCount = indexObject.getWordCount(itr.first);
+//         double tf = (double)(itr.second / wordCount);
+//         double idf = log2((double)(indexObject.getDocSize() / sendTo.size()));
+//         itr.second = tf * idf;
+//     }
+//     if (sendTo.size() <= 15)
+//     {
+//         for (const auto &itr : sendTo)
+//         {
+//             printVector.push_back(itr.first);
+//         }
+//     }
+//     else
+//     {
+//         int index = 0;
+//         for (const auto &itr : sendTo)
+//         {
+//             if (index < 15)
+//             {
+//                 printVector.push_back(itr.first);
+//                 ++index;
+//             }
+//             else
+//                 break;
+//         }
+//     }
+//     std::cout << "Size: " << printVector.size() << std::endl;
+//     return printVector;
+// }
