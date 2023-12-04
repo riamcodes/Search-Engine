@@ -8,6 +8,7 @@
 #include <sstream>
 #include "IndexHandler.h"
 #include "porter2_stemmer.h"
+#include "DocumentParser.h"
 
 class QueryProcessor
 {
@@ -29,5 +30,6 @@ public:
     std::vector<std::string> Relevancy(std::map<std::string, int>);
     void quickSort(std::map<std::string, int> &, int, int);
     int partition(std::map<std::string, int>, int, int);
+    void printRelevantDocs(std::map<std::string, int>);
 };
 #endif

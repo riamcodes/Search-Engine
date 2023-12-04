@@ -148,11 +148,12 @@ void DocumentParser::parseDocument(const string &jsonContent)
         return;
     }
     // d.ParseStream(isw);
-    else if (d.HasMember("title") && d["title"].IsString())
+    if (d.HasMember("title") && d["title"].IsString())
     {
         title = d["title"].GetString();
         ih.addDocument(jsonContent); // filepath to jsons
     }
+
     if (d.HasMember("entities") && d["entities"].IsObject())
     {
         const rapidjson::Value &entities = d["entities"];
@@ -179,31 +180,34 @@ void DocumentParser::parseDocument(const string &jsonContent)
             }
         }
     }
+
     if (d.HasMember("entities") && d["entities"].IsObject())
     {
         const rapidjson::Value &entities = d["entities"];
         if (entities.HasMember("organizations") && entities["organizations"].IsArray())
         {
-            const rapidjson::Value &orgArray = entities["organizations"];
-            for (rapidjson::SizeType i = 0; i < orgArray.Size(); i++)
+            const rapidjson::Value &orgsArray = entities["organizations"];
+            for (rapidjson::SizeType i = 0; i < orgsArray.Size(); i++)
             {
-                if (orgArray[i].IsObject())
+                if (orgsArray[i].IsObject())
                 {
-                    const rapidjson::Value &orgObject = orgArray[i];
-                    if (orgObject.HasMember("name") && orgObject["name"].IsString())
+                    const rapidjson::Value &orgsObject = orgsArray[i];
+                    if (orgsObject.HasMember("name") && orgsObject["name"].IsString())
                     {
-                        std::string orgs2;
-                        std::string org = orgObject["name"].GetString();
-                        istringstream iss6(org);
-                        while (iss6 >> orgs2)
+                        std::string allOrgs;
+                        allOrgs = orgsObject["name"].GetString();
+                        istringstream iss6(allOrgs);
+
+                        while (iss6 >> org)
                         {
-                            ih.addOrgs(orgs2, jsonContent);
+                            ih.addOrgs(org, jsonContent);
                         }
                     }
                 }
             }
         }
     }
+
     if (d.HasMember("text") && d["text"].IsString())
     {
         string text = d["text"].GetString();
@@ -301,7 +305,7 @@ void DocumentParser::printDocument(const string &jsonContent)
         cerr << "JSON parse error: " << d.GetParseError() << endl;
         return;
     }
-    d.ParseStream(isw);
+    // d.ParseStream(isw);
 
     if (d.HasMember("title") && d["title"].IsString())
     {
