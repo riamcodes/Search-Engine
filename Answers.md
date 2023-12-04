@@ -1122,7 +1122,8 @@ Here are the most relevant documents
 ### Performance
 - Provide statistics (word counts, timing, etc) for indexing all documents (or as many as you can in a reasonable amount of time).
 
-It takes 57 minutes to index 300,000 documents and another 24 to creat persistence.
+It takes one hour and 21 minutes to index 300,000 documents.
+It takes 17.1602 seconds to index 6,000 documents.
 
 ### Bonus Work
 Did you attempt any bonuses? If so, please give a brief description of what you did.
