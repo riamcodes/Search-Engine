@@ -4,36 +4,46 @@
 #include <functional>
 #include <ostream>
 
-// USE HASH FOR PERSON AND ORGANIZATION BUT NOT FOR WORD
-
+// Template class for a hash table
 template <typename Comparable, typename Value>
 class Hash
 {
 private:
+    // Nested struct representing a node in the hash table
     struct HashNode
     {
-        Comparable comp;
-        std::map<Value, int> maps;
-        HashNode *next;
+        Comparable comp;           // Key of the node
+        std::map<Value, int> maps; // Map to store values and their counts
+        HashNode *next;            // Pointer to the next node in the same bucket
+
+        // Constructor for a node with a key and a value
         HashNode(Comparable c, Value v)
         {
             comp = c;
             maps[v] = 1;
             next = nullptr;
         }
+
+        // Constructor for a node with a key and a map of values
         HashNode(Comparable c, std::map<Value, int> v)
         {
             comp = c;
             maps = v;
             next = nullptr;
         }
+
+        // Copy constructor for a node
         HashNode(const HashNode &n) : comp(n.comp), maps(n.maps), next(nullptr) {}
     };
-    int capacity;
-    int size;
-    HashNode **table;
+
+    int capacity;     // Capacity of the hash table
+    int size;         // Current size of the hash table
+    HashNode **table; // Pointer to the array of hash buckets
+
+    // Method to resize and rehash the hash table
     void rehash()
     {
+        // Logic for rehashing
         int storeCapacity = capacity;
         capacity = capacity * 2;
         HashNode **storeTable = table;
@@ -53,6 +63,7 @@ private:
         delete[] storeTable;
     }
 
+    // Hash function to compute the bucket index
     int hash(Comparable comp)
     {
         int index = std::hash<Comparable>{}(comp);
@@ -85,6 +96,7 @@ public:
         return *this;
     }
 
+    // Get the current size of the hash table
     int getSize()
     {
         return size;
@@ -108,7 +120,7 @@ public:
         size = 0;
     }
 
-    void createHash(int x = 100) // creates a new hash
+    void createHash(int x = 100) // Create a new hash table with a specified capacity (default is 100)
     {
         capacity = x;
         size = 0;
@@ -188,6 +200,7 @@ public:
         }
     }
 
+    // Insert a key-value pair with a frequency into the hash table
     void insert(Comparable comp, Value val, int freq) // inserts a comp into a hash at val
     {
         int index = hash(comp);
@@ -233,6 +246,7 @@ public:
         }
     }
 
+    // Print the hash table to an output stream
     void printHash(std::ostream &out)
     {
         for (int i = 0; i < capacity; i++)
@@ -251,6 +265,7 @@ public:
         }
     }
 
+    // Insert a key with a map of values into the hash table
     void secondInsert(Comparable comp, std::map<Value, int> val) // inserts a comp into a hash at val
     {
         int index = hash(comp);
@@ -287,7 +302,8 @@ public:
             rehash();
         }
     }
-
+    
+    // Find and return the map of values for a given key
     std::map<Value, int> find(const Comparable comp) // finds a comp in the hash
     {
         int index = hash(comp);

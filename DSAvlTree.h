@@ -7,20 +7,25 @@
 #include <fstream>
 #include <map>
 
+// Template class for a node in an AVL tree
 template <typename Comparable, typename Value>
 class DSAvlTree
 {
 private:
+    // Nested struct representing a node in the AVL tree
     struct DSAvlNode
     {
-        Comparable key;
-        DSAvlNode *left;
-        DSAvlNode *right;
-        int height;
-        std::map<Value, int> mapVals;
+        Comparable key;               // The key value of the node
+        DSAvlNode *left;              // Pointer to the left child
+        DSAvlNode *right;             // Pointer to the right child
+        int height;                   // Height of the node
+        std::map<Value, int> mapVals; // Map to store associated values and their counts
 
+        // Constructor for node with key, left and right children, and height
         DSAvlNode(const Comparable &theKey, DSAvlNode *lt, DSAvlNode *rt, int h)
             : key{theKey}, left{lt}, right{rt}, height{h} {}
+
+        // Constructor for node with key, value, left and right children, and height
         DSAvlNode(const Comparable &theKey, Value v, DSAvlNode *lt, DSAvlNode *rt, int h)
             : key{theKey}, left{lt}, right{rt}, height{h}
         {
@@ -28,163 +33,181 @@ private:
         }
     };
 
-    DSAvlNode *root;
-    int size;
+    DSAvlNode *root; // Root node of the AVL tree
+    int size;        // Size of the AVL tree (number of nodes)
 
 public:
-    DSAvlTree() : root{nullptr}, size{0} // default constructor
-    {
-    }
+    // Default constructor
+    DSAvlTree() : root{nullptr}, size{0} {}
 
-    DSAvlTree(const DSAvlTree &rhs) : root{nullptr} // copy constructor
+    // Copy constructor
+    DSAvlTree(const DSAvlTree &rhs) : root{nullptr}
     {
         root = clone(rhs.root);
     }
 
-    ~DSAvlTree() // destructor
+    // Destructor
+    ~DSAvlTree()
     {
         makeEmpty();
     }
 
-    DSAvlTree &operator=(const DSAvlTree &rhs) // assignment operator
+    // Assignment operator
+    DSAvlTree &operator=(const DSAvlTree &rhs)
     {
         makeEmpty();
         root = clone(rhs.root);
         return *this;
     }
 
-    std::map<Value, int> contains(const Comparable &x) const // if x is found in the tree
+    // Check if a key is contained in the tree
+    std::map<Value, int> contains(const Comparable &x) const
     {
         return contains(x, root);
     }
 
-    bool isEmpty() const // is the tree empty?
+    // Check if the tree is empty
+    bool isEmpty() const
     {
         return root == nullptr;
     }
 
-    void makeEmpty() // emptys the tree
+    // Make the tree empty
+    void makeEmpty()
     {
         makeEmpty(root);
         root = nullptr;
         size = 0;
     }
 
-    void insert(const Comparable &x, const Value &v) // inserts x into the tree
+    // Insert a key-value pair into the tree
+    void insert(const Comparable &x, const Value &v)
     {
         insert(x, v, root);
     }
 
+    // Insert a key-value pair with a specific count into the tree
     void insert(const Comparable &x, const Value &v, const int &a)
     {
         insert(x, v, a, root);
     }
 
-    void remove(const Comparable &x) // removes x from the tree
+    // Remove a key from the tree
+    void remove(const Comparable &x)
     {
         remove(x, root);
     }
 
+    // Get the size of the tree
     int getSize()
     {
         return size;
     }
 
-    void printTree(std::ostream &out) // prints the tree for persistance
+    // Print the tree structure to an output stream
+    void printTree(std::ostream &out)
     {
         printTree(out, root);
     }
 
 private:
-    void insert(const Comparable &x, const Value &v, DSAvlNode *&t) // inserts x into a subtree, t is the node that roots the subtree
+    // Private methods for various operations like insertion, removal, balancing, etc.
+
+    // Insert a key-value pair into a subtree
+    void insert(const Comparable &x, const Value &v, DSAvlNode *&t)
     {
+        // Insert logic with balancing
         if (t == nullptr)
         {
-            t = new DSAvlNode{x, v, nullptr, nullptr, 0};
+            t = new DSAvlNode{x, v, nullptr, nullptr, 0}; // insert new node and increment size
             size++;
         }
         else if (x < t->key)
         {
-            insert(x, v, t->left);
+            insert(x, v, t->left); // call recursively
         }
         else if (t->key < x)
         {
-            insert(x, v, t->right);
+            insert(x, v, t->right); // call recursively
         }
         else
         {
-            if (t->mapVals.find(v) == t->mapVals.end())
+            if (t->mapVals.find(v) == t->mapVals.end()) // if it's not in the tree, set frequency to 1
             {
                 t->mapVals[v] = 1;
             }
             else
             {
-                t->mapVals[v] += 1;
+                t->mapVals[v] += 1; // otherwise, increment frequency
             }
             return;
         }
-        balance(t);
+        balance(t); // balance the tree
     }
 
+    // Insert a key-value pair with count into a subtree
     void insert(const Comparable &x, const Value &v, const int &a, DSAvlNode *&t)
     {
+        // Insert logic with count and balancing
         if (t == nullptr)
         {
-            t = new DSAvlNode{x, v, nullptr, nullptr, 0};
+            t = new DSAvlNode{x, v, nullptr, nullptr, 0}; // add a new node with a given frequency and increment size
             t->mapVals[v] = a;
             size++;
         }
         else if (x < t->key)
         {
-            insert(x, v, a, t->left);
+            insert(x, v, a, t->left); // call recursively
         }
         else if (t->key < x)
         {
-            insert(x, v, a, t->right);
+            insert(x, v, a, t->right); // call recursively
         }
         else
         {
-            if (t->mapVals.find(v) == t->mapVals.end())
+            if (t->mapVals.find(v) == t->mapVals.end()) // if not in there, set the frequency equal to a
             {
                 t->mapVals[v] = a;
             }
             else
             {
-                t->mapVals[v] += a;
+                t->mapVals[v] += a; // otherwise just add a
             }
             return;
         }
-        balance(t);
+        balance(t); // balance the tree
     }
 
+    // Remove a key from a subtree
     void remove(const Comparable &x, DSAvlNode *&t) // removes x from a subtree, t is the node that roots the subtree
     {
+        // Remove logic with balancing
         if (t == nullptr)
         {
-            throw std::runtime_error("Error, could not find 'x' in private remove function");
+            throw std::runtime_error("Error, could not find 'x' in private remove function"); // throw an error
         }
         if (x < t->key)
         {
-            remove(x, t->left);
+            remove(x, t->left); // call recursively
         }
         else if (t->key < x)
         {
-            remove(x, t->right);
+            remove(x, t->right); // call recursively
         }
         else
         {
-            if (t->right != nullptr)
+            if (t->right != nullptr) // if there is a right
             {
                 DSAvlNode *tCopy = t;
                 t->key = deleteLeftMostIn(tCopy->right);
             }
-            else if (t->left != nullptr)
+            else if (t->left != nullptr) // if there is a left
             {
                 DSAvlNode *tCopy = t;
                 t = t->left;
                 delete tCopy;
             }
-            else
+            else // otherwise
             {
                 delete t;
                 t = nullptr;
@@ -196,8 +219,10 @@ private:
         t->height = std::max(height(t->left), height(t->right)) + 1;
     }
 
+    // Delete the leftmost node in a subtree and return its key
     Comparable deleteLeftMostIn(DSAvlNode *&t) // delete left most node in the passed subtree, and returns the key in that node
     {
+        // Logic to delete the leftmost node
         if (t == nullptr) // this should not happen
         {
             throw std::runtime_error("Error in Comparable deleteLeftMostIn(DSAvlNode *t)");
@@ -211,7 +236,7 @@ private:
 
             return valueToReturn;
         }
-        else
+        else // otherwise
         {
             Comparable valueToReturn = deleteLeftMostIn(t->left);
             t->height = std::max(height(t->left), height(t->right)) + 1;
@@ -220,19 +245,21 @@ private:
         }
     }
 
+    // Check if a key is contained in a subtree
     std::map<Value, int> contains(const Comparable &x, DSAvlNode *t) const // true/false if x is found in the tree
     {
+        // Logic to check if a key is contained
         if (t == nullptr)
         {
             return std::map<Value, int>(); // returns an empty vector
         }
         else if (x < t->key)
         {
-            return contains(x, t->left);
+            return contains(x, t->left); // call recursively
         }
         else if (t->key < x)
         {
-            return contains(x, t->right);
+            return contains(x, t->right); // call recursively
         }
         else
         {
@@ -240,8 +267,10 @@ private:
         }
     }
 
+    // Make a subtree empty
     void makeEmpty(DSAvlNode *&t) // emptys the subtree
     {
+        // Logic to make a subtree empty
         if (t != nullptr)
         {
             makeEmpty(t->left);
@@ -251,8 +280,9 @@ private:
         }
     }
 
-    DSAvlNode *clone(DSAvlNode *t) const // clones the subtree
+    DSAvlNode *clone(DSAvlNode *t) const
     {
+        // clones the subtree
         if (t == nullptr)
         {
             return nullptr;
@@ -263,7 +293,6 @@ private:
         newNode->height = t->height;
         return newNode;
     }
-
     // Balancing: DSAVL Rotations
 
     int height(DSAvlNode *t) const // returns the height of node t or -1 if nullptr

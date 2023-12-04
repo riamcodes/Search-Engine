@@ -9,7 +9,6 @@
 #include <sstream>
 #include "IndexHandler.h"
 #include "porter2_stemmer.h"
-#include "DocumentParser.h"
 
 // Class definition for QueryProcessor
 class QueryProcessor
