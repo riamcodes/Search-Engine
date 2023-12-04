@@ -65,7 +65,7 @@ void IndexHandler::createPersistence()
 {
     // Open a file stream for writing
     std::ofstream output("persistence.txt");
-    
+
     // Check if the file stream is open
     if (!output.is_open())
     {
@@ -105,7 +105,7 @@ void IndexHandler::readPersistence()
 {
     // Open a file stream for reading
     std::ifstream input("persistence.txt");
-    
+
     // Declare variables for parsing the file
     std::string buffer, answer, node, id, freq, title, count, path;
 
@@ -160,13 +160,13 @@ void IndexHandler::readPersistence()
             else if (buffer[i] == '$')
             {
                 path = buffer.substr(index, i - index); // Extract file path
-                docs.push_back(path); // Add file path to documents vector
+                docs.push_back(path);                   // Add file path to documents vector
             }
             else if (buffer[i] == '#')
             {
                 count = buffer.substr(index, i - index); // Extract count
                 index = i + 1;
-                int num2 = stoi(count); // Convert count to integer
+                int num2 = stoi(count);  // Convert count to integer
                 wordCount[title] = num2; // Add word count to wordCount map
             }
         }
