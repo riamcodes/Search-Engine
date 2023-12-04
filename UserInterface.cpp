@@ -66,18 +66,28 @@ void UserInterface::initialQuestion()
 
             auto startTrain = std::chrono::high_resolution_clock::now();
             std::map<std::string, int> relevantDocs = qp.parsingAnswer(answer3);
-             qp.printRelevantDocs(relevantDocs);
-            if (qp.printVector.size() > 1)
-            {
-                //int count = 1;
+            if(qp.printVector.size() >= 1) {
+                int count = 1;
                 std::cout << "Here are the most relevant documents" << std::endl;
-                // for (const auto &item : qp.printVector)
-                // {
-                //     std::cout << count << ". ";
-                //     dp.printInfo(item);
-                //     std::cout << std::endl;
-                //     ++count;
-                // }
+                for (const auto &item :qp.printVector) {
+                    std::cout << count << ". " << std::endl;
+                    dp.printInfo(item);
+                    std::cout << std::endl;
+                    ++count;
+                }
+            }
+             //qp.printRelevantDocs(relevantDocs);
+            // if (qp.printVector.size() > 1)
+            // {
+            //     int count = 1;
+            //     std::cout << "Here are the most relevant documents" << std::endl;
+            //     for (const auto &item : qp.printVector)
+            //     {
+            //         std::cout << count << ". ";
+            //         dp.printInfo(item);
+            //         std::cout << std::endl;
+            //         ++count;
+            //     }
                 std::string yesOrNo;
                 std::cout << "Would you like to see the contents of a file listed above?" << std::endl;
                 std::getline(std::cin, yesOrNo);
@@ -98,7 +108,6 @@ void UserInterface::initialQuestion()
                 qp.printVector.clear();
                 auto finishTrain = std::chrono::high_resolution_clock::now();
                 elapsedTrain = finishTrain - startTrain;
-            }
         }
         else if (answer == "5")
         {

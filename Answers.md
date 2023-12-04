@@ -32,7 +32,7 @@ Task: User Interface, Planned completion: Nov 27, Actual completion: December 2n
 Task: Search Engine, Planned completion: Nov 27, Actual completion: December 3rd                 Time spent in hours by Grace 1, Anekah 5, Ria 5
 Task: Hash and Test Cases, Planned completion: Nov 21, Actual completion: Nov 21                 Time spent in hours by Grace 15, Anekah 10, Ria 1
 Task: Documentation, Planned completion: Nov 30, Actual completion: December 3rd                 Time spent in hours by Grace 3, Anekah 3, Ria 3
-Task: Overall project integration, Planned completion: Nov 30, Actual completion: December 3rd   Time spent in hours by Grace 20, Anekah 20, Ria 20
+Task: Overall project integration, Planned completion: Nov 30, Actual completion: December 3rd   Time spent in hours by Grace 60, Anekah 60, Ria 60
 
 ### High-level Design of Solution
 
@@ -933,7 +933,7 @@ Select option 6 to safely exit the application.
 
 - Some example queries with the results.
 
-./supersearch query finance ORG:reuters
+./supersearch query finance ORG:reuters (Select option 4 in the user interface and type "finance ORG:reuters")
 
 Reading persistence...
 Persistence has been read!
@@ -969,7 +969,7 @@ Here are the most relevant documents
 15. Title: Economists call for overhaul of euro zone, creation of joint 'safe assets', Publication: reuters.com, Date Published: 2018-01-17
 
 
-./supersearch query happy
+./supersearch query happy (Select option 4 in the user interface and type "happy")
 
 Reading persistence...
 Persistence has been read!
@@ -1005,7 +1005,7 @@ Here are the most relevant documents
 15. Title: The top 25 US companies to work for if you want to be happier, Publication: cnbc.com, Date Published: 2018-01-18
 
 
-./supersearch query ocean
+./supersearch query ocean (Select option 4 in the user interface and type "ocean")
 
 Reading persistence...
 Persistence has been read!
@@ -1041,7 +1041,7 @@ Here are the most relevant documents
 15. Title: Private Ocean Announces Acquisition of Lakeview Financial Group, Publication: cnbc.com, Date Published: 2018-01-17
 
 
-./supersearch query facebook PERSON:mark
+./supersearch query facebook PERSON:mark (Select option 4 in the user interface and type "facebook ORG:mark")
 
 Reading persistence...
 Persistence has been read!
@@ -1077,7 +1077,7 @@ Here are the most relevant documents
 15. Title: BRIEF-Facebook CEO Mark Zuckerberg says optimistic DACA "will get solved"‍​, Publication: reuters.com, Date Published: 2018-01-17
 
 
-./supersearch query facebook PERSON:mark PERSON:zuckerberg
+./supersearch query facebook PERSON:mark PERSON:zuckerberg (Select option 4 in the user interface and type "facebook PERSON:mark PERSON:zuckerberg)
 
 1. Title: Mark Zuckerberg Says Facebook to Become 'More Meaningful' | Fortune, Publication: fortune.com, Date Published: 2018-01-13
 
@@ -1110,7 +1110,7 @@ Here are the most relevant documents
 15. Title: Zuckerberg says fixing Facebook is his personal challenge for 2018, Publication: cnbc.com, Date Published: 2018-01-04
 
 
-./supersearch query german ORG:bdi
+./supersearch query german ORG:bdi (Select option 4 in the user interface and type "german ORG:bdi")
 
 Reading persistence...
 Persistence has been read!
