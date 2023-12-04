@@ -1,4 +1,3 @@
-// Guard to prevent multiple inclusions of this header file
 #ifndef INDEX_HANDLER_H
 #define INDEX_HANDLER_H
 
