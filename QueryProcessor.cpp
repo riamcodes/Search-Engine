@@ -1,52 +1,62 @@
 #include "QueryProcessor.h"
 
-QueryProcessor::QueryProcessor()
-{
-}
-
+// Sets the IndexHandler object for the QueryProcessor
 void QueryProcessor::setIndexHandler(IndexHandler i)
 {
-    indexObject = i;
+    indexObject = i; // Assign the passed IndexHandler object to indexObject
 }
 
+// Parses the query answer and processes it
 std::map<std::string, int> QueryProcessor::parsingAnswer(std::string answer) // Parses the answer from the UI
 {
-    storage.clear();
+    storage.clear(); // Clear any previous data in storage
     std::string temp;
     std::stringstream ss(answer);
+    // Tokenizing the answer string by spaces and storing each token
     while (getline(ss, temp, ' '))
     {
         storage.push_back(temp);
     }
+    // Dissect the parsed answer to find relevant documents
     return disectAnswer();
 }
 
+// Dissects the query, processes different types of search terms and computes the relevant documents
 std::map<std::string, int> QueryProcessor::disectAnswer()
 {
+    // Loop through each term in the storage
     for (size_t i = 0; i < storage.size(); i++)
     {
+        // Process organization names
         if (storage[i].length() > 4 && storage[i].substr(0, 4) == "ORG:")
         {
+            // Extract and process organization term
             std::string term = storage[i].substr(4, storage[i].length() - 4);
             std::map<std::string, int> docs = indexObject.getOrgs(term);
             relDocs = intersection(relevantDocuments, docs);
         }
+        // Process people names
         else if (storage[i].length() > 7 && storage[i].substr(0, 7) == "PERSON:")
         {
+            // Extract and process person term
             std::string term = storage[i].substr(7, storage[i].length() - 7);
             std::map<std::string, int> docs = indexObject.getPeople(term);
             relDocs = intersection(relevantDocuments, docs);
         }
+        // Process terms to be excluded (negation)
         else if (storage[i].substr(0, 1) == "-")
         {
+            // Extract and process negated term
             std::string term = storage[i].substr(1, storage[i].length() - 1);
             Porter2Stemmer::trim(term);
             Porter2Stemmer::stem(term);
             std::map<std::string, int> docs = indexObject.getWords(term);
             relDocs = complement(relevantDocuments, docs);
         }
+        // Process regular terms
         else
         {
+            // Extract and process regular term
             std::string term = storage[i];
             Porter2Stemmer::trim(term);
             Porter2Stemmer::stem(term);
@@ -62,12 +72,15 @@ std::map<std::string, int> QueryProcessor::disectAnswer()
             }
         }
     }
+    // Calculate relevancy of documents
     Relevancy(sendTo);
     return relDocs;
 }
 
+// Computes the intersection of two document maps
 std::map<std::string, int> QueryProcessor::intersection(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and "B"
 {
+    // Logic to find the intersection (common documents) between relevantDocuments and docs
     std::map<std::string, int> finalVector;
     for (const auto &itr : relevantDocuments)
     {
@@ -80,8 +93,10 @@ std::map<std::string, int> QueryProcessor::intersection(std::map<std::string, in
     return finalVector;
 }
 
+// Computes the complement of two document maps
 std::map<std::string, int> QueryProcessor::complement(std::map<std::string, int> relevantDocuments, std::map<std::string, int> docs) // documents in "A" and not "B"
 {
+    // Logic to find the complement (documents in relevantDocuments but not in docs)
     std::map<std::string, int> finalVector;
     for (const auto &itr : relevantDocuments)
     {
@@ -94,46 +109,18 @@ std::map<std::string, int> QueryProcessor::complement(std::map<std::string, int>
     return finalVector;
 }
 
-// void QueryProcessor::printRelevantDocs(std::map<std::string, int> prints)
-// {
-//     std::vector<std::pair<std::string, int>> vector(prints.begin(), prints.end());
-//     DocumentParser dp1;
-
-//     // Sort the vector according to the word count in descending order.
-//     std::sort(vector.begin(), vector.end(),
-//               [](const auto &lhs, const auto &rhs)
-//               { return lhs.second > rhs.second; });
-//     // for (const auto &item : vector)
-//     //   for (int i = 0; i <= 15; i++)
-//     //   {
-//     int count = 0;
-//     for (const auto &item : vector)
-//     {
-//         if (count > 15)
-//         {
-//             break;
-//         }
-//         else
-//         {
-//             dp1.printInfo(item.first);
-//             count++;
-//         }
-//     }
-// }
-
-// Print out the vector.
-//     for (const auto &item : vector)
-//         std::cout << item.first << ": " << item.second << std::endl;
-// }
+// Calculate the relevancy of documents based on term frequency-inverse document frequency (tf-idf)
 std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> sendTo)
 {
     for (auto &itr : sendTo)
     {
+        // Calculate tf-idf score for each document
         double wordCount = indexObject.getWordCount(itr.first);
         double tf = (double)(itr.second / wordCount);
         double idf = log2((double)(indexObject.getDocSize() / sendTo.size()));
         itr.second = tf * idf;
     }
+    // Logic to populate printVector with the top 15 relevant documents (or less if fewer are available)
     if (sendTo.size() <= 15)
     {
         for (const auto &itr : sendTo)
@@ -155,6 +142,5 @@ std::vector<std::string> QueryProcessor::Relevancy(std::map<std::string, int> se
                 break;
         }
     }
-    // std::cout << "Size: " << printVector.size() << std::endl;
     return printVector;
 }

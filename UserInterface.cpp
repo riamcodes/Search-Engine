@@ -79,11 +79,11 @@ void UserInterface::initialQuestion()
             std::map<std::string, int> relevantDocs = qp.parsingAnswer(answer3); // Process the query and get relevant documents
 
             // Display the relevant documents if there are any
-            if (qp.printVector.size() >= 1)
+            if (qp.getPrintVectorSize() >= 1)
             {
                 int count = 1;
                 std::cout << "Here are the most relevant documents" << std::endl;
-                for (const auto &item : qp.printVector)
+                for (const auto &item : qp.getPrintVector())
                 {
                     std::cout << count << ". " << std::endl;
                     dp.printInfo(item); // Print information for each relevant document
@@ -107,10 +107,10 @@ void UserInterface::initialQuestion()
                 std::cout << "Please enter in the number of the corresponding document that you would like to see." << std::endl;
                 std::string number;
                 std::getline(std::cin, number);
-                int num = stoi(number);                    // Convert the string to a number
-                dp.printDocument(qp.printVector[num - 1]); // Print the selected document
+                int num = stoi(number);                 // Convert the string to a number
+                dp.printDocument(qp.getPrint(num - 1)); // Print the selected document
             }
-            qp.printVector.clear(); // Clear the vector for the next query
+            qp.clearPrintVector(); // Clear the vector for the next query
             auto finishTrain = std::chrono::high_resolution_clock::now();
             elapsedTrain = finishTrain - startTrain; // Calculate the time taken for the query processing
         }
