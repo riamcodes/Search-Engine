@@ -37,6 +37,7 @@ Task: Overall project integration, Planned completion: Nov 30, Actual completion
 ### High-level Design of Solution
 
 - Add a UML class diagram, etc.
+![UML Class Diagram](UML.png)
 - High-level pseudo code for each component.
 
 Main Pseudo Code:
