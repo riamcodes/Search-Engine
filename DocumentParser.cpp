@@ -99,10 +99,10 @@ void DocumentParser::printInfo(const string &jsonContent)
         cerr << "JSON parse error: " << d.GetParseError() << endl;
         return;
     }
-    d.ParseStream(isw);
+    // d.ParseStream(isw);
     // Article Title, publication, and date published
     // article title
-    if (d.HasMember("title") && d["title"].IsString())
+    else if (d.HasMember("title") && d["title"].IsString())
     {
         title = d["title"].GetString();
     }
@@ -235,7 +235,7 @@ void DocumentParser::parseDocument(const string &jsonContent)
         cerr << "The JSON does not contain a 'text' attribute or it is not a string." << endl;
     }
     std::cout << endl;
-    std::cout << "Document ID: " << jsonContent << " Word Count: " << wordCount++ << endl;
+    std::cout << "Document ID: " << jsonContent << " Word Count: " << wordCount << endl;
 }
 
 void DocumentParser::traverseSubdirectory(const string &directoryPath)
